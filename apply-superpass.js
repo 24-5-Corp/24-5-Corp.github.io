@@ -233,7 +233,7 @@ class ProjectInput extends Input {
   }
 
   _addProject() {
-    const isInvalid = false;
+    let isInvalid = false;
     if (!this._category.isValid) {
       this._category.validate();
       this.updateValidity(false);
