@@ -263,7 +263,7 @@ class ProjectInput extends Input {
 
     if (!this._endDate.isValid) {
       this._endDate.validate();
-      this._startDate._error.textContent = "* 시작일 이후 날짜를 입력해주세요.";
+      this._endDate._error.textContent = "* 시작일 이후 날짜를 입력해주세요.";
       this.updateValidity(false);
       isInvalid = true;
     }
@@ -319,7 +319,7 @@ class ProjectInput extends Input {
       this._name.validate();
       this._role.validate();
       this._startDate.validate();
-      this._startDate.error.textContent =
+      this._startDate._error.textContent =
         "* 대표 프로젝트를 1개 이상 입력해주세요.";
       this._endDate.validate();
     }
