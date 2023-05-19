@@ -314,8 +314,17 @@ class ProjectInput extends Input {
   }
 
   validate() {
+    if (!this.isValid) {
+      this._category.validate();
+      this._name.validate();
+      this._role.validate();
+      this._startDate.validate();
+      this._startDate.error.textContent =
+        "* 대표 프로젝트를 1개 이상 입력해주세요.";
+      this._endDate.validate();
+    }
+
     //this._error.textContent = "* 이력서는 필수 항목입니다.";
-    super.validate();
   }
 
   _updateDivider() {
