@@ -247,22 +247,23 @@ class ProjectInput extends Input {
       isInvalid = true;
     }
 
+    if (!this._role.isValid) {
+      this._role.validate();
+      this.updateValidity(false);
+      isInvalid = true;
+    }
+
     if (!this._startDate.isValid) {
       this._startDate.validate();
-      this._startDate._error.textContent = "* 형식에 맞게 입력해주세요.";
+      this._startDate._error.textContent =
+        "* 시작일은 현재 이전의 날짜를 입력해주세요.";
       this.updateValidity(false);
       isInvalid = true;
     }
 
     if (!this._endDate.isValid) {
-      this._startDate.validate();
-      this._startDate._error.textContent = "* 형식에 맞게 입력해주세요.";
-      this.updateValidity(false);
-      isInvalid = true;
-    }
-
-    if (!this._role.isValid) {
-      this._role.validate();
+      this._endDate.validate();
+      this._startDate._error.textContent = "* 시작일 이후 날짜를 입력해주세요.";
       this.updateValidity(false);
       isInvalid = true;
     }
@@ -308,7 +309,14 @@ class ProjectInput extends Input {
     this._input.dispatchEvent(this.inputEvent);
   }
 
-  validate() {}
+  get isValid() {
+    return this._projectList.children.length > 0;
+  }
+
+  validate() {
+    //this._error.textContent = "* 이력서는 필수 항목입니다.";
+    super.validate();
+  }
 
   _updateDivider() {
     this._divider.style.display = this._projectList.hasChildNodes()
