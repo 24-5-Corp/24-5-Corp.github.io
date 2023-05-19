@@ -490,27 +490,30 @@ class AwardInput extends Input {
   validate() {}
 
   _addAward() {
+    let isInvalid = false;
     if (!this._program.isValid) {
       this._program.validate();
       this.updateValidity(false);
-      return;
+      isInvalid = true;
     }
 
     if (!this._prize.isValid) {
       this._prize.validate();
       this.updateValidity(false);
-      return;
+      isInvalid = true;
     }
     if (!this._host.isValid) {
       this._host.validate();
       this.updateValidity(false);
-      return;
+      isInvalid = true;
     }
     if (!this._date.isValid) {
       this._date.validate();
       this.updateValidity(false);
-      return;
+      isInvalid = true;
     }
+
+    if (isInvalid) return;
 
     const award = this._award.cloneNode(true);
     const program = award.querySelector("#program");
@@ -587,27 +590,31 @@ class CertificateInput extends Input {
   validate() {}
 
   _addCertificate() {
+    let isInvalid = false;
+
     if (!this._name.isValid) {
       this._name.validate();
       this.updateValidity(false);
-      return;
+      isInvalid = true;
     }
 
     if (!this._issuer.isValid) {
       this._issuer.validate();
       this.updateValidity(false);
-      return;
+      isInvalid = true;
     }
     if (!this._grade.isValid) {
       this._grade.validate();
       this.updateValidity(false);
-      return;
+      isInvalid = true;
     }
     if (!this._date.isValid) {
       this._date.validate();
       this.updateValidity(false);
-      return;
+      isInvalid = true;
     }
+
+    if (isInvalid) return;
 
     const certificate = this._certificate.cloneNode(true);
     const name = certificate.querySelector("#name");
@@ -681,28 +688,31 @@ class LanguageTestInput extends Input {
   validate() {}
 
   _addLanguageTest() {
+    let isInvalid = false;
     if (!this._language.isValid) {
       this._language.validate();
       this.updateValidity(false);
-      return;
+      isInvalid = true;
     }
 
     if (!this._name.isValid) {
       this._name.validate();
       this.updateValidity(false);
-      return;
+      isInvalid = true;
     }
 
     if (!this._grade.isValid) {
       this._grade.validate();
       this.updateValidity(false);
-      return;
+      isInvalid = true;
     }
     if (!this._date.isValid) {
       this._date.validate();
       this.updateValidity(false);
-      return;
+      isInvalid = true;
     }
+
+    if (isInvalid) return;
 
     const languageTest = this._languageTest.cloneNode(true);
     const language = languageTest.querySelector("#language");
@@ -766,17 +776,21 @@ class LanguageAbilityInput extends Input {
   validate() {}
 
   _addLanguageAbilityList() {
+    let isInvalid = false;
+
     if (!this._language.isValid) {
       this._language.validate();
       this.updateValidity(false);
-      return;
+      isInvalid = true;
     }
 
     if (!this._grade.isValid) {
       this._grade.validate();
       this.updateValidity(false);
-      return;
+      isInvalid = true;
     }
+
+    if (isInvalid) return;
 
     const languageAbility = this._languageAbility.cloneNode(true);
     const language = languageAbility.querySelector("#language");
@@ -860,31 +874,32 @@ class EducationInput extends Input {
   validate() {}
 
   _addEducation() {
+    let isInvalid = false;
     if (!this._course.isValid) {
       this._course.validate();
       this.updateValidity(false);
-      return;
+      isInvalid = true;
     }
 
     if (!this._institution.isValid) {
       this._institution.validate();
       this._institution._error.textContent = "* 18자 이내로 입력해주세요.";
       this.updateValidity(false);
-      return;
+      isInvalid = true;
     }
 
     if (!this._startDate.isValid) {
       this._startDate.validate();
       this._startDate._error.textContent = "* 형식에 맞게 입력해주세요.";
       this.updateValidity(false);
-      return;
+      isInvalid = true;
     }
 
     if (!this._endDate.isValid) {
       this._endDate.validate();
       this._endDate._error.textContent = "* 형식에 맞게 입력해주세요.";
       this.updateValidity(false);
-      return;
+      isInvalid = true;
     }
 
     const education = this._education.cloneNode(true);
@@ -954,7 +969,11 @@ class JobSkillInput extends Input {
     );
     this._requirementSkills.key = "requirementSkills";
   }
-  validate() {}
+
+  validate() {
+    this._jobGroup.validate();
+    this._job.validate();
+  }
 }
 
 class WorkConditionInput extends Input {
@@ -999,7 +1018,11 @@ class WorkConditionInput extends Input {
     };
     this._additional.regex = /^(.|\n|\r|\t|\s){0,100}$/;
   }
-  validate() {}
+  validate() {
+    this._type.validate();
+    this._region.validate();
+    this._date.validate();
+  }
 }
 
 logScreenView({ screenName: "superpass_apply" });
