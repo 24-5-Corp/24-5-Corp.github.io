@@ -333,7 +333,7 @@ class ProjectInput extends Input {
     };
 
     const project = this._project.cloneNode(true);
-    project.setAttribute("data", data);
+    project.setAttribute("data", JSON.stringify(data));
 
     const name = project.querySelector("#name");
     name.textContent = data.name;
