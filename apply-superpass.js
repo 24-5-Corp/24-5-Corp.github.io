@@ -1338,10 +1338,23 @@ const applyCheckModal = new ConfirmModal(
 applyCheckModal.onConfirm = () => {
   adjustOverflow();
 
-  const personalInfo = {};
-  personalInfo[name.key] = name.value;
-  personalInfo[email.key] = email.value;
-  personalInfo[contact.key] = contact.value;
+  const data = {
+    personalInfo: profile.data,
+    academic: academic.data,
+    repKeywordIds: appealKeyword.data,
+    repProjects: project.data,
+    documents: resume.data,
+    awards: award.data,
+    certificates: certificate.data,
+    languageTests: languageTest.data,
+    languageAbilities: languageAbility.data,
+    educations: education.data,
+    jobSkill: jobSkill.data,
+    workConditition: workConditition.data,
+    term: term.value,
+  };
+
+  console.log(data);
 };
 
 const applyDoneModal = new AlertModal(
