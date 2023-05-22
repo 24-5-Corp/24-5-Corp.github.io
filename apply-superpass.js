@@ -910,21 +910,18 @@ class EducationInput extends Input {
 
     if (!this._institution.isValid) {
       this._institution.validate();
-      this._institution._error.textContent = "* 18자 이내로 입력해주세요.";
       this.updateValidity(false);
       isInvalid = true;
     }
 
     if (!this._startDate.isValid) {
       this._startDate.validate();
-      this._startDate._error.textContent = "* 형식에 맞게 입력해주세요.";
       this.updateValidity(false);
       isInvalid = true;
     }
 
     if (!this._endDate.isValid) {
       this._endDate.validate();
-      this._endDate._error.textContent = "* 형식에 맞게 입력해주세요.";
       this.updateValidity(false);
       isInvalid = true;
     }
