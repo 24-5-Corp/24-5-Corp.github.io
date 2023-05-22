@@ -55,9 +55,7 @@ class Input {
   }
 
   _showError(isValid) {
-    this._error.style.display = isValid
-      ? "none !important"
-      : "block !important";
+    this._error.style.display = isValid ? "none" : "block";
   }
 }
 
