@@ -1128,6 +1128,7 @@ class Checkbox extends Input {
 
 class CheckboxGroup extends Input {
   maxCount;
+  minCount;
 
   constructor(element) {
     super(element);

@@ -165,8 +165,16 @@ class AppealKeywordInput extends Input {
     this._keyword.bind(this.keywords);
   }
 
+  get isValid() {
+    return this._keyword.count() >= 2;
+  }
+
   validate() {
-    this._keyword.validate();
+    this.updateValidity(this.isValid);
+  }
+
+  validate() {
+    this._keyword.updateValidity(this.isValid);
   }
 }
 
