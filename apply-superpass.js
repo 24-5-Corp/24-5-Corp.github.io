@@ -87,6 +87,7 @@ class AcademicInput extends Input {
 
     this._avgScore = new RegexInput(element.querySelector("#avgScore"));
     this._avgScore.key = "avgScore";
+    this._avgScore.regex = "/^([0-9]{1})(.[0-9]{1,2})?$/";
     this._avgScore.regexMessage = "올바른 학점을 입력해주세요.";
 
     this._stdScore = new Dropdown(element.querySelector("#stdScore"));
