@@ -32,6 +32,16 @@ class ProfileInput extends Input {
     this._email.validate();
     this._contact.validate();
   }
+
+  get data() {
+    let data = {};
+
+    data[this._name.key] = this._name.value;
+    data[this._email.key] = this._email.value;
+    data[this._contact.key] = this._contact.value;
+
+    return data;
+  }
 }
 
 class AcademicInput extends Input {
@@ -142,6 +152,21 @@ class AcademicInput extends Input {
     this._year.validate();
     this._month.validate();
   }
+
+  get data() {
+    let data = {};
+
+    data[this._university.key] = this._university.value;
+    data[this._major.key] = this._major.value;
+    data[this._avgScore.key] = this._avgScore.value;
+    data[this._stdScore.key] = this._stdScore.value;
+    data[this._graduate.key] = this._graduate.value;
+    data[this._semester.key] = this._semester.value;
+    data[this._year.key] = this._year.value;
+    data[this._month.key] = this._month.value;
+
+    return data;
+  }
 }
 
 class AppealKeywordInput extends Input {
@@ -161,7 +186,7 @@ class AppealKeywordInput extends Input {
     super(element);
 
     this._keyword = new CheckboxGroup(element.querySelector("#keyword"));
-    this._keyword.key = "appealKeywordGroups";
+    this._keyword.key = "appealKeywords";
     this._keyword.bind(this.keywords);
   }
 
@@ -184,6 +209,13 @@ class AppealKeywordInput extends Input {
 
   _showError(isValid) {
     this._error.style.display = isValid ? "none" : "block";
+  }
+
+  get data() {
+    let data = {};
+    data[this._keyword.key] = this._keyword.value.appealKeywords;
+
+    return data;
   }
 }
 
@@ -288,24 +320,35 @@ class ProjectInput extends Input {
 
     if (isInvalid) return;
 
-    const project = this._project.cloneNode(true);
-    const projectName = project.querySelector("#projectName");
-    projectName.textContent = this._name.value;
-
-    const projectCategoryWithRole = project.querySelector(
-      "#projectCategoryWithRole"
-    );
-
     const projectCategory = this.projectCategories.find(
       (category) => this._category.value == category.id
     );
 
-    projectCategoryWithRole.textContent =
-      projectCategory.name + " | " + this._role.value;
+    let data = {
+      name: this._name.value,
+      category: projectCategory,
+      role: this._role.value,
+      startDate: this._startDate.value,
+      endDate: this._endDate.value,
+    };
 
-    const projectDate = project.querySelector("#projectDate");
-    projectDate.textContent =
-      this._startDate.value + " ~ " + this._endDate.value;
+    const project = this._project.cloneNode(true);
+    project.setAttribute("data", data);
+
+    const name = project.querySelector("#name");
+    name.textContent = data.name;
+
+    const category = project.querySelector("#category");
+    category.textContent = data.category.name;
+
+    const role = project.querySelector("#role");
+    role.textContent = data.role;
+
+    const startDate = project.querySelector("#startDate");
+    startDate.textContent = data.startDate;
+
+    const endDate = project.querySelector("#endDate");
+    endDate.textContent = data.startDate;
 
     project.querySelector("#delete").addEventListener("click", () => {
       this._projectList.removeChild(project);
@@ -352,6 +395,13 @@ class ProjectInput extends Input {
     this._divider.style.display = this._projectList.hasChildNodes()
       ? "flex"
       : "none";
+  }
+
+  get data() {
+    let data = [];
+    data[this._keyword.key] = this._keyword.value.appealKeywords;
+
+    return data;
   }
 }
 
@@ -1176,6 +1226,11 @@ const applyCheckModal = new ConfirmModal(
 );
 applyCheckModal.onConfirm = () => {
   adjustOverflow();
+
+  const personalInfo = {};
+  personalInfo[name.key] = name.value;
+  personalInfo[email.key] = email.value;
+  personalInfo[contact.key] = contact.value;
 };
 
 const applyDoneModal = new AlertModal(
