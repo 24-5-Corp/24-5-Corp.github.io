@@ -325,12 +325,12 @@ class ProjectInput extends Input {
     this._input.dispatchEvent(this.inputEvent);
   }
 
-  get isValid() {
+  get count() {
     return this._projectList.children.length > 0;
   }
 
   validate() {
-    if (!this.isValid) {
+    if (this.count == 0) {
       this._category.validate();
       this._name.validate();
       this._role.validate();
@@ -338,9 +338,8 @@ class ProjectInput extends Input {
       this._startDate._error.textContent =
         "* 대표 프로젝트를 1개 이상 입력해주세요.";
       this._endDate.validate();
+      this._endDate._error.textContent = "";
     }
-
-    //this._error.textContent = "* 이력서는 필수 항목입니다.";
   }
 
   _updateDivider() {
