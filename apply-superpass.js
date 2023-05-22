@@ -1136,6 +1136,24 @@ applyForm.onSubmit = () => {
   applyCheckModal.handleShow(true);
 };
 
+const applyCheckModal = new ConfirmModal(
+  document.querySelector("#applyCheckModal")
+);
+applyCheckModal.onConfirm = () => {
+  adjustOverflow();
+};
+
+const applyDoneModal = new AlertModal(
+  document.querySelector("#applyDoneModal")
+);
+applyDoneModal.onCheck = () => {
+  location.href = "/";
+};
+
+const applyErrorModal = new AlertModal(
+  document.querySelector("#applyErrorModal")
+);
+
 /*
 const applyForm = new Form(document.querySelector("#applyForm"), [
   name,
@@ -1225,14 +1243,5 @@ applyCheckModal.onConfirm = () => {
     .catch((error) => console.error(error));
 };
 
-const applyDoneModal = new AlertModal(
-  document.querySelector("#applyDoneModal")
-);
-applyDoneModal.onCheck = () => {
-  location.href = "/";
-};
 
-const applyErrorModal = new AlertModal(
-  document.querySelector("#applyErrorModal")
-);
 */
