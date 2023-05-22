@@ -77,7 +77,9 @@ class AcademicInput extends Input {
       return { id: year, name: year };
     });
 
-    this._university = new Input(element.querySelector("#university"));
+    this._university = new RegexInput(element.querySelector("#university"));
+    this._university.regex = "/^S[a-zA-Z0-9 ]*$/";
+
     this._university.key = "university";
 
     this._major = new Input(element.querySelector("#major"));
