@@ -166,7 +166,7 @@ class AppealKeywordInput extends Input {
   }
 
   get isValid() {
-    return this._keyword.count() >= 2;
+    return this._keyword.count >= 2;
   }
 
   validate() {
