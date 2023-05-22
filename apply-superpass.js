@@ -398,10 +398,9 @@ class ProjectInput extends Input {
   }
 
   get data() {
-    let data = [];
-    for (let project in this._projectList.childNodes) {
-      data.appendChild(JSON.parse(project.getAttribute("data")));
-    }
+    let data = [...this._projectList.childNodes].map((element) =>
+      JSON.parse(element.getAttribute("data"))
+    );
 
     return data;
   }
@@ -648,10 +647,9 @@ class AwardInput extends Input {
   }
 
   get data() {
-    let data = [];
-    for (let award in this._awardList.childNodes) {
-      data.appendChild(JSON.parse(award.getAttribute("data")));
-    }
+    let data = [...this._awardList.childNodes].map((element) =>
+      JSON.parse(element.getAttribute("data"))
+    );
 
     return data;
   }
@@ -770,10 +768,9 @@ class CertificateInput extends Input {
   }
 
   get data() {
-    let data = [];
-    for (let certificate in this._certificateList.childNodes) {
-      data.appendChild(JSON.parse(certificate.getAttribute("data")));
-    }
+    let data = [...this._certificateList.childNodes].map((element) =>
+      JSON.parse(element.getAttribute("data"))
+    );
 
     return data;
   }
@@ -892,10 +889,9 @@ class LanguageTestInput extends Input {
   }
 
   get data() {
-    let data = [];
-    for (let languageTest in this._languageTestList.childNodes) {
-      data.appendChild(JSON.parse(languageTest.getAttribute("data")));
-    }
+    let data = [...this._languageTestList.childNodes].map((element) =>
+      JSON.parse(element.getAttribute("data"))
+    );
 
     return data;
   }
@@ -991,10 +987,9 @@ class LanguageAbilityInput extends Input {
   }
 
   get data() {
-    let data = [];
-    for (let languageAbility in _languageAbilityList) {
-      JSON.parse(languageAbility.getAttribute("data"));
-    }
+    let data = [...this._languageAbilityList.childNodes].map((element) =>
+      JSON.parse(element.getAttribute("data"))
+    );
 
     return data;
   }
@@ -1128,10 +1123,9 @@ class EducationInput extends Input {
   }
 
   get data() {
-    let data = [];
-    for (let education in _educationList) {
-      JSON.parse(education.getAttribute("data"));
-    }
+    let data = [...this._educationList.childNodes].map((element) =>
+      JSON.parse(element.getAttribute("data"))
+    );
 
     return data;
   }
