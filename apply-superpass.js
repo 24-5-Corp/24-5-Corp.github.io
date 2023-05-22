@@ -343,7 +343,7 @@ class ResumeInput extends Input {
   constructor(element) {
     super(element);
 
-    this._error = element.querySelector("#error");
+    this._error = element.querySelector(".error-text");
 
     this._category = new Dropdown(element.querySelector("#category"));
     this._category.bind(this.categories);
@@ -486,6 +486,8 @@ class AwardInput extends Input {
 
     this._add = element.querySelector("#add");
     this._add.addEventListener("click", () => this._addAward());
+
+    this._collapsibleButton = element.querySelector("#collapsibleButton");
 
     this._divider = element.querySelector("#divider");
 
