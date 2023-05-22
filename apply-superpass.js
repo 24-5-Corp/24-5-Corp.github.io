@@ -161,7 +161,6 @@ class AppealKeywordInput extends Input {
 
     this._keyword = new CheckboxGroup(element.querySelector("#keyword"));
     this._keyword.key = "appealKeywordGroups";
-    this._keyword.maxCount = 3;
     this._keyword.bind(this.keywords);
   }
 
@@ -170,7 +169,20 @@ class AppealKeywordInput extends Input {
   }
 
   validate() {
+    this._error.textContent = "* 2개 필수로 선택해주세요.";
     this._keyword.updateValidity(this.isValid);
+  }
+
+  updateValidity(isValid) {
+    this._showError(isValid);
+
+    this._input.style.borderColor = isValid
+      ? style.getPropertyValue("--disabled")
+      : style.getPropertyValue("--red");
+  }
+
+  _showError(isValid) {
+    this._error.style.display = isValid ? "none" : "block";
   }
 }
 
