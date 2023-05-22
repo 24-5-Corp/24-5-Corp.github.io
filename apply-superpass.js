@@ -398,9 +398,11 @@ class ProjectInput extends Input {
   }
 
   get data() {
-    let data = this._projectList.children.map((project) =>
-      JSON.parse(project.getAttribute("data"))
-    );
+    let data = [];
+    for (let project in this._projectList.children) {
+      data.appendChild(JSON.parse(project.getAttribute("data")));
+    }
+
     return data;
   }
 }
@@ -646,9 +648,11 @@ class AwardInput extends Input {
   }
 
   get data() {
-    let data = this._awardList.children.map((project) =>
-      JSON.parse(project.getAttribute("data"))
-    );
+    let data = [];
+    for (let award in this._awardList.children) {
+      data.appendChild(JSON.parse(award.getAttribute("data")));
+    }
+
     return data;
   }
 }
@@ -766,9 +770,11 @@ class CertificateInput extends Input {
   }
 
   get data() {
-    let data = this._certificateList.children.map((project) =>
-      JSON.parse(project.getAttribute("data"))
-    );
+    let data = [];
+    for (let certificate in this._certificateList.children) {
+      data.appendChild(JSON.parse(certificate.getAttribute("data")));
+    }
+
     return data;
   }
 }
@@ -886,9 +892,11 @@ class LanguageTestInput extends Input {
   }
 
   get data() {
-    let data = this._languageTestList.children.map((project) =>
-      JSON.parse(project.getAttribute("data"))
-    );
+    let data = [];
+    for (let languageTest in this._languageTestList.children) {
+      data.appendChild(JSON.parse(languageTest.getAttribute("data")));
+    }
+
     return data;
   }
 }
@@ -983,9 +991,11 @@ class LanguageAbilityInput extends Input {
   }
 
   get data() {
-    let data = this._languageAbilityList.children.map((project) =>
-      JSON.parse(project.getAttribute("data"))
-    );
+    let data = [];
+    for (let languageAbility in _languageAbilityList) {
+      JSON.parse(languageAbility.getAttribute("data"));
+    }
+
     return data;
   }
 }
@@ -1118,9 +1128,11 @@ class EducationInput extends Input {
   }
 
   get data() {
-    let data = this._educationList.children.map((project) =>
-      JSON.parse(project.getAttribute("data"))
-    );
+    let data = [];
+    for (let education in _educationList) {
+      JSON.parse(education.getAttribute("data"));
+    }
+
     return data;
   }
 }
