@@ -1360,7 +1360,23 @@ applyCheckModal.onConfirm = () => {
     term: term.value,
   };
 
-  console.log(data);
+  apiService
+    .makeRequest("/superpass/v2/apply-seeker", {
+      method: "POST",
+      body: JSON.stringify(data),
+    })
+    .then((response) => {
+      // fbq("track", "SubmitApplication");
+      // gtag("event", "conversion", {
+      //   send_to: "AW-759394218/FOYqCLOkrZQYEKrfjeoC",
+      //   value: 1000.0,
+      //   currency: "KRW",
+      // });
+      //logScreenView({ screenName: "superpass_apply_popup_submit" });
+      applyCheckModal.handleShow(false);
+      applyDoneModal.handleShow(true);
+    })
+    .catch((error) => console.error(error));
 };
 
 const applyDoneModal = new AlertModal(
