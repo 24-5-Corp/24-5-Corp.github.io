@@ -398,9 +398,9 @@ class ProjectInput extends Input {
   }
 
   get data() {
-    let data = [];
-    data[this._keyword.key] = this._keyword.value.appealKeywords;
-
+    let data = this._projectList.children.map((project) =>
+      JSON.parse(project.getAttribute("data"))
+    );
     return data;
   }
 }
@@ -645,7 +645,12 @@ class AwardInput extends Input {
       : "none";
   }
 
-  get data() {}
+  get data() {
+    let data = this._awardList.children.map((project) =>
+      JSON.parse(project.getAttribute("data"))
+    );
+    return data;
+  }
 }
 
 class CertificateInput extends Input {
@@ -759,6 +764,13 @@ class CertificateInput extends Input {
       ? "flex"
       : "none";
   }
+
+  get data() {
+    let data = this._certificateList.children.map((project) =>
+      JSON.parse(project.getAttribute("data"))
+    );
+    return data;
+  }
 }
 
 class LanguageTestInput extends Input {
@@ -789,10 +801,10 @@ class LanguageTestInput extends Input {
 
     this._divider = element.querySelector("#divider");
 
-    this.__languageTestList = element.querySelector("#languageTestList");
+    this._languageTestList = element.querySelector("#languageTestList");
     this._languageTest = element.querySelector("#languageTest");
 
-    removeAllChildren(this.__languageTestList);
+    removeAllChildren(this._languageTestList);
     this._updateDivider();
   }
 
@@ -852,11 +864,11 @@ class LanguageTestInput extends Input {
     date.textContent = data.date;
 
     languageTest.querySelector("#delete").addEventListener("click", () => {
-      this.__languageTestList.removeChild(languageTest);
+      this._languageTestList.removeChild(languageTest);
       this._updateDivider();
     });
 
-    this.__languageTestList.appendChild(languageTest);
+    this._languageTestList.appendChild(languageTest);
 
     this._language.reset();
     this._name.reset();
@@ -868,9 +880,16 @@ class LanguageTestInput extends Input {
   }
 
   _updateDivider() {
-    this._divider.style.display = this.__languageTestList.hasChildNodes()
+    this._divider.style.display = this._languageTestList.hasChildNodes()
       ? "flex"
       : "none";
+  }
+
+  get data() {
+    let data = this._languageTestList.children.map((project) =>
+      JSON.parse(project.getAttribute("data"))
+    );
+    return data;
   }
 }
 
@@ -894,10 +913,10 @@ class LanguageAbilityInput extends Input {
 
     this._divider = element.querySelector("#divider");
 
-    this.__languageAbilityList = element.querySelector("#languageAbilityList");
+    this._languageAbilityList = element.querySelector("#languageAbilityList");
     this._languageAbility = element.querySelector("#languageAbility");
 
-    removeAllChildren(this.__languageAbilityList);
+    removeAllChildren(this._languageAbilityList);
     this._updateDivider();
   }
 
@@ -943,11 +962,11 @@ class LanguageAbilityInput extends Input {
     grade.textContent = data.grade.name;
 
     languageAbility.querySelector("#delete").addEventListener("click", () => {
-      this.__languageAbilityList.removeChild(languageAbility);
+      this._languageAbilityList.removeChild(languageAbility);
       this._updateDivider();
     });
 
-    this.__languageAbilityList.appendChild(languageAbility);
+    this._languageAbilityList.appendChild(languageAbility);
 
     this._language.reset();
     this._grade.reset();
@@ -958,9 +977,16 @@ class LanguageAbilityInput extends Input {
   }
 
   _updateDivider() {
-    this._divider.style.display = this.__languageAbilityList.hasChildNodes()
+    this._divider.style.display = this._languageAbilityList.hasChildNodes()
       ? "flex"
       : "none";
+  }
+
+  get data() {
+    let data = this._languageAbilityList.children.map((project) =>
+      JSON.parse(project.getAttribute("data"))
+    );
+    return data;
   }
 }
 
@@ -1090,6 +1116,13 @@ class EducationInput extends Input {
       ? "flex"
       : "none";
   }
+
+  get data() {
+    let data = this._educationList.children.map((project) =>
+      JSON.parse(project.getAttribute("data"))
+    );
+    return data;
+  }
 }
 
 class JobSkillInput extends Input {
@@ -1133,6 +1166,15 @@ class JobSkillInput extends Input {
   validate() {
     this._jobGroup.validate();
     this._job.validate();
+  }
+
+  get data() {
+    let data = {
+      jobGroupId: this._jobGroup.value,
+      jobIds: this._job.value[this._job.key],
+    };
+
+    return data;
   }
 }
 
@@ -1187,6 +1229,17 @@ class WorkConditionInput extends Input {
     this._type.validate();
     this._region.validate();
     this._date.validate();
+  }
+
+  get data() {
+    let data = {
+      recruitmentTypeGroups: this._type.value[this._type.key],
+      regionIds: this._region.value[this._region.key],
+      workStart: this._date.value,
+      additional: this._additional.value,
+    };
+
+    return data;
   }
 }
 
