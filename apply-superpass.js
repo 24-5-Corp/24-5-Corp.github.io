@@ -159,9 +159,7 @@ class AcademicInput extends Input {
     data[this._university.key] = this._university.value;
     data[this._major.key] = this._major.value;
     data[this._avgScore.key] = this._avgScore.value;
-    data[this._stdScore.key] = this.stdScores.find(
-      (stdScore) => stdScore.id == this._stdScore.value
-    ).value;
+    data[this._stdScore.key] = this.stdScores[this._stdScore.value].name;
     data[this._graduate.key] = this._graduate.value;
     data[this._semester.key] = this._semester.value;
     data[this._year.key] = this._year.value;
