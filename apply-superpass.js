@@ -1176,8 +1176,11 @@ class JobSkillInput extends Input {
 
   get data() {
     let data = {
-      jobGroupId: this._jobGroup.value,
-      jobIds: this._job.value[this._job.key],
+      jobData: {
+        jobGroupId: this._jobGroup.value,
+        jobIds: this._job.value[this._job.key],
+      },
+      skillData: this._requirementSkills.value,
     };
 
     return data;
@@ -1287,8 +1290,8 @@ const languageAbility = new LanguageAbilityInput(
 );
 languageAbility.key = "languageAbility";
 
-const education = new EducationInput(document.querySelector("#education"));
-education.key = "education";
+const extraEducation = new EducationInput(document.querySelector("#education"));
+extraEducation.key = "extraEducation";
 
 const jobSkill = new JobSkillInput(document.querySelector("#jobSkill"));
 jobSkill.key = "jobSkill";
@@ -1314,7 +1317,7 @@ const applyForm = new Form(document.querySelector("#applyForm"), [
   certificate,
   languageTest,
   languageAbility,
-  education,
+  extraEducation,
   jobSkill,
   workConditition,
   term,
@@ -1340,17 +1343,20 @@ applyCheckModal.onConfirm = () => {
 
   const data = {
     personalInfo: profile.data,
-    academic: academic.data,
+    document: resume.value,
+    educationInfo: academic.data,
+    preferJob: jobSkill.data.jobData,
+    skills: jobSkill.data.skillData,
+    workCondtition: workConditition.data,
+
     repKeywordIds: appealKeyword.data,
     repProjects: project.data,
-    documents: resume.data,
     awards: award.data,
     certificates: certificate.data,
     languageTests: languageTest.data,
     languageAbilities: languageAbility.data,
-    educations: education.data,
-    jobSkill: jobSkill.data,
-    workConditition: workConditition.data,
+    extraEducations: extraEducation.data,
+
     term: term.value,
   };
 
