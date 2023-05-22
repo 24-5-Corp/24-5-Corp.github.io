@@ -170,10 +170,6 @@ class AppealKeywordInput extends Input {
   }
 
   validate() {
-    this.updateValidity(this.isValid);
-  }
-
-  validate() {
     this._keyword.updateValidity(this.isValid);
   }
 }
