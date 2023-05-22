@@ -77,9 +77,7 @@ class AcademicInput extends Input {
       return { id: year, name: year };
     });
 
-    this._university = new RegexInput(element.querySelector("#university"));
-    this._university.regex = /^S[a-zA-Z0-9 ]*$/;
-
+    this._university = new Input(element.querySelector("#university"));
     this._university.key = "university";
 
     this._major = new Input(element.querySelector("#major"));
@@ -87,7 +85,7 @@ class AcademicInput extends Input {
 
     this._avgScore = new RegexInput(element.querySelector("#avgScore"));
     this._avgScore.key = "avgScore";
-    this._avgScore.regex = /^([0-9]{1})(.[0-9]{1,2})?$/;
+    this._avgScore.regex = /^([0-4]{1})(.[0-9]{1,2})?$/;
     this._avgScore.regexMessage = "올바른 학점을 입력해주세요.";
 
     this._stdScore = new Dropdown(element.querySelector("#stdScore"));
@@ -206,7 +204,8 @@ class ProjectInput extends Input {
     this._category = new Dropdown(element.querySelector("#projectCategory"));
     this._category.bind(this.projectCategories);
 
-    this._name = new Input(element.querySelector("#projectName"));
+    this._name = new RegexInput(element.querySelector("#projectName"));
+    this._name.regex = /^.{1,18}$/;
 
     this._role = new Input(element.querySelector("#projectRole"));
 
