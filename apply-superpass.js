@@ -328,11 +328,15 @@ class ProjectInput extends Input {
   }
 
   get count() {
-    return this._projectList.children.length > 0;
+    return this._projectList.children.length;
+  }
+
+  get isValid() {
+    return this.count > 0;
   }
 
   validate() {
-    if (this.count == 0) {
+    if (!this.isValid) {
       this._category.validate();
       this._name.validate();
       this._role.validate();
@@ -515,6 +519,10 @@ class AwardInput extends Input {
     this._updateDivider();
   }
 
+  get isValid() {
+    return true;
+  }
+
   validate() {}
 
   _addAward() {
@@ -615,6 +623,10 @@ class CertificateInput extends Input {
     this._updateDivider();
   }
 
+  get isValid() {
+    return true;
+  }
+
   validate() {}
 
   _addCertificate() {
@@ -713,6 +725,10 @@ class LanguageTestInput extends Input {
     this._updateDivider();
   }
 
+  get isValid() {
+    return true;
+  }
+
   validate() {}
 
   _addLanguageTest() {
@@ -801,6 +817,11 @@ class LanguageAbilityInput extends Input {
     removeAllChildren(this.__languageAbilityList);
     this._updateDivider();
   }
+
+  get isValid() {
+    return true;
+  }
+
   validate() {}
 
   _addLanguageAbilityList() {
@@ -899,6 +920,11 @@ class EducationInput extends Input {
     removeAllChildren(this._educationList);
     this._updateDivider();
   }
+
+  get isValid() {
+    return true;
+  }
+
   validate() {}
 
   _addEducation() {
@@ -998,6 +1024,10 @@ class JobSkillInput extends Input {
     this._requirementSkills.key = "requirementSkills";
   }
 
+  get isValid() {
+    return this._jobGroup.isValid && this._job.isValid;
+  }
+
   validate() {
     this._jobGroup.validate();
     this._job.validate();
@@ -1046,6 +1076,11 @@ class WorkConditionInput extends Input {
     };
     this._additional.regex = /^(.|\n|\r|\t|\s){0,100}$/;
   }
+
+  get isValid() {
+    return this._type.isValid && this._region.isValid && this._date.isValid;
+  }
+
   validate() {
     this._type.validate();
     this._region.validate();
