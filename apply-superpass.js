@@ -601,19 +601,27 @@ class AwardInput extends Input {
 
     if (isInvalid) return;
 
-    const award = this._award.cloneNode(true);
-    const program = award.querySelector("#program");
-    program.textContent = this._program.value;
+    let data = {
+      program: this._program.value,
+      prize: this._prize.value,
+      host: this._host.value,
+      date: this._date.value,
+    };
 
-    const prizeWithHost = award.querySelector("#prizeWithHost");
-    prizeWithHost.textContent = this._prize.value;
-    if (this._host.isValid) {
-      prizeWithHost.textContent =
-        prizeWithHost.textContent + " | " + this._host.value;
-    }
+    const award = this._award.cloneNode(true);
+    award.setAttribute("data", JSON.stringify(data));
+
+    const program = award.querySelector("#program");
+    program.textContent = data.program;
+
+    const prize = award.querySelector("#prize");
+    prize.textContent = data.prize;
+
+    const host = award.querySelector("#host");
+    host.textContent = data.host;
 
     const awardDate = award.querySelector("#awardDate");
-    awardDate.textContent = this._date.value;
+    awardDate.textContent = data.date;
 
     award.querySelector("#delete").addEventListener("click", () => {
       this._awardList.removeChild(award);
@@ -636,6 +644,8 @@ class AwardInput extends Input {
       ? "flex"
       : "none";
   }
+
+  get data() {}
 }
 
 class CertificateInput extends Input {
@@ -706,16 +716,27 @@ class CertificateInput extends Input {
 
     if (isInvalid) return;
 
-    const certificate = this._certificate.cloneNode(true);
-    const name = certificate.querySelector("#name");
-    name.textContent = this._name.value;
+    let data = {
+      name: this._name.value,
+      issuer: this._issuer.value,
+      grade: this._grade.value,
+      date: this._date.value,
+    };
 
-    const issuerWithGrade = certificate.querySelector("#issuerWithGrade");
-    issuerWithGrade.textContent =
-      this._issuer.value + " | " + this._grade.value;
+    const certificate = this._certificate.cloneNode(true);
+    certificate.setAttribute("data", JSON.stringify(data));
+
+    const name = certificate.querySelector("#name");
+    name.textContent = data.name;
+
+    const issuer = certificate.querySelector("#issuer");
+    issuer.textContent = data.issuer;
+
+    const grade = certificate.querySelector("#grade");
+    grade.textContent = data.grade;
 
     const date = certificate.querySelector("#date");
-    date.textContent = this._date.value;
+    date.textContent = data.date;
 
     certificate.querySelector("#delete").addEventListener("click", () => {
       this._certificateList.removeChild(certificate);
@@ -808,15 +829,27 @@ class LanguageTestInput extends Input {
 
     if (isInvalid) return;
 
-    const languageTest = this._languageTest.cloneNode(true);
-    const language = languageTest.querySelector("#language");
-    language.textContent = this._language.value;
+    let data = {
+      language: this._language.value,
+      name: this._name.value,
+      grade: this._grade.value,
+      date: this._date.value,
+    };
 
-    const nameWithGrade = languageTest.querySelector("#nameWithGrade");
-    nameWithGrade.textContent = this._name.value + " | " + this._grade.value;
+    const languageTest = this._languageTest.cloneNode(true);
+    languageTest.setAttribute("data", JSON.stringify(data));
+
+    const language = languageTest.querySelector("#language");
+    language.textContent = data.language;
+
+    const name = languageTest.querySelector("#name");
+    name.textContent = data.name;
+
+    const grade = languageTest.querySelector("#grade");
+    grade.textContent = data.grade;
 
     const date = languageTest.querySelector("#date");
-    date.textContent = this._date.value;
+    date.textContent = data.date;
 
     languageTest.querySelector("#delete").addEventListener("click", () => {
       this.__languageTestList.removeChild(languageTest);
@@ -891,16 +924,23 @@ class LanguageAbilityInput extends Input {
 
     if (isInvalid) return;
 
-    const languageAbility = this._languageAbility.cloneNode(true);
-    const language = languageAbility.querySelector("#language");
-    language.textContent = this._language.value;
-
     const languageGrade = this.grades.find(
       (grade) => this._grade.value == grade.id
     );
 
+    let data = {
+      language: this._language.value,
+      grade: languageGrade,
+    };
+
+    const languageAbility = this._languageAbility.cloneNode(true);
+    languageAbility.setAttribute("data", JSON.stringify(data));
+
+    const language = languageAbility.querySelector("#language");
+    language.textContent = data.language;
+
     const grade = languageAbility.querySelector("#grade");
-    grade.textContent = languageGrade.name;
+    grade.textContent = data.grade.name;
 
     languageAbility.querySelector("#delete").addEventListener("click", () => {
       this.__languageAbilityList.removeChild(languageAbility);
@@ -1006,15 +1046,27 @@ class EducationInput extends Input {
 
     if (isInvalid) return;
 
+    let data = {
+      course: this._course.value,
+      institution: this._institution.value,
+      startDate: this._startDate.value,
+      endDate: this._endDate.value,
+    };
+
     const education = this._education.cloneNode(true);
+    education.setAttribute("data", JSON.stringify(data));
+
     const course = education.querySelector("#courseName");
-    course.textContent = this._course.value;
+    course.textContent = data.course;
 
     const institution = education.querySelector("#institutionName");
-    institution.textContent = this._institution.value;
+    institution.textContent = data.institution;
 
-    const date = education.querySelector("#date");
-    date.textContent = this._startDate.value + " ~ " + this._endDate.value;
+    const startDate = education.querySelector("#startDate");
+    startDate.textContent = data.startDate;
+
+    const endDate = education.querySelector("#endDate");
+    endDate.textContent = data.startDate;
 
     education.querySelector("#delete").addEventListener("click", () => {
       this._educationList.removeChild(education);
