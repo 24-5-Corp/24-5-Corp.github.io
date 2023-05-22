@@ -399,7 +399,7 @@ class ProjectInput extends Input {
 
   get data() {
     let data = [];
-    for (let project in this._projectList.children) {
+    for (let project in this._projectList.childNodes) {
       data.appendChild(JSON.parse(project.getAttribute("data")));
     }
 
@@ -444,7 +444,7 @@ class ResumeInput extends Input {
       portfolios: [],
     };
 
-    for (const resume of this._resumeList.children) {
+    for (const resume of this._resumeList.childNodes) {
       const value = resume.querySelector("#url").textContent;
 
       if (resume.querySelector("#category").value === 0) {
@@ -649,7 +649,7 @@ class AwardInput extends Input {
 
   get data() {
     let data = [];
-    for (let award in this._awardList.children) {
+    for (let award in this._awardList.childNodes) {
       data.appendChild(JSON.parse(award.getAttribute("data")));
     }
 
@@ -771,7 +771,7 @@ class CertificateInput extends Input {
 
   get data() {
     let data = [];
-    for (let certificate in this._certificateList.children) {
+    for (let certificate in this._certificateList.childNodes) {
       data.appendChild(JSON.parse(certificate.getAttribute("data")));
     }
 
@@ -893,7 +893,7 @@ class LanguageTestInput extends Input {
 
   get data() {
     let data = [];
-    for (let languageTest in this._languageTestList.children) {
+    for (let languageTest in this._languageTestList.childNodes) {
       data.appendChild(JSON.parse(languageTest.getAttribute("data")));
     }
 
