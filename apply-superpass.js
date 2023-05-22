@@ -901,6 +901,7 @@ class EducationInput extends Input {
 
   _addEducation() {
     let isInvalid = false;
+
     if (!this._course.isValid) {
       this._course.validate();
       this.updateValidity(false);
@@ -927,6 +928,8 @@ class EducationInput extends Input {
       this.updateValidity(false);
       isInvalid = true;
     }
+
+    if (isInvalid) return;
 
     const education = this._education.cloneNode(true);
     const course = education.querySelector("#courseName");
