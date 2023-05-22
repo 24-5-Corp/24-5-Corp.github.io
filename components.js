@@ -1,3 +1,7 @@
+class CollapsibleButton {
+  constructor(element) {}
+}
+
 class Input {
   key;
   message;
@@ -1130,7 +1134,7 @@ class CheckboxGroup extends Input {
 
     this.element = element;
     this._checkbox = element.querySelector(".checkbox");
-    this._error = element.querySelector("#error");
+    this._error = element.querySelector(".error-text");
 
     removeAllChildren(this._input);
   }
