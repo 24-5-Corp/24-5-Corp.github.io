@@ -306,6 +306,19 @@ class ProjectInput extends Input {
         "* 시작일은 현재 이전의 날짜를 입력해주세요.";
       this.updateValidity(false);
       isInvalid = true;
+    } else {
+      const date = new Date();
+      const currentYearMonth = new Date(
+        date.getFullYear(),
+        date.getMonth() + 1,
+        date.getDate()
+      );
+      isInvalid =
+        this.$projectStartDate.datepicker("getDate") > currentYearMonth;
+
+      this._startDate._error.textContent =
+        "* 시작일은 현재 이전의 날짜를 입력해주세요.";
+      this.updateValidity(!isInvalid);
     }
 
     if (!this._endDate.isValid) {
