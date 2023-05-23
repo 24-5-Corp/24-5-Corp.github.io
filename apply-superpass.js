@@ -246,10 +246,10 @@ class ProjectInput extends Input {
     this._endDate.key = "projectEndDate";
     this._endDate._input.readOnly = true;
 
-    const $projectStartDate = $("#projectStartDate #Date");
-    const $projectEndDate = $("#projectEndDate #Date");
+    //const $projectStartDate = $("#projectStartDate #Date");
+    //const $projectEndDate = $("#projectEndDate #Date");
 
-    $projectStartDate.datepicker({
+    this.$projectStartDate = $("#projectStartDate #Date").datepicker({
       language: "ko-KR",
       format: "yyyy.mm",
       autoHide: true,
@@ -258,7 +258,7 @@ class ProjectInput extends Input {
       },
     });
 
-    $projectEndDate.datepicker({
+    this.$projectEndDate = $("#projectEndDate #Date").datepicker({
       language: "ko-KR",
       format: "yyyy.mm",
       autoHide: true,
