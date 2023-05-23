@@ -318,7 +318,9 @@ class ProjectInput extends Input {
 
       this._startDate._error.textContent =
         "* 시작일은 현재 이전의 날짜를 입력해주세요.";
-      this.updateValidity(!isInvalid);
+      this._startDate.updateValidity(!isInvalid);
+
+      this.updateValidity(false);
     }
 
     if (!this._endDate.isValid) {
