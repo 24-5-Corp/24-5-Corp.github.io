@@ -608,7 +608,8 @@ class AwardInput extends Input {
         date.getDate()
       );
 
-      isInvalid = this.$awardDate.datepicker("getDate") > currentYearMonth;
+      isInvalid =
+        isInvalid | (this.$awardDate.datepicker("getDate") > currentYearMonth);
       this._date.updateValidity(!isInvalid);
     }
 
@@ -679,9 +680,7 @@ class CertificateInput extends Input {
     this._date.key = "certDate";
     this._date._input.readOnly = true;
 
-    const $certDate = $("#certDate #Date");
-
-    $certDate.datepicker({
+    this.$certDate = $("#certDate #Date").datepicker({
       language: "ko-KR",
       format: "yyyy.mm",
       autoHide: true,
@@ -713,24 +712,31 @@ class CertificateInput extends Input {
 
     if (!this._name.isValid) {
       this._name.validate();
-      this.updateValidity(false);
-      isInvalid = true;
+      isInvalid = isInvalid | true;
     }
 
     if (!this._issuer.isValid) {
       this._issuer.validate();
-      this.updateValidity(false);
-      isInvalid = true;
+      isInvalid = isInvalid | true;
     }
     if (!this._grade.isValid) {
       this._grade.validate();
-      this.updateValidity(false);
-      isInvalid = true;
+      isInvalid = isInvalid | true;
     }
     if (!this._date.isValid) {
       this._date.validate();
-      this.updateValidity(false);
-      isInvalid = true;
+      isInvalid = isInvalid | true;
+    } else {
+      const date = new Date();
+      const currentYearMonth = new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate()
+      );
+
+      isInvalid =
+        isInvalid | (this.$certDate.datepicker("getDate") > currentYearMonth);
+      this._date.updateValidity(!isInvalid);
     }
 
     if (isInvalid) return;
