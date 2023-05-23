@@ -319,13 +319,6 @@ class ProjectInput extends Input {
       this._endDate._error.textContent = "* 시작일 이후 날짜를 입력해주세요.";
       isInvalid = true;
     } else {
-      const date = new Date();
-      const currentYearMonth = new Date(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate()
-      );
-
       isInvalid =
         this.$projectStartDate.datepicker("getDate") >
         this.$projectEndDate.datepicker("getDate");
@@ -560,9 +553,7 @@ class AwardInput extends Input {
     this._date.key = "awardDate";
     this._date._input.readOnly = true;
 
-    const $awardDate = $("#awardDate #Date");
-
-    $awardDate.datepicker({
+    this.$awardDate = $("#awardDate #Date").datepicker({
       language: "ko-KR",
       format: "yyyy.mm",
       autoHide: true,
@@ -595,24 +586,30 @@ class AwardInput extends Input {
     let isInvalid = false;
     if (!this._program.isValid) {
       this._program.validate();
-      this.updateValidity(false);
-      isInvalid = true;
+      isInvalid = isInvalid | true;
     }
 
     if (!this._prize.isValid) {
       this._prize.validate();
-      this.updateValidity(false);
-      isInvalid = true;
+      isInvalid = isInvalid | true;
     }
     if (!this._host.isValid) {
       this._host.validate();
-      this.updateValidity(false);
-      isInvalid = true;
+      isInvalid = isInvalid | true;
     }
     if (!this._date.isValid) {
       this._date.validate();
-      this.updateValidity(false);
-      isInvalid = true;
+      isInvalid = isInvalid | true;
+    } else {
+      const date = new Date();
+      const currentYearMonth = new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate()
+      );
+
+      isInvalid = this.$awardDate.datepicker("getDate") > currentYearMonth;
+      this._date.updateValidity(!isInvalid);
     }
 
     if (isInvalid) return;
