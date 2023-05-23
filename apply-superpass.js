@@ -246,9 +246,6 @@ class ProjectInput extends Input {
     this._endDate.key = "projectEndDate";
     this._endDate._input.readOnly = true;
 
-    //const $projectStartDate = $("#projectStartDate #Date");
-    //const $projectEndDate = $("#projectEndDate #Date");
-
     this.$projectStartDate = $("#projectStartDate #Date").datepicker({
       language: "ko-KR",
       format: "yyyy.mm",
@@ -283,20 +280,17 @@ class ProjectInput extends Input {
     let isInvalid = false;
     if (!this._category.isValid) {
       this._category.validate();
-      this.updateValidity(false);
       isInvalid = true;
     }
 
     if (!this._name.isValid) {
       this._name.validate();
       this._name._error.textContent = "* 18자 이내로 입력해주세요.";
-      this.updateValidity(false);
       isInvalid = true;
     }
 
     if (!this._role.isValid) {
       this._role.validate();
-      this.updateValidity(false);
       isInvalid = true;
     }
 
@@ -304,7 +298,6 @@ class ProjectInput extends Input {
       this._startDate.validate();
       this._startDate._error.textContent =
         "* 시작일은 현재 이전의 날짜를 입력해주세요.";
-      this.updateValidity(false);
       isInvalid = true;
     } else {
       const date = new Date();
@@ -319,14 +312,11 @@ class ProjectInput extends Input {
       this._startDate._error.textContent =
         "* 시작일은 현재 이전의 날짜를 입력해주세요.";
       this._startDate.updateValidity(!isInvalid);
-
-      this.updateValidity(false);
     }
 
     if (!this._endDate.isValid) {
       this._endDate.validate();
       this._endDate._error.textContent = "* 시작일 이후 날짜를 입력해주세요.";
-      this.updateValidity(false);
       isInvalid = true;
     } else {
       const date = new Date();
@@ -341,8 +331,6 @@ class ProjectInput extends Input {
         this.$projectEndDate.datepicker("getDate");
       this._endDate._error.textContent = "* 시작일 이후 날짜를 입력해주세요.";
       this._endDate.updateValidity(!isInvalid);
-
-      this.updateValidity(false);
     }
 
     if (isInvalid) return;
