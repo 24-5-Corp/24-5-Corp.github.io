@@ -580,8 +580,6 @@ class AwardInput extends Input {
     this._add = element.querySelector("#add");
     this._add.addEventListener("click", () => this._addAward());
 
-    this._collapsibleButton = element.querySelector("#collapsibleButton");
-
     this._divider = element.querySelector("#divider");
 
     this._awardList = element.querySelector("#awardList");
@@ -589,6 +587,12 @@ class AwardInput extends Input {
 
     removeAllChildren(this._awardList);
     this._updateDivider();
+
+    this.$expend = element.querySelector("#expend");
+    this.$expend.addEventListener("click", () => {
+      this.$expend.style.display = "none";
+      this._award.style.display = "flex";
+    });
   }
 
   get isValid() {
@@ -714,6 +718,12 @@ class CertificateInput extends Input {
 
     removeAllChildren(this._certificateList);
     this._updateDivider();
+
+    this.$expend = element.querySelector("#expend");
+    this.$expend.addEventListener("click", () => {
+      this.$expend.style.display = "none";
+      this._certificate.style.display = "flex";
+    });
   }
 
   get isValid() {
@@ -844,6 +854,12 @@ class LanguageTestInput extends Input {
 
     removeAllChildren(this._languageTestList);
     this._updateDivider();
+
+    this.$expend = element.querySelector("#expend");
+    this.$expend.addEventListener("click", () => {
+      this.$expend.style.display = "none";
+      this._languageTest.style.display = "flex";
+    });
   }
 
   get isValid() {
@@ -967,6 +983,12 @@ class LanguageAbilityInput extends Input {
 
     removeAllChildren(this._languageAbilityList);
     this._updateDivider();
+
+    this.$expend = element.querySelector("#expend");
+    this.$expend.addEventListener("click", () => {
+      this.$expend.style.display = "none";
+      this._languageAbility.style.display = "flex";
+    });
   }
 
   get isValid() {
@@ -1080,6 +1102,12 @@ class EducationInput extends Input {
 
     removeAllChildren(this._educationList);
     this._updateDivider();
+
+    this.$expend = element.querySelector("#expend");
+    this.$expend.addEventListener("click", () => {
+      this.$expend.style.display = "none";
+      this._education.style.display = "flex";
+    });
   }
 
   get isValid() {
