@@ -310,8 +310,7 @@ class ProjectInput extends Input {
 
     if (!this._startDate.isValid) {
       this._startDate.validate();
-      this._startDate._error.textContent =
-        "* 시작일은 현재 이전의 날짜를 입력해주세요.";
+      this._startDate._error.textContent = "";
       isInvalid = isInvalid | true;
     } else {
       const date = new Date();
@@ -331,7 +330,7 @@ class ProjectInput extends Input {
 
     if (!this._endDate.isValid) {
       this._endDate.validate();
-      this._endDate._error.textContent = "* 시작일 이후 날짜를 입력해주세요.";
+      this._endDate._error.textContent = "";
       isInvalid = isInvalid | true;
     } else {
       const endDateValid =
