@@ -588,10 +588,11 @@ class AwardInput extends Input {
     removeAllChildren(this._awardList);
     this._updateDivider();
 
+    this.$expandableContent = element.querySelector(".expendable-content");
     this.$expend = element.querySelector("#expend");
     this.$expend.addEventListener("click", () => {
       this.$expend.style.display = "none";
-      this._award.style.display = "flex";
+      this.$expandableContent.style.display = "flex";
     });
   }
 
@@ -719,10 +720,11 @@ class CertificateInput extends Input {
     removeAllChildren(this._certificateList);
     this._updateDivider();
 
+    this.$expandableContent = element.querySelector(".expendable-content");
     this.$expend = element.querySelector("#expend");
     this.$expend.addEventListener("click", () => {
       this.$expend.style.display = "none";
-      this._certificate.style.display = "flex";
+      this.$expandableContent.style.display = "flex";
     });
   }
 
@@ -855,10 +857,11 @@ class LanguageTestInput extends Input {
     removeAllChildren(this._languageTestList);
     this._updateDivider();
 
+    this.$expandableContent = element.querySelector(".expendable-content");
     this.$expend = element.querySelector("#expend");
     this.$expend.addEventListener("click", () => {
       this.$expend.style.display = "none";
-      this._languageTest.style.display = "flex";
+      this.$expandableContent.style.display = "flex";
     });
   }
 
@@ -984,10 +987,11 @@ class LanguageAbilityInput extends Input {
     removeAllChildren(this._languageAbilityList);
     this._updateDivider();
 
+    this.$expandableContent = element.querySelector(".expendable-content");
     this.$expend = element.querySelector("#expend");
     this.$expend.addEventListener("click", () => {
       this.$expend.style.display = "none";
-      this._languageAbility.style.display = "flex";
+      this.$expandableContent.style.display = "flex";
     });
   }
 
@@ -1103,10 +1107,11 @@ class EducationInput extends Input {
     removeAllChildren(this._educationList);
     this._updateDivider();
 
+    this.$expandableContent = element.querySelector(".expendable-content");
     this.$expend = element.querySelector("#expend");
     this.$expend.addEventListener("click", () => {
       this.$expend.style.display = "none";
-      this._education.style.display = "flex";
+      this.$expandableContent.style.display = "flex";
     });
   }
 
