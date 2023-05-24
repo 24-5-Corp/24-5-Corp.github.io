@@ -200,11 +200,12 @@ class AppealKeywordInput extends Input {
 
     this._keyword = new CheckboxGroup(element.querySelector("#keyword"));
     this._keyword.key = "appealKeywords";
+    this._keyword.maxCount = 2;
     this._keyword.bind(this.keywords);
   }
 
   get isValid() {
-    return this._keyword.count >= 2;
+    return this._keyword.count == 2;
   }
 
   validate() {
