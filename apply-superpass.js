@@ -96,7 +96,7 @@ class AcademicInput extends Input {
     this._avgScore = new RegexInput(element.querySelector("#avgScore"));
     this._avgScore.key = "avgScore";
     this._avgScore.regex = /^([0-4]{1})(.[0-9]{1,2})?$/;
-    this._avgScore.regexMessage = "올바른 학점을 입력해주세요.";
+    this._avgScore.regexMessage = "* 학점을 올바르게 입력해주세요.";
 
     this._stdScore = new Dropdown(element.querySelector("#stdScore"));
     this._stdScore.key = "stdScore";
@@ -144,8 +144,25 @@ class AcademicInput extends Input {
   validate() {
     this._university.validate();
     this._major.validate();
-    this._avgScore.validate();
+
     this._stdScore.validate();
+
+    this._avgScore.regexMessage = !!this._avgScore.value
+      ? ""
+      : "* 학점을 올바르게 입력해주세요.";
+
+    if (Number(this._avgScore.value) == 0) {
+      this._avgScore.regexMessage = "* 학점을 올바르게 입력해주세요.";
+    } else if (
+      this._stdScore.isValid &&
+      Number(this.stdScores[this._stdScore.value].name) <
+        Number(this._avgScore.value)
+    ) {
+      this._avgScore.regexMessage = "* 학점을 올바르게 입력해주세요.";
+    }
+
+    this._avgScore.validate();
+
     this._graduate.validate();
     this._semester.validate();
     this._grade.validate();
