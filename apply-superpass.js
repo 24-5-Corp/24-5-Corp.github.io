@@ -1392,8 +1392,6 @@ workConditition.key = "workConditition";
 const term = new Checkbox(document.querySelector("#term"));
 term.key = "term";
 
-initCollapsibleButton();
-
 const applyForm = new Form(document.querySelector("#applyForm"), [
   profile,
   academic,
