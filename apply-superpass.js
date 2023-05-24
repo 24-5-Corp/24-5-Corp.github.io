@@ -669,7 +669,7 @@ class AwardInput extends Input {
   }
 
   _updateDivider() {
-    this._awardList.style.display = this._awardList.hasChildNodes()
+    this._divider.style.display = this._awardList.hasChildNodes()
       ? "flex"
       : "none";
   }
@@ -799,7 +799,7 @@ class CertificateInput extends Input {
   }
 
   _updateDivider() {
-    this._certificateList.style.display = this._certificateList.hasChildNodes()
+    this._divider.style.display = this._certificateList.hasChildNodes()
       ? "flex"
       : "none";
   }
@@ -928,8 +928,9 @@ class LanguageTestInput extends Input {
   }
 
   _updateDivider() {
-    this._languageTestList.style.display =
-      this._languageTestList.hasChildNodes() ? "flex" : "none";
+    this._divider.style.display = this._languageTestList.hasChildNodes()
+      ? "flex"
+      : "none";
   }
 
   get data() {
@@ -1023,8 +1024,9 @@ class LanguageAbilityInput extends Input {
   }
 
   _updateDivider() {
-    this._languageAbilityList.style.display =
-      this._languageAbilityList.hasChildNodes() ? "flex" : "none";
+    this._divider.style.display = this._languageAbilityList.hasChildNodes()
+      ? "flex"
+      : "none";
   }
 
   get data() {
@@ -1174,7 +1176,7 @@ class EducationInput extends Input {
   }
 
   _updateDivider() {
-    this._educationList.style.display = this._educationList.hasChildNodes()
+    this._divider.style.display = this._educationList.hasChildNodes()
       ? "flex"
       : "none";
   }
