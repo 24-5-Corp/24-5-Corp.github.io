@@ -156,7 +156,7 @@ class AcademicInput extends Input {
         Number(this._avgScore.value)
     ) {
       this._avgScore._error.textContent = "* 학점을 올바르게 입력해주세요.";
-      this._avgScore.updateValidity(true);
+      this._avgScore.updateValidity(false);
     }
 
     this._graduate.validate();
