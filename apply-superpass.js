@@ -294,6 +294,10 @@ class ProjectInput extends Input {
   }
 
   _addProject() {
+    if ([...this._projectList.childNodes].length == 3) {
+      return;
+    }
+
     let isInvalid = false;
     if (!this._category.isValid) {
       this._category.validate();
@@ -379,13 +383,16 @@ class ProjectInput extends Input {
     project.querySelector("#delete").addEventListener("click", () => {
       this._projectList.removeChild(project);
       this._updateDivider();
-      this._add.setAttribute("disabled", false);
+
+      this._add.style.backgroundColor = "";
+      this._add.style.cursor = "pointer";
     });
 
     this._projectList.appendChild(project);
 
     if ([...this._projectList.childNodes].length == 3) {
-      this._add.setAttribute("disabled", true);
+      this._add.style.backgroundColor = "#d1d4fb";
+      this._add.style.cursor = "default";
     }
 
     this._category.reset();
