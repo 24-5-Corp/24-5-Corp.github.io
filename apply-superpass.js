@@ -391,7 +391,7 @@ class ProjectInput extends Input {
     this._projectList.appendChild(project);
 
     if ([...this._projectList.childNodes].length == 3) {
-      this._add.style.backgroundColor = "#d1d4fb";
+      this._add.style.backgroundColor = "#CCCCCC";
       this._add.style.cursor = "default";
     }
 
