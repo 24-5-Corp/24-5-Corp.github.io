@@ -152,8 +152,9 @@ class AcademicInput extends Input {
       this._avgScore._error.textContent = "";
     } else if (
       Number(this._avgScore.value) == 0 ||
-      Number(this.stdScores[this._stdScore.value].name) <
-        Number(this._avgScore.value)
+      Number(
+        this.stdScores.find((score) => score.id == this._stdScore.value).name
+      ) < Number(this._avgScore.value)
     ) {
       this._avgScore._error.textContent = "* 학점을 올바르게 입력해주세요.";
       this._avgScore.updateValidity(false);
@@ -172,7 +173,9 @@ class AcademicInput extends Input {
     data[this._university.key] = this._university.value;
     data[this._major.key] = this._major.value;
     data[this._avgScore.key] = this._avgScore.value;
-    data[this._stdScore.key] = this.stdScores[this._stdScore.value].name;
+    data[this._stdScore.key] = this.stdScores.find(
+      (score) => score.id == this._stdScore.value
+    ).name;
     data[this._graduate.key] = this._graduate.value;
     data[this._semester.key] = this._semester.value;
     data[this._year.key] = this._year.value;
