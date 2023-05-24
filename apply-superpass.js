@@ -415,7 +415,7 @@ class ProjectInput extends Input {
   }
 
   _updateDivider() {
-    this._projectList.style.display = this._projectList.hasChildNodes()
+    this._divider.style.display = this._projectList.hasChildNodes()
       ? "flex"
       : "none";
   }
