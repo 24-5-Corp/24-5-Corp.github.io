@@ -502,7 +502,7 @@ class ResumeInput extends Input {
 
   _updateDivider() {
     this._divider.style.display = this._resumeList.hasChildNodes()
-      ? "flex"
+      ? "block"
       : "none";
   }
 
