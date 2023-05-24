@@ -611,6 +611,7 @@ class AwardInput extends Input {
 
     if (!this._date.isValid) {
       this._date.validate();
+      this._date._error.textContent = "";
       isInvalid = isInvalid | true;
     } else {
       const date = new Date();
@@ -622,6 +623,7 @@ class AwardInput extends Input {
 
       const awardDateValid =
         this.$awardDate.datepicker("getDate") > currentYearMonth;
+      this._date._error.textContent = "* 현재 이전의 날짜를 입력해주세요.";
       isInvalid = isInvalid | awardDateValid;
       this._date.updateValidity(!awardDateValid);
     }
@@ -738,6 +740,7 @@ class CertificateInput extends Input {
     }
     if (!this._date.isValid) {
       this._date.validate();
+      this._date._error.textContent = "";
       isInvalid = isInvalid | true;
     } else {
       const date = new Date();
@@ -751,6 +754,7 @@ class CertificateInput extends Input {
         this.$certDate.datepicker("getDate") > currentYearMonth;
 
       isInvalid = isInvalid | certDateValid;
+      this._date._error.textContent = "* 현재 이전의 날짜를 입력해주세요.";
       this._date.updateValidity(!certDateValid);
     }
 
@@ -866,6 +870,7 @@ class LanguageTestInput extends Input {
     }
     if (!this._date.isValid) {
       this._date.validate();
+      this._date._error.textContent = "";
       isInvalid = isInvalid | true;
     } else {
       const date = new Date();
@@ -878,6 +883,7 @@ class LanguageTestInput extends Input {
       const testDateValid =
         this.$testDate.datepicker("getDate") > currentYearMonth;
       isInvalid = isInvalid | testDateValid;
+      this._date._error.textContent = "* 현재 이전의 날짜를 입력해주세요.";
       this._date.updateValidity(!testDateValid);
     }
 
