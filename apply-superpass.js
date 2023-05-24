@@ -1342,49 +1342,53 @@ class WorkConditionInput extends Input {
 logScreenView({ screenName: "superpass_apply" });
 addLogButtonEventListener();
 
-const profile = new ProfileInput(document.querySelector("#profile"));
+const profile = new ProfileInput(document.querySelector(".profile-section"));
 profile.key = "profile";
 
-const academic = new AcademicInput(document.querySelector("#academic"));
+const academic = new AcademicInput(document.querySelector(".academic-section"));
 academic.key = "academic";
 
 const appealKeyword = new AppealKeywordInput(
-  document.querySelector("#appealKeyword")
+  document.querySelector(".appealkeyword-section")
 );
 appealKeyword.key = "appealKeyword";
 
-const project = new ProjectInput(document.querySelector("#project"));
+const project = new ProjectInput(document.querySelector(".project-section"));
 project.key = "project";
 
-const resume = new ResumeInput(document.querySelector("#resume"));
+const resume = new ResumeInput(
+  document.querySelector(".resume-portfolio-section")
+);
 resume.key = "document";
 
-const award = new AwardInput(document.querySelector("#award"));
+const award = new AwardInput(document.querySelector(".award-section"));
 award.key = "award";
 
 const certificate = new CertificateInput(
-  document.querySelector("#certificate")
+  document.querySelector(".certificate-section")
 );
 certificate.key = "certificate";
 
 const languageTest = new LanguageTestInput(
-  document.querySelector("#languageTest")
+  document.querySelector(".languagetest-section")
 );
 languageTest.key = "languageTest";
 
 const languageAbility = new LanguageAbilityInput(
-  document.querySelector("#languageAbility")
+  document.querySelector(".languageability-section")
 );
 languageAbility.key = "languageAbility";
 
-const extraEducation = new EducationInput(document.querySelector("#education"));
+const extraEducation = new EducationInput(
+  document.querySelector(".education-section")
+);
 extraEducation.key = "extraEducation";
 
-const jobSkill = new JobSkillInput(document.querySelector("#jobSkill"));
+const jobSkill = new JobSkillInput(document.querySelector(".jobskill-section"));
 jobSkill.key = "jobSkill";
 
 const workConditition = new WorkConditionInput(
-  document.querySelector("#workConditition")
+  document.querySelector(".workcondition-section")
 );
 workConditition.key = "workConditition";
 ///
