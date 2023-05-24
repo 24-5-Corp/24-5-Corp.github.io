@@ -657,6 +657,10 @@ class AwardInput extends Input {
     const host = award.querySelector("#host");
     host.textContent = data.host;
 
+    if (!!data.host) {
+      award.querySelector("#seperater").style.display = "none";
+    }
+
     const awardDate = award.querySelector("#awardDate");
     awardDate.textContent = data.date;
 
