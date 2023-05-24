@@ -416,7 +416,7 @@ class ProjectInput extends Input {
 
   _updateDivider() {
     this._divider.style.display = this._projectList.hasChildNodes()
-      ? "block"
+      ? "flex"
       : "none";
   }
 
@@ -502,7 +502,7 @@ class ResumeInput extends Input {
 
   _updateDivider() {
     this._divider.style.display = this._resumeList.hasChildNodes()
-      ? "block"
+      ? "flex"
       : "none";
   }
 
@@ -670,7 +670,7 @@ class AwardInput extends Input {
 
   _updateDivider() {
     this._divider.style.display = this._awardList.hasChildNodes()
-      ? "block"
+      ? "flex"
       : "none";
   }
 
@@ -800,7 +800,7 @@ class CertificateInput extends Input {
 
   _updateDivider() {
     this._divider.style.display = this._certificateList.hasChildNodes()
-      ? "block"
+      ? "flex"
       : "none";
   }
 
@@ -929,7 +929,7 @@ class LanguageTestInput extends Input {
 
   _updateDivider() {
     this._divider.style.display = this._languageTestList.hasChildNodes()
-      ? "block"
+      ? "flex"
       : "none";
   }
 
@@ -1025,7 +1025,7 @@ class LanguageAbilityInput extends Input {
 
   _updateDivider() {
     this._divider.style.display = this._languageAbilityList.hasChildNodes()
-      ? "block"
+      ? "flex"
       : "none";
   }
 
@@ -1177,7 +1177,7 @@ class EducationInput extends Input {
 
   _updateDivider() {
     this._divider.style.display = this._educationList.hasChildNodes()
-      ? "block"
+      ? "flex"
       : "none";
   }
 
