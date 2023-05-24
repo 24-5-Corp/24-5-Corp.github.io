@@ -287,6 +287,7 @@ class ProjectInput extends Input {
     this._project = element.querySelector("#project");
 
     removeAllChildren(this._projectList);
+    this._updateDivider();
   }
 
   _addProject() {
@@ -374,6 +375,7 @@ class ProjectInput extends Input {
 
     project.querySelector("#delete").addEventListener("click", () => {
       this._projectList.removeChild(project);
+      this._updateDivider();
     });
 
     this._projectList.appendChild(project);
@@ -387,6 +389,7 @@ class ProjectInput extends Input {
     this._startDate.reset();
     this._endDate.reset();
 
+    this._updateDivider();
     this._input.dispatchEvent(this.inputEvent);
   }
 
@@ -409,6 +412,12 @@ class ProjectInput extends Input {
       this._endDate.validate();
       this._endDate._error.textContent = "";
     }
+  }
+
+  _updateDivider() {
+    this._projectList.style.display = this._projectList.hasChildNodes()
+      ? "flex"
+      : "none";
   }
 
   get data() {
@@ -448,6 +457,7 @@ class ResumeInput extends Input {
     this._resume = element.querySelector("#resume");
 
     removeAllChildren(this._resumeList);
+    this._updateDivider();
   }
 
   get value() {
@@ -490,6 +500,12 @@ class ResumeInput extends Input {
     super.validate();
   }
 
+  _updateDivider() {
+    this._divider.style.display = this._resumeList.hasChildNodes()
+      ? "flex"
+      : "none";
+  }
+
   _addResume() {
     if (!this._category.isValid) {
       this._category.validate();
@@ -516,6 +532,7 @@ class ResumeInput extends Input {
         resume.querySelector("#url").textContent = this._url.value;
         resume.querySelector("#delete").addEventListener("click", () => {
           this._resumeList.removeChild(resume);
+          this._updateDivider();
         });
 
         this._resumeList.appendChild(resume);
@@ -524,6 +541,7 @@ class ResumeInput extends Input {
         this._category.bind(this.categories);
         this._url.reset();
 
+        this._updateDivider();
         this._input.dispatchEvent(this.inputEvent);
       })
       .catch((error) => {
@@ -570,6 +588,7 @@ class AwardInput extends Input {
     this._award = element.querySelector("#award");
 
     removeAllChildren(this._awardList);
+    this._updateDivider();
   }
 
   get isValid() {
@@ -635,6 +654,7 @@ class AwardInput extends Input {
 
     award.querySelector("#delete").addEventListener("click", () => {
       this._awardList.removeChild(award);
+      this._updateDivider();
     });
 
     this._awardList.appendChild(award);
@@ -644,7 +664,14 @@ class AwardInput extends Input {
     this._host.reset();
     this._date.reset();
 
+    this._updateDivider();
     this._input.dispatchEvent(this.inputEvent);
+  }
+
+  _updateDivider() {
+    this._awardList.style.display = this._awardList.hasChildNodes()
+      ? "flex"
+      : "none";
   }
 
   get data() {
@@ -686,6 +713,7 @@ class CertificateInput extends Input {
     this._certificate = element.querySelector("#certificate");
 
     removeAllChildren(this._certificateList);
+    this._updateDivider();
   }
 
   get isValid() {
@@ -756,6 +784,7 @@ class CertificateInput extends Input {
 
     certificate.querySelector("#delete").addEventListener("click", () => {
       this._certificateList.removeChild(certificate);
+      this._updateDivider();
     });
 
     this._certificateList.appendChild(certificate);
@@ -765,7 +794,14 @@ class CertificateInput extends Input {
     this._grade.reset();
     this._date.reset();
 
+    this._updateDivider();
     this._input.dispatchEvent(this.inputEvent);
+  }
+
+  _updateDivider() {
+    this._certificateList.style.display = this._certificateList.hasChildNodes()
+      ? "flex"
+      : "none";
   }
 
   get data() {
@@ -807,6 +843,7 @@ class LanguageTestInput extends Input {
     this._languageTest = element.querySelector("#languageTest");
 
     removeAllChildren(this._languageTestList);
+    this._updateDivider();
   }
 
   get isValid() {
@@ -876,6 +913,7 @@ class LanguageTestInput extends Input {
 
     languageTest.querySelector("#delete").addEventListener("click", () => {
       this._languageTestList.removeChild(languageTest);
+      this._updateDivider();
     });
 
     this._languageTestList.appendChild(languageTest);
@@ -885,7 +923,13 @@ class LanguageTestInput extends Input {
     this._grade.reset();
     this._date.reset();
 
+    this._updateDivider();
     this._input.dispatchEvent(this.inputEvent);
+  }
+
+  _updateDivider() {
+    this._languageTestList.style.display =
+      this._languageTestList.hasChildNodes() ? "flex" : "none";
   }
 
   get data() {
@@ -921,6 +965,7 @@ class LanguageAbilityInput extends Input {
     this._languageAbility = element.querySelector("#languageAbility");
 
     removeAllChildren(this._languageAbilityList);
+    this._updateDivider();
   }
 
   get isValid() {
@@ -964,6 +1009,7 @@ class LanguageAbilityInput extends Input {
 
     languageAbility.querySelector("#delete").addEventListener("click", () => {
       this._languageAbilityList.removeChild(languageAbility);
+      this._updateDivider();
     });
 
     this._languageAbilityList.appendChild(languageAbility);
@@ -972,7 +1018,13 @@ class LanguageAbilityInput extends Input {
     this._grade.reset();
     this._grade.bind(this.grades);
 
+    this._updateDivider();
     this._input.dispatchEvent(this.inputEvent);
+  }
+
+  _updateDivider() {
+    this._languageAbilityList.style.display =
+      this._languageAbilityList.hasChildNodes() ? "flex" : "none";
   }
 
   get data() {
@@ -1025,6 +1077,7 @@ class EducationInput extends Input {
     this._education = element.querySelector("#education");
 
     removeAllChildren(this._educationList);
+    this._updateDivider();
   }
 
   get isValid() {
@@ -1105,6 +1158,7 @@ class EducationInput extends Input {
 
     education.querySelector("#delete").addEventListener("click", () => {
       this._educationList.removeChild(education);
+      this._updateDivider();
     });
 
     this._educationList.appendChild(education);
@@ -1115,7 +1169,14 @@ class EducationInput extends Input {
     this._startDate.reset();
     this._endDate.reset();
 
+    this._updateDivider();
     this._input.dispatchEvent(this.inputEvent);
+  }
+
+  _updateDivider() {
+    this._educationList.style.display = this._educationList.hasChildNodes()
+      ? "flex"
+      : "none";
   }
 
   get data() {
