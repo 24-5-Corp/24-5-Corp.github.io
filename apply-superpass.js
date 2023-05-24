@@ -379,9 +379,14 @@ class ProjectInput extends Input {
     project.querySelector("#delete").addEventListener("click", () => {
       this._projectList.removeChild(project);
       this._updateDivider();
+      this._add.setAttribute("disabled", false);
     });
 
     this._projectList.appendChild(project);
+
+    if ([...this._projectList.childNodes].length == 3) {
+      this._add.setAttribute("disabled", true);
+    }
 
     this._category.reset();
     this._category.bind(this.projectCategories);
