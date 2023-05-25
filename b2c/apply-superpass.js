@@ -424,7 +424,7 @@ class ProjectInput extends Input {
       this._startDate.validate();
       this._startDate._error.textContent =
         "* 대표 프로젝트를 1개 이상 입력해주세요.";
-      this._startDate._showError(true);
+      this._startDate._showError(false);
       this._endDate.validate();
       this._endDate._error.textContent = "";
     }
