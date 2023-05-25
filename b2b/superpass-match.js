@@ -61,10 +61,10 @@ class Matchup {
     this._dday = element.querySelector(".match-card-dday-chip");
 
     this._date = element.querySelector(".match-date-text");
-    this._name = element.querySelector(".text-block-36");
+    this._name = element.querySelector(".match-name-text");
 
-    this._academic = element.querySelectorAll(".match-card-contents-text")[0];
-    this._position = element.querySelectorAll(".match-card-contents-text")[1];
+    this._keyword_first = element.querySelectorAll(".keyword-text")[0];
+    this._keyword_second = element.querySelectorAll(".keyword-text")[1];
 
     this._skillList = element.querySelector(".match-card-skil-div");
     this._skill = element.querySelector(".match-card-skill");
@@ -92,17 +92,8 @@ class Matchup {
     }
 
     this._name.textContent = model.applicantName;
-
-    this._academic.textContent = model.academicRecord.status.name;
-    if (model.academicRecord.status.id !== 0) {
-      this._academic.textContent += ` (${model.academicRecord.grade}학년/${model.academicRecord.semester}학기)`;
-    }
-
-    const [firstJob, ...restJobs] = model.preferJobs;
-    this._position.textContent = restJobs.reduce(
-      (jobs, job) => `${jobs} / ${job}`,
-      firstJob
-    );
+    this._keyword_first.textContent = model.repKeywords[0];
+    this._keyword_second.textContent = model.repKeywords[1];
 
     removeAllChildren(this._skillList);
     model.personalSkills.forEach((skill) => {
@@ -128,6 +119,10 @@ class SuperpassCard extends Matchup {
     this._empty = element.querySelector(".match-card-empty");
     this._card = element.querySelector(".match-card-show");
 
+    this._projectContainer = element.querySelector(".match-card-project-div");
+    this._projectList = element.querySelector(".match-card-project-list");
+    this._project = element.querySelector(".match-card-project");
+
     this._cvList = element.querySelector(".match-card-portfolio-div");
     this._cv = element.querySelector(".match-card-portfolio");
   }
@@ -146,6 +141,19 @@ class SuperpassCard extends Matchup {
       clonedCV.src = cv.thumbnailUrl;
       this._cvList.appendChild(clonedCV);
     });
+
+    if (model.repProjects.length) {
+      removeAllChildren(this._projectList);
+      model.repProjects.forEach((project) => {
+        const clonedProject = this._project.cloneNode(true);
+        clonedProject.querySelector(".project-category-text").textContent = project.category;
+        clonedProject.querySelector(".project-name-text").textContent = project.name;
+        this._projectList.appendChild(clonedSkill);
+      });
+      this._projectContainer.style.display = "inline-block";
+    } else {
+      this._projectContainer.style.display = "none";
+    }
 
     this.handleClick = () => this.onClick(model);
     this._element.addEventListener("click", this.handleClick);
@@ -167,9 +175,38 @@ class ResumeSection extends Matchup {
     this._iframe = element.querySelector("iframe");
     this._content = element.querySelector(".div-block-82");
 
-    this._resumeList = element.querySelectorAll(".list-3")[0];
-    this._portfolioList = element.querySelectorAll(".list-3")[1];
-    this._cv = element.querySelectorAll(".resume-list-item")[0];
+    this._resumeList = element.querySelector(".resume-list");
+    this._resume = element.querySelector(".resume-div");
+
+    this._university = element.querySelectorAll(".univ-info-text")[0];
+    this._semesterInfo = element.querySelectorAll(".univ-info-text")[1];
+    this._position = element.querySelector(".position-text");
+
+    this._projectContainer = element.querySelector(".match-card-project-div");
+    this._projectList = element.querySelector(".match-card-project-list");
+    this._project = element.querySelector(".match-card-project");
+
+    const additionalInfo = element.querySelectorAll(".additional-info-div");
+
+    this._awardContainer = additionalInfo[0];
+    this._awardList = additionalInfo[0].querySelector(".additional-info-list");
+    this._award = additionalInfo[0].querySelector(".additional-info");
+
+    this._certificateContainer = additionalInfo[1];
+    this._certificateList = additionalInfo[1].querySelector(".additional-info-list");
+    this._certificate = additionalInfo[1].querySelector(".additional-info");
+
+    this._languageTestContainer = additionalInfo[2];
+    this._languageTestList = additionalInfo[2].querySelector(".additional-info-list");
+    this._languageTest = additionalInfo[2].querySelector(".additional-info");
+
+    this._languageContainer = additionalInfo[3];
+    this._languageList = additionalInfo[3].querySelector(".additional-info-list");
+    this._language = additionalInfo[3].querySelector(".additional-info");
+
+    this._educationContainer = additionalInfo[4];
+    this._educationList = additionalInfo[4].querySelector(".additional-info-list");
+    this._education = additionalInfo[4].querySelector(".additional-info");
 
     this._cancel = element.querySelector(".resume-button-negative");
     this._accept = element.querySelector(".resume-button-positive");
@@ -182,6 +219,7 @@ class ResumeSection extends Matchup {
     removeAllChildren(this._resumeList);
     removeAllChildren(this._portfolioList);
     model.documents.forEach((cv) => this._bindCV(cv));
+    this._bindAdditionalinfo(model)
     Webflow.require("ix2").init();
     [...this._resumeList.children][0].click();
 
@@ -212,6 +250,109 @@ class ResumeSection extends Matchup {
     });
 
     this._disabled.style.display = getDisabledDisplay(this._status);
+
+    const academic = model.academicRecord
+    this._university.textContent = academic.university + academic.major;
+    this._semesterInfo.textContent = academic.status.name + ` (${model.academicRecord.grade}학년/${model.academicRecord.semester}학기)`;
+
+    const [firstJob, ...restJobs] = model.preferJobs;
+    this._position.textContent = restJobs.reduce(
+      (jobs, job) => `${jobs} / ${job}`,
+      firstJob
+    );
+
+    if (model.repProjects.length) {
+      removeAllChildren(this._projectList);
+      model.repProjects.forEach((project) => {
+        const itemView = this._project.cloneNode(true);
+        const endDate = project.endDate ? project.name : "진행 중"
+        itemView.querySelector(".resume-item-date-text").textContent = `${project.startDate}~${endDate}`;
+        itemView.querySelector(".resume-item-title-text").textContent = languageTest.testResult.languageTest.language.name;
+        itemView.querySelector(".resume-item-sub-title-text").textContent = `${project.category.name} | ${project.role}` 
+        this._projectList.appendChild(itemView);
+      });
+      this._projectContainer.style.display = "inline-block";
+    } else {
+      this._projectContainer.style.display = "none";
+    }
+  }
+
+  _bindAdditionalinfo(model) {
+    if (model.awards.length) {
+      removeAllChildren(this._awardList);
+      model.awards.forEach((award) => {
+        const itemView = this._award.cloneNode(true);
+        itemView.querySelector(".resume-item-date-text").textContent = award.awardDate; 
+        itemView.querySelector(".resume-item-title-text").textContent = award.name;
+        const subTitle = award.host ? `${award.prize} | ${award.host}` : award.prize
+        itemView.querySelector(".resume-item-sub-title-text").textContent = subTitle
+        this._awardList.appendChild(itemView);
+      });
+      this._awardContainer.style.display = "inline-block";
+    } else {
+      this._awardContainer.style.display = "none";
+    }
+
+    if (model.certificates.length) {
+      removeAllChildren(this._certificateList);
+      model.certificates.forEach((certificate) => {
+        const itemView = this._certificate.cloneNode(true);
+        itemView.querySelector(".resume-item-date-text").textContent = certificate.acquisitionDate;
+        itemView.querySelector(".resume-item-title-text").textContent = certificate.certificate.name;
+        const subTitle = certificate.grade ? `${certificate.issuer} | ${certificate.grade}` : certificate.issuer
+        itemView.querySelector(".resume-item-sub-title-text").textContent = subTitle
+        this._certificateList.appendChild(itemView);
+      });
+      this._certificateContainer.style.display = "inline-block";
+    } else {
+      this._certificateContainer.style.display = "none";
+    }
+
+    if (model.languageTests.length) {
+      removeAllChildren(this._languageTestList);
+      model.languageTests.forEach((languageTest) => {
+        const itemView = this._languageTest.cloneNode(true);
+        itemView.querySelector(".resume-item-date-text").textContent = languageTest.acquisitionDate;
+        itemView.querySelector(".resume-item-title-text").textContent = languageTest.testResult.languageTest.language.name;
+        const subTitle = languageTest.testResult.estimate 
+          ? `${languageTest.testResult.languageTest.name} | ${languageTest.testResult.estimate}` 
+          : languageTest.testResult.languageTest.name
+        itemView.querySelector(".resume-item-sub-title-text").textContent = subTitle
+        this._languageTestList.appendChild(itemView);
+      });
+      this._languageTestContainer.style.display = "inline-block";
+    } else {
+      this._languageTestContainer.style.display = "none";
+    }
+
+    if (model.languages.length) {
+      removeAllChildren(this._languageList);
+      model.languages.forEach((language) => {
+        const itemView = this._language.cloneNode(true);
+        itemView.querySelector(".resume-item-date-text").style.display = "none";
+        itemView.querySelector(".resume-item-title-text").textContent = language.name;
+        itemView.querySelector(".resume-item-sub-title-text").textContent = language.proficiency; // 문구 적용
+        this._languageList.appendChild(itemView);
+      });
+      this._languageContainer.style.display = "inline-block";
+    } else {
+      this._languageContainer.style.display = "none";
+    }
+
+    if (model.educations.length) {
+      removeAllChildren(this._educationList);
+      model.educations.forEach((education) => {
+        const itemView = this._education.cloneNode(true);
+        const endDate = project.endDate ? project.name : "진행 중"
+        itemView.querySelector(".resume-item-date-text").textContent = `${education.startDate}~${endDate}`;
+        itemView.querySelector(".resume-item-title-text").textContent = education.courseName;
+        itemView.querySelector(".resume-item-sub-title-text").textContent = education.institutionName;
+        this._educationList.appendChild(itemView);
+      });
+      this._educationContainer.style.display = "inline-block";
+    } else {
+      this._educationContainer.style.display = "none";
+    }
   }
 
   _bindCV(cv) {
