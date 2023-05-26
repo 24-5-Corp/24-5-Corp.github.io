@@ -254,8 +254,12 @@ class ResumeSection extends Matchup {
 
     const academic = model.academicRecord
     this._university.textContent = academic.university + academic.major;
-    this._semesterInfo.textContent = academic.status.name + ` (${model.academicRecord.grade}학년/${model.academicRecord.semester}학기)`;
-
+    const academicStatus = academic.status.name
+    if (academic.status.id != 0) {
+      academicStatus += ` (${model.academicRecord.grade}학년/${model.academicRecord.semester}학기)`;
+    }
+    this._semesterInfo.textContent = academicStatus
+    
     const [firstJob, ...restJobs] = model.preferJobs;
     this._position.textContent = restJobs.reduce(
       (jobs, job) => `${jobs} / ${job}`,
@@ -394,7 +398,7 @@ class ResumeSection extends Matchup {
     clonedCV.addEventListener("click", (event) => {
       if (event.target === action) return;
 
-      this._cvList.forEach((item) => {
+      this._cvList.children.forEach((item) => {
         const div = item.querySelector(".resume-list-item-div");
         div.style.borderColor = style.getPropertyValue("--silhouette");
         div.style.borderWidth = "1px";
