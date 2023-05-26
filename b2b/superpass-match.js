@@ -280,10 +280,10 @@ class ResumeSection extends Matchup {
       removeAllChildren(this._projectList);
       model.repProjects.forEach((project) => {
         const itemView = this._project.cloneNode(true);
-        const endDate = project.endDate ? project.endDate : "진행 중";
+        const endDate = project.endDate ? makeDateMonth(project.endDate) : "진행 중";
         itemView.querySelector(
           ".resume-item-date-text"
-        ).textContent = `${project.startDate}~${endDate}`;
+        ).textContent = `${makeDateMonth(project.startDate)}~${endDate}`;
         itemView.querySelector(".resume-item-title-text").textContent =
           project.name;
         itemView.querySelector(
@@ -302,8 +302,8 @@ class ResumeSection extends Matchup {
       removeAllChildren(this._awardList);
       model.awards.forEach((award) => {
         const itemView = this._award.cloneNode(true);
-        itemView.querySelector(".resume-item-date-text").textContent =
-          award.awardDate;
+        itemView.querySelector(".resume-item-date-text").textContent = 
+          makeDateMonth(award.awardDate);
         itemView.querySelector(".resume-item-title-text").textContent =
           award.name;
         const subTitle = award.host
@@ -323,7 +323,7 @@ class ResumeSection extends Matchup {
       model.certificates.forEach((certificate) => {
         const itemView = this._certificate.cloneNode(true);
         itemView.querySelector(".resume-item-date-text").textContent =
-          certificate.acquisitionDate;
+         makeDateMonth(certificate.acquisitionDate);
 
         const data = certificate.certificateGrade;
         itemView.querySelector(".resume-item-title-text").textContent =
@@ -345,7 +345,7 @@ class ResumeSection extends Matchup {
       model.languageTests.forEach((languageTest) => {
         const itemView = this._languageTest.cloneNode(true);
         itemView.querySelector(".resume-item-date-text").textContent =
-          languageTest.acquisitionDate;
+          makeDateMonth(languageTest.acquisitionDate);
 
         const data = languageTest.testResult;
         itemView.querySelector(".resume-item-title-text").textContent =
@@ -381,10 +381,10 @@ class ResumeSection extends Matchup {
       removeAllChildren(this._educationList);
       model.educations.forEach((education) => {
         const itemView = this._education.cloneNode(true);
-        const endDate = education.endDate ? education.endDate : "진행 중";
+        const endDate = education.endDate ? makeDateMonth(education.endDate) : "진행 중";
         itemView.querySelector(
           ".resume-item-date-text"
-        ).textContent = `${education.startDate}~${endDate}`;
+        ).textContent = `${makeDateMonth(education.startDate)}~${endDate}`;
         itemView.querySelector(".resume-item-title-text").textContent =
           education.courseName;
         itemView.querySelector(".resume-item-sub-title-text").textContent =
