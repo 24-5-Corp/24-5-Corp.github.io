@@ -63,9 +63,6 @@ class Matchup {
     this._date = element.querySelector(".match-date-text");
     this._name = element.querySelector(".match-name-block");
 
-    this._keyword_first = element.querySelectorAll(".keyword-text")[0];
-    this._keyword_second = element.querySelectorAll(".keyword-text")[1];
-
     this._skillList = element.querySelector(".match-card-skil-div");
     this._skill = element.querySelector(".match-card-skill");
   }
@@ -92,8 +89,6 @@ class Matchup {
     }
 
     this._name.textContent = model.applicantName;
-    this._keyword_first.textContent = model.repKeywords[0];
-    this._keyword_second.textContent = model.repKeywords[1];
 
     removeAllChildren(this._skillList);
     model.personalSkills.forEach((skill) => {
@@ -119,6 +114,9 @@ class SuperpassCard extends Matchup {
     this._empty = element.querySelector(".match-card-empty");
     this._card = element.querySelector(".match-card-show");
 
+    this._keyword_first = element.querySelectorAll(".keyword-text")[0];
+    this._keyword_second = element.querySelectorAll(".keyword-text")[1];
+
     this._projectContainer = element.querySelector(".match-card-project-div");
     this._projectList = element.querySelector(".match-card-project-list");
     this._project = element.querySelector(".match-card-project");
@@ -132,13 +130,16 @@ class SuperpassCard extends Matchup {
 
     this._newBadge.style.display = model.isNew ? "block" : "none";
 
+    this._keyword_first.textContent = model.repKeywords[0];
+    this._keyword_second.textContent = model.repKeywords[1];
+
     if (model.repProjects.length) {
       removeAllChildren(this._projectList);
       model.repProjects.forEach((project) => {
         const clonedProject = this._project.cloneNode(true);
         clonedProject.querySelector(".project-category-text").textContent = project.category;
         clonedProject.querySelector(".project-name-text").textContent = project.name;
-        this._projectList.appendChild(clonedSkill);
+        this._projectList.appendChild(clonedProject);
       });
       this._projectContainer.style.display = "inline-block";
     } else {
