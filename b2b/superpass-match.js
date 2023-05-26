@@ -171,8 +171,8 @@ class ResumeSection extends Matchup {
     this._position = element.querySelector(".match-position-text");
 
     this._projectContainer = element.querySelector(".match-card-project-div");
-    this._projectList = element.querySelector(".match-card-project-list");
-    this._project = element.querySelector(".match-card-project");
+    this._projectList = element.querySelector(".additional-info-list");
+    this._project = element.querySelector(".additional-info");
 
     const additionalInfo = element.querySelectorAll(".additional-info-div");
 
