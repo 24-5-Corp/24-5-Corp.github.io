@@ -122,9 +122,6 @@ class SuperpassCard extends Matchup {
     this._projectContainer = element.querySelector(".match-card-project-div");
     this._projectList = element.querySelector(".match-card-project-list");
     this._project = element.querySelector(".match-card-project");
-
-    this._cvList = element.querySelector(".match-card-portfolio-div");
-    this._cv = element.querySelector(".match-card-portfolio");
   }
 
   bind(model) {
@@ -134,13 +131,6 @@ class SuperpassCard extends Matchup {
     this._card.style.display = "flex";
 
     this._newBadge.style.display = model.isNew ? "block" : "none";
-
-    removeAllChildren(this._cvList);
-    model.documents.forEach((cv) => {
-      const clonedCV = this._cv.cloneNode(true);
-      clonedCV.src = cv.thumbnailUrl;
-      this._cvList.appendChild(clonedCV);
-    });
 
     if (model.repProjects.length) {
       removeAllChildren(this._projectList);
@@ -180,7 +170,7 @@ class ResumeSection extends Matchup {
 
     this._university = element.querySelectorAll(".univ-info-text")[0];
     this._semesterInfo = element.querySelectorAll(".univ-info-text")[1];
-    this._position = element.querySelector(".position-text");
+    this._position = element.querySelector(".match-position-text");
 
     this._projectContainer = element.querySelector(".match-card-project-div");
     this._projectList = element.querySelector(".match-card-project-list");
@@ -211,6 +201,9 @@ class ResumeSection extends Matchup {
     this._cancel = element.querySelector(".resume-button-negative");
     this._accept = element.querySelector(".resume-button-positive");
     this._disabled = element.querySelector(".resume-button-disabled");
+
+    this._cvList = element.querySelector(".resume-detail-list");
+    this._cv = element.querySelector(".resume-list-item");
   }
 
   bind(model) {
