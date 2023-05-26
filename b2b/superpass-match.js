@@ -1,4 +1,4 @@
-class CheckboxGroup extends RegexInput {
+class CancelCheckboxGroup extends RegexInput {
   constructor(element) {
     super(element);
 
@@ -148,8 +148,10 @@ class SuperpassCard extends Matchup {
       removeAllChildren(this._projectList);
       model.repProjects.forEach((project) => {
         const clonedProject = this._project.cloneNode(true);
-        clonedProject.querySelector(".project-category-text").textContent = project.category;
-        clonedProject.querySelector(".project-name-text").textContent = project.name;
+        clonedProject.querySelector(".project-category-text").textContent =
+          project.category;
+        clonedProject.querySelector(".project-name-text").textContent =
+          project.name;
         this._projectList.appendChild(clonedProject);
       });
       this._projectContainer.style.display = "inline-block";
@@ -192,19 +194,27 @@ class ResumeSection extends Matchup {
     this._award = additionalInfo[0].querySelector(".additional-info");
 
     this._certificateContainer = additionalInfo[1];
-    this._certificateList = additionalInfo[1].querySelector(".additional-info-list");
+    this._certificateList = additionalInfo[1].querySelector(
+      ".additional-info-list"
+    );
     this._certificate = additionalInfo[1].querySelector(".additional-info");
 
     this._languageTestContainer = additionalInfo[2];
-    this._languageTestList = additionalInfo[2].querySelector(".additional-info-list");
+    this._languageTestList = additionalInfo[2].querySelector(
+      ".additional-info-list"
+    );
     this._languageTest = additionalInfo[2].querySelector(".additional-info");
 
     this._languageContainer = additionalInfo[3];
-    this._languageList = additionalInfo[3].querySelector(".additional-info-list");
+    this._languageList = additionalInfo[3].querySelector(
+      ".additional-info-list"
+    );
     this._language = additionalInfo[3].querySelector(".additional-info");
 
     this._educationContainer = additionalInfo[4];
-    this._educationList = additionalInfo[4].querySelector(".additional-info-list");
+    this._educationList = additionalInfo[4].querySelector(
+      ".additional-info-list"
+    );
     this._education = additionalInfo[4].querySelector(".additional-info");
 
     this._cancel = element.querySelector(".resume-button-negative");
@@ -220,7 +230,7 @@ class ResumeSection extends Matchup {
 
     removeAllChildren(this._cvList);
     model.documents.forEach((cv) => this._bindCV(cv));
-    this._bindAdditionalinfo(model)
+    this._bindAdditionalinfo(model);
     Webflow.require("ix2").init();
     [...this._cvList.children][0].click();
 
@@ -252,14 +262,14 @@ class ResumeSection extends Matchup {
 
     this._disabled.style.display = getDisabledDisplay(this._status);
 
-    const academic = model.academicRecord
+    const academic = model.academicRecord;
     this._university.textContent = academic.university + academic.major;
-    const academicStatus = academic.status.name
+    const academicStatus = academic.status.name;
     if (academic.status.id != 0) {
       academicStatus += ` (${model.academicRecord.grade}학년/${model.academicRecord.semester}학기)`;
     }
-    this._semesterInfo.textContent = academicStatus
-    
+    this._semesterInfo.textContent = academicStatus;
+
     const [firstJob, ...restJobs] = model.preferJobs;
     this._position.textContent = restJobs.reduce(
       (jobs, job) => `${jobs} / ${job}`,
@@ -270,10 +280,15 @@ class ResumeSection extends Matchup {
       removeAllChildren(this._projectList);
       model.repProjects.forEach((project) => {
         const itemView = this._project.cloneNode(true);
-        const endDate = project.endDate ? project.name : "진행 중"
-        itemView.querySelector(".resume-item-date-text").textContent = `${project.startDate}~${endDate}`;
-        itemView.querySelector(".resume-item-title-text").textContent = project.name;
-        itemView.querySelector(".resume-item-sub-title-text").textContent = `${project.category.name} | ${project.role}` 
+        const endDate = project.endDate ? project.name : "진행 중";
+        itemView.querySelector(
+          ".resume-item-date-text"
+        ).textContent = `${project.startDate}~${endDate}`;
+        itemView.querySelector(".resume-item-title-text").textContent =
+          project.name;
+        itemView.querySelector(
+          ".resume-item-sub-title-text"
+        ).textContent = `${project.category.name} | ${project.role}`;
         this._projectList.appendChild(itemView);
       });
       this._projectContainer.style.display = "inline-block";
@@ -287,10 +302,15 @@ class ResumeSection extends Matchup {
       removeAllChildren(this._awardList);
       model.awards.forEach((award) => {
         const itemView = this._award.cloneNode(true);
-        itemView.querySelector(".resume-item-date-text").textContent = award.awardDate; 
-        itemView.querySelector(".resume-item-title-text").textContent = award.name;
-        const subTitle = award.host ? `${award.prize} | ${award.host}` : award.prize
-        itemView.querySelector(".resume-item-sub-title-text").textContent = subTitle
+        itemView.querySelector(".resume-item-date-text").textContent =
+          award.awardDate;
+        itemView.querySelector(".resume-item-title-text").textContent =
+          award.name;
+        const subTitle = award.host
+          ? `${award.prize} | ${award.host}`
+          : award.prize;
+        itemView.querySelector(".resume-item-sub-title-text").textContent =
+          subTitle;
         this._awardList.appendChild(itemView);
       });
       this._awardContainer.style.display = "inline-block";
@@ -302,12 +322,17 @@ class ResumeSection extends Matchup {
       removeAllChildren(this._certificateList);
       model.certificates.forEach((certificate) => {
         const itemView = this._certificate.cloneNode(true);
-        itemView.querySelector(".resume-item-date-text").textContent = certificate.acquisitionDate;
+        itemView.querySelector(".resume-item-date-text").textContent =
+          certificate.acquisitionDate;
 
         const data = certificate.certificateGrade;
-        itemView.querySelector(".resume-item-title-text").textContent = data.certificate.name;
-        const subTitle = data.grade ? `${data.certificate.issuer} | ${data.grade}` : data.certificate.issuer
-        itemView.querySelector(".resume-item-sub-title-text").textContent = subTitle
+        itemView.querySelector(".resume-item-title-text").textContent =
+          data.certificate.name;
+        const subTitle = data.grade
+          ? `${data.certificate.issuer} | ${data.grade}`
+          : data.certificate.issuer;
+        itemView.querySelector(".resume-item-sub-title-text").textContent =
+          subTitle;
         this._certificateList.appendChild(itemView);
       });
       this._certificateContainer.style.display = "inline-block";
@@ -319,12 +344,17 @@ class ResumeSection extends Matchup {
       removeAllChildren(this._languageTestList);
       model.languageTests.forEach((languageTest) => {
         const itemView = this._languageTest.cloneNode(true);
-        itemView.querySelector(".resume-item-date-text").textContent = languageTest.acquisitionDate;
+        itemView.querySelector(".resume-item-date-text").textContent =
+          languageTest.acquisitionDate;
 
         const data = languageTest.testResult;
-        itemView.querySelector(".resume-item-title-text").textContent = data.languageTest.language.name;
-        const subTitle = data.estimate ? `${data.languageTest.name} | ${data.estimate}` : data.languageTest.name
-        itemView.querySelector(".resume-item-sub-title-text").textContent = subTitle
+        itemView.querySelector(".resume-item-title-text").textContent =
+          data.languageTest.language.name;
+        const subTitle = data.estimate
+          ? `${data.languageTest.name} | ${data.estimate}`
+          : data.languageTest.name;
+        itemView.querySelector(".resume-item-sub-title-text").textContent =
+          subTitle;
         this._languageTestList.appendChild(itemView);
       });
       this._languageTestContainer.style.display = "inline-block";
@@ -336,8 +366,10 @@ class ResumeSection extends Matchup {
       removeAllChildren(this._languageList);
       model.languages.forEach((language) => {
         const itemView = this._language.cloneNode(true);
-        itemView.querySelector(".resume-item-title-text").textContent = language.name;
-        itemView.querySelector(".resume-item-sub-title-text").textContent = language.proficiency; // 문구 적용
+        itemView.querySelector(".resume-item-title-text").textContent =
+          language.name;
+        itemView.querySelector(".resume-item-sub-title-text").textContent =
+          language.proficiency; // 문구 적용
         this._languageList.appendChild(itemView);
       });
       this._languageContainer.style.display = "inline-block";
@@ -349,10 +381,14 @@ class ResumeSection extends Matchup {
       removeAllChildren(this._educationList);
       model.educations.forEach((education) => {
         const itemView = this._education.cloneNode(true);
-        const endDate = education.endDate ? education.name : "진행 중"
-        itemView.querySelector(".resume-item-date-text").textContent = `${education.startDate}~${endDate}`;
-        itemView.querySelector(".resume-item-title-text").textContent = education.courseName;
-        itemView.querySelector(".resume-item-sub-title-text").textContent = education.institutionName;
+        const endDate = education.endDate ? education.name : "진행 중";
+        itemView.querySelector(
+          ".resume-item-date-text"
+        ).textContent = `${education.startDate}~${endDate}`;
+        itemView.querySelector(".resume-item-title-text").textContent =
+          education.courseName;
+        itemView.querySelector(".resume-item-sub-title-text").textContent =
+          education.institutionName;
         this._educationList.appendChild(itemView);
       });
       this._educationContainer.style.display = "inline-block";
@@ -364,7 +400,8 @@ class ResumeSection extends Matchup {
   _bindCV(cv) {
     const clonedCV = this._cv.cloneNode(true);
 
-    clonedCV.querySelector(".resume-title").textContent = cv.type.id === 0 ? "이력서" : "포트폴리오";
+    clonedCV.querySelector(".resume-title").textContent =
+      cv.type.id === 0 ? "이력서" : "포트폴리오";
     clonedCV.querySelector(".resume-category-icon").src = cv.thumbnailUrl;
 
     const action = clonedCV.querySelector(".resume-action-button");
@@ -541,7 +578,7 @@ const removeAllChildren = (node) => {
   }
 };
 
-const checkboxGroup = new CheckboxGroup(
+const checkboxGroup = new CancelCheckboxGroup(
   document.querySelector("#cancelCheckbox")
 );
 checkboxGroup.extract = (input, value) => {
