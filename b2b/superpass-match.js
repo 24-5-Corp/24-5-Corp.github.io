@@ -61,7 +61,7 @@ class Matchup {
     this._dday = element.querySelector(".match-card-dday-chip");
 
     this._date = element.querySelector(".match-date-text");
-    this._name = element.querySelector(".match-name-text");
+    this._name = element.querySelector(".match-name-block");
 
     this._keyword_first = element.querySelectorAll(".keyword-text")[0];
     this._keyword_second = element.querySelectorAll(".keyword-text")[1];
