@@ -288,8 +288,10 @@ class ResumeSection extends Matchup {
       model.certificates.forEach((certificate) => {
         const itemView = this._certificate.cloneNode(true);
         itemView.querySelector(".resume-item-date-text").textContent = certificate.acquisitionDate;
-        itemView.querySelector(".resume-item-title-text").textContent = certificate.certificate.name;
-        const subTitle = certificate.grade ? `${certificate.issuer} | ${certificate.grade}` : certificate.issuer
+
+        const data = certificate.certificateGrade;
+        itemView.querySelector(".resume-item-title-text").textContent = data.certificate.name;
+        const subTitle = data.grade ? `${data.certificate.issuer} | ${data.grade}` : data.certificate.issuer
         itemView.querySelector(".resume-item-sub-title-text").textContent = subTitle
         this._certificateList.appendChild(itemView);
       });
@@ -303,10 +305,10 @@ class ResumeSection extends Matchup {
       model.languageTests.forEach((languageTest) => {
         const itemView = this._languageTest.cloneNode(true);
         itemView.querySelector(".resume-item-date-text").textContent = languageTest.acquisitionDate;
-        itemView.querySelector(".resume-item-title-text").textContent = languageTest.testResult.languageTest.language.name;
-        const subTitle = languageTest.testResult.estimate 
-          ? `${languageTest.testResult.languageTest.name} | ${languageTest.testResult.estimate}` 
-          : languageTest.testResult.languageTest.name
+
+        const data = languageTest.testResult;
+        itemView.querySelector(".resume-item-title-text").textContent = data.languageTest.language.name;
+        const subTitle = data.estimate ? `${data.languageTest.name} | ${data.estimate}` : data.languageTest.name
         itemView.querySelector(".resume-item-sub-title-text").textContent = subTitle
         this._languageTestList.appendChild(itemView);
       });
@@ -401,11 +403,6 @@ class ResumeSection extends Matchup {
 
       this._iframe.src = cv.documentUrl;
     });
-
-    const isPortfolioEmpty = this._portfolioList.children.length === 0;
-    this._element.querySelectorAll(
-      ".match-card-contents-title"
-    )[1].style.display = isPortfolioEmpty ? "none" : "flex";
   }
 
   reset() {
