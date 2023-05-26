@@ -280,7 +280,7 @@ class ResumeSection extends Matchup {
       removeAllChildren(this._projectList);
       model.repProjects.forEach((project) => {
         const itemView = this._project.cloneNode(true);
-        const endDate = project.endDate ? project.name : "진행 중";
+        const endDate = project.endDate ? project.endDate : "진행 중";
         itemView.querySelector(
           ".resume-item-date-text"
         ).textContent = `${project.startDate}~${endDate}`;
@@ -381,7 +381,7 @@ class ResumeSection extends Matchup {
       removeAllChildren(this._educationList);
       model.educations.forEach((education) => {
         const itemView = this._education.cloneNode(true);
-        const endDate = education.endDate ? education.name : "진행 중";
+        const endDate = education.endDate ? education.endDate : "진행 중";
         itemView.querySelector(
           ".resume-item-date-text"
         ).textContent = `${education.startDate}~${endDate}`;
