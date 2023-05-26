@@ -142,7 +142,7 @@ class SuperpassCard extends Matchup {
     this._jobCompetence.textContent = model.scores.jobCompetence;
     this._practicalExperience.textContent = model.scores.practicalExperience;
     this._attitude.textContent = model.scores.attitude;
-    this._jobCompe_growthPotentialtence.textContent = model.scores.growthPotential;
+    this._growthPotential.textContent = model.scores.growthPotential;
 
     if (model.repProjects.length) {
       removeAllChildren(this._projectList);
