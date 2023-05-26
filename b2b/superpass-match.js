@@ -257,7 +257,7 @@ class ResumeSection extends Matchup {
         const itemView = this._project.cloneNode(true);
         const endDate = project.endDate ? project.name : "진행 중"
         itemView.querySelector(".resume-item-date-text").textContent = `${project.startDate}~${endDate}`;
-        itemView.querySelector(".resume-item-title-text").textContent = languageTest.testResult.languageTest.language.name;
+        itemView.querySelector(".resume-item-title-text").textContent = project.name;
         itemView.querySelector(".resume-item-sub-title-text").textContent = `${project.category.name} | ${project.role}` 
         this._projectList.appendChild(itemView);
       });
