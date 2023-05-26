@@ -211,7 +211,7 @@ class ResumeSection extends Matchup {
     model.documents.forEach((cv) => this._bindCV(cv));
     this._bindAdditionalinfo(model)
     Webflow.require("ix2").init();
-    [...this._resumeList.children][0].click();
+    [...this._cvList.children][0].click();
 
     this._cancel.style.display = getCancelDisplay(this._status);
     this._cancel.addEventListener("click", () => {
@@ -321,7 +321,7 @@ class ResumeSection extends Matchup {
       removeAllChildren(this._languageList);
       model.languages.forEach((language) => {
         const itemView = this._language.cloneNode(true);
-        itemView.querySelector(".resume-item-date-text").style.display = "none";
+        // itemView.querySelector(".resume-item-date-text").style.display = "none";
         itemView.querySelector(".resume-item-title-text").textContent = language.name;
         itemView.querySelector(".resume-item-sub-title-text").textContent = language.proficiency; // 문구 적용
         this._languageList.appendChild(itemView);
@@ -335,7 +335,7 @@ class ResumeSection extends Matchup {
       removeAllChildren(this._educationList);
       model.educations.forEach((education) => {
         const itemView = this._education.cloneNode(true);
-        const endDate = project.endDate ? project.name : "진행 중"
+        const endDate = education.endDate ? education.name : "진행 중"
         itemView.querySelector(".resume-item-date-text").textContent = `${education.startDate}~${endDate}`;
         itemView.querySelector(".resume-item-title-text").textContent = education.courseName;
         itemView.querySelector(".resume-item-sub-title-text").textContent = education.institutionName;
@@ -384,22 +384,22 @@ class ResumeSection extends Matchup {
     clonedCV.addEventListener("click", (event) => {
       if (event.target === action) return;
 
-      const list = [
-        ...this._resumeList.children,
-        ...this._portfolioList.children,
-      ];
+      // const list = [
+      //   ...this._resumeList.children,
+      //   ...this._portfolioList.children,
+      // ];
 
-      list.forEach((item) => {
-        const div = item.querySelector(".resume-list-item-div");
-        div.style.borderColor = style.getPropertyValue("--silhouette");
-        div.style.borderWidth = "1px";
-        div.style.padding = "0 10px";
-      });
+      // list.forEach((item) => {
+      //   const div = item.querySelector(".resume-list-item-div");
+      //   div.style.borderColor = style.getPropertyValue("--silhouette");
+      //   div.style.borderWidth = "1px";
+      //   div.style.padding = "0 10px";
+      // });
 
-      const div = clonedCV.querySelector(".resume-list-item-div");
-      div.style.borderColor = style.getPropertyValue("--ssgsag-blue");
-      div.style.borderWidth = "2px";
-      div.style.padding = "0 9px";
+      // const div = clonedCV.querySelector(".resume-list-item-div");
+      // div.style.borderColor = style.getPropertyValue("--ssgsag-blue");
+      // div.style.borderWidth = "2px";
+      // div.style.padding = "0 9px";
 
       this._iframe.src = cv.documentUrl;
     });
