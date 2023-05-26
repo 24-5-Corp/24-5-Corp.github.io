@@ -165,9 +165,6 @@ class ResumeSection extends Matchup {
     this._iframe = element.querySelector("iframe");
     this._content = element.querySelector(".div-block-82");
 
-    this._resumeList = element.querySelector(".resume-list");
-    this._resume = element.querySelector(".resume-div");
-
     this._university = element.querySelectorAll(".univ-info-text")[0];
     this._semesterInfo = element.querySelectorAll(".univ-info-text")[1];
     this._position = element.querySelector(".match-position-text");
@@ -209,8 +206,7 @@ class ResumeSection extends Matchup {
   bind(model) {
     super.bind(model);
 
-    removeAllChildren(this._resumeList);
-    removeAllChildren(this._portfolioList);
+    removeAllChildren(this._cvList);
     model.documents.forEach((cv) => this._bindCV(cv));
     this._bindAdditionalinfo(model)
     Webflow.require("ix2").init();
@@ -380,8 +376,7 @@ class ResumeSection extends Matchup {
       }
     });
 
-    if (cv.type.id === 0) this._resumeList.appendChild(clonedCV);
-    else if (cv.type.id === 1) this._portfolioList.appendChild(clonedCV);
+    this._cvList.appendChild(clonedCV);
 
     clonedCV.addEventListener("click", (event) => {
       if (event.target === action) return;
