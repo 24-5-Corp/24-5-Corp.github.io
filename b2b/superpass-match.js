@@ -114,6 +114,12 @@ class SuperpassCard extends Matchup {
     this._empty = element.querySelector(".match-card-empty");
     this._card = element.querySelector(".match-card-show");
 
+    const scores = element.querySelectorAll(".match-card-score-text");
+    this._jobCompetence = scores[0];
+    this._practicalExperience = scores[1];
+    this._attitude = scores[2];
+    this._growthPotential = scores[3];
+
     this._keyword_first = element.querySelectorAll(".keyword-text")[0];
     this._keyword_second = element.querySelectorAll(".keyword-text")[1];
 
@@ -132,6 +138,11 @@ class SuperpassCard extends Matchup {
 
     this._keyword_first.textContent = model.repKeywords[0];
     this._keyword_second.textContent = model.repKeywords[1];
+
+    this._jobCompetence.textContent = model.scores.jobCompetence;
+    this._practicalExperience.textContent = model.scores.practicalExperience;
+    this._attitude.textContent = model.scores.attitude;
+    this._jobCompe_growthPotentialtence.textContent = model.scores.growthPotential;
 
     if (model.repProjects.length) {
       removeAllChildren(this._projectList);
@@ -321,7 +332,6 @@ class ResumeSection extends Matchup {
       removeAllChildren(this._languageList);
       model.languages.forEach((language) => {
         const itemView = this._language.cloneNode(true);
-        // itemView.querySelector(".resume-item-date-text").style.display = "none";
         itemView.querySelector(".resume-item-title-text").textContent = language.name;
         itemView.querySelector(".resume-item-sub-title-text").textContent = language.proficiency; // 문구 적용
         this._languageList.appendChild(itemView);
