@@ -572,12 +572,6 @@ const getDisabledDisplay = (status) => {
   }
 };
 
-const removeAllChildren = (node) => {
-  while (node.hasChildNodes()) {
-    node.removeChild(node.firstChild);
-  }
-};
-
 const checkboxGroup = new CancelCheckboxGroup(
   document.querySelector("#cancelCheckbox")
 );
