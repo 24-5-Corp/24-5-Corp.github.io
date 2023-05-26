@@ -360,7 +360,7 @@ class ResumeSection extends Matchup {
   _bindCV(cv) {
     const clonedCV = this._cv.cloneNode(true);
 
-    clonedCV.querySelector(".resume-title").textContent = cv.name;
+    clonedCV.querySelector(".resume-title").textContent = cv.type.id === 0 ? "이력서" : "포트폴리오";
     clonedCV.querySelector(".resume-category-icon").src = cv.thumbnailUrl;
 
     const action = clonedCV.querySelector(".resume-action-button");
@@ -394,22 +394,17 @@ class ResumeSection extends Matchup {
     clonedCV.addEventListener("click", (event) => {
       if (event.target === action) return;
 
-      // const list = [
-      //   ...this._resumeList.children,
-      //   ...this._portfolioList.children,
-      // ];
+      this._cvList.forEach((item) => {
+        const div = item.querySelector(".resume-list-item-div");
+        div.style.borderColor = style.getPropertyValue("--silhouette");
+        div.style.borderWidth = "1px";
+        div.style.padding = "0 10px";
+      });
 
-      // list.forEach((item) => {
-      //   const div = item.querySelector(".resume-list-item-div");
-      //   div.style.borderColor = style.getPropertyValue("--silhouette");
-      //   div.style.borderWidth = "1px";
-      //   div.style.padding = "0 10px";
-      // });
-
-      // const div = clonedCV.querySelector(".resume-list-item-div");
-      // div.style.borderColor = style.getPropertyValue("--ssgsag-blue");
-      // div.style.borderWidth = "2px";
-      // div.style.padding = "0 9px";
+      const div = clonedCV.querySelector(".resume-list-item-div");
+      div.style.borderColor = style.getPropertyValue("--ssgsag-blue");
+      div.style.borderWidth = "2px";
+      div.style.padding = "0 9px";
 
       this._iframe.src = cv.documentUrl;
     });
