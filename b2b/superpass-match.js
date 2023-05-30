@@ -595,8 +595,14 @@ const matchScoreModal = new Modal(document.querySelector("#matchScoreModal"));
 
 const scoreInfoButton = document.querySelector("#matchScoreInfoButton");
 
+const scoreInfoCloseButton = document.querySelector("#closeButton");
+
 scoreInfoButton.addEventListener("click", () => {
   matchScoreModal.handleShow(true);
+});
+
+scoreInfoCloseButton.addEventListener("click", () => {
+  matchScoreModal.handleShow(false);
 });
 
 const cancelModal = new PromptModal(
