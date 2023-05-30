@@ -177,6 +177,7 @@ class AcademicInput extends Input {
       (score) => score.id == this._stdScore.value
     ).name;
     data[this._graduate.key] = this._graduate.value;
+    data[this._grade.key] = this._grade.value;
     data[this._semester.key] = this._semester.value;
     data[this._year.key] = this._year.value;
     data[this._month.key] = this._month.value;
