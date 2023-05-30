@@ -322,15 +322,13 @@ class ResumeSection extends Matchup {
       removeAllChildren(this._certificateList);
       model.certificates.forEach((certificate) => {
         const itemView = this._certificate.cloneNode(true);
-        itemView.querySelector(".resume-item-date-text").textContent =
-         makeDateMonth(certificate.acquisitionDate);
-
-        const data = certificate.certificateGrade;
-        itemView.querySelector(".resume-item-title-text").textContent =
-          data.certificate.name;
-        const subTitle = data.grade
-          ? `${data.certificate.issuer} | ${data.grade}`
-          : data.certificate.issuer;
+        itemView.querySelector(".resume-item-date-text").textContent = 
+          makeDateMonth(certificate.acquisitionDate);
+        itemView.querySelector(".resume-item-title-text").textContent = 
+          certificate.name;
+        const subTitle = certificate.grade
+          ? `${certificate.issuer} | ${certificate.grade}`
+          : certificate.issuer;
         itemView.querySelector(".resume-item-sub-title-text").textContent =
           subTitle;
         this._certificateList.appendChild(itemView);
@@ -346,13 +344,11 @@ class ResumeSection extends Matchup {
         const itemView = this._languageTest.cloneNode(true);
         itemView.querySelector(".resume-item-date-text").textContent =
           makeDateMonth(languageTest.acquisitionDate);
-
-        const data = languageTest.testResult;
         itemView.querySelector(".resume-item-title-text").textContent =
-          data.languageTest.language.name;
-        const subTitle = data.estimate
-          ? `${data.languageTest.name} | ${data.estimate}`
-          : data.languageTest.name;
+        languageTest.language;
+        const subTitle = languageTest.grade
+          ? `${languageTest.name} | ${languageTest.grade}`
+          : languageTest.name;
         itemView.querySelector(".resume-item-sub-title-text").textContent =
           subTitle;
         this._languageTestList.appendChild(itemView);
