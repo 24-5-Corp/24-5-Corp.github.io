@@ -263,7 +263,7 @@ class ResumeSection extends Matchup {
     this._disabled.style.display = getDisabledDisplay(this._status);
 
     const academic = model.academicRecord;
-    this._university.textContent = academic.university + academic.major;
+    this._university.textContent = `${academic.university} ${academic.major}`;
     let academicStatus = academic.status.name;
     if (academic.status.id != 0) {
       academicStatus += ` (${model.academicRecord.grade}학년/${model.academicRecord.semester}학기)`;
@@ -590,6 +590,14 @@ const cancelForm = new Form(document.querySelector("#cancelForm"), [
 checkboxGroup.onInput = () => {
   cancelForm.isEnabled = checkboxGroup.isValid;
 };
+
+const matchScoreModal = new Modal(document.querySelector("#matchScoreModal"));
+
+const scoreInfoButton = document.querySelector("#matchScoreInfoButton");
+
+scoreInfoButton.addEventListener("click", () => {
+  matchScoreModal.handleShow(true);
+});
 
 const cancelModal = new PromptModal(
   document.querySelector("#cancelModal"),
