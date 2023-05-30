@@ -154,7 +154,7 @@ class SuperpassCard extends Matchup {
           project.name;
         this._projectList.appendChild(clonedProject);
       });
-      this._projectContainer.style.display = "inline-block";
+      this._projectContainer.style.display = "flex";
     } else {
       this._projectContainer.style.display = "none";
     }
@@ -291,7 +291,7 @@ class ResumeSection extends Matchup {
         ).textContent = `${project.category.name} | ${project.role}`;
         this._projectList.appendChild(itemView);
       });
-      this._projectContainer.style.display = "inline-block";
+      this._projectContainer.style.display = "flex";
     } else {
       this._projectContainer.style.display = "none";
     }
@@ -313,7 +313,7 @@ class ResumeSection extends Matchup {
           subTitle;
         this._awardList.appendChild(itemView);
       });
-      this._awardContainer.style.display = "inline-block";
+      this._awardContainer.style.display = "flex";
     } else {
       this._awardContainer.style.display = "none";
     }
@@ -335,7 +335,7 @@ class ResumeSection extends Matchup {
           subTitle;
         this._certificateList.appendChild(itemView);
       });
-      this._certificateContainer.style.display = "inline-block";
+      this._certificateContainer.style.display = "flex";
     } else {
       this._certificateContainer.style.display = "none";
     }
@@ -357,7 +357,7 @@ class ResumeSection extends Matchup {
           subTitle;
         this._languageTestList.appendChild(itemView);
       });
-      this._languageTestContainer.style.display = "inline-block";
+      this._languageTestContainer.style.display = "flex";
     } else {
       this._languageTestContainer.style.display = "none";
     }
@@ -369,10 +369,10 @@ class ResumeSection extends Matchup {
         itemView.querySelector(".resume-item-title-text").textContent =
           language.name;
         itemView.querySelector(".resume-item-sub-title-text").textContent =
-          language.proficiency; // 문구 적용
+          language.proficiency;
         this._languageList.appendChild(itemView);
       });
-      this._languageContainer.style.display = "inline-block";
+      this._languageContainer.style.display = "flex";
     } else {
       this._languageContainer.style.display = "none";
     }
@@ -391,7 +391,7 @@ class ResumeSection extends Matchup {
           education.institutionName;
         this._educationList.appendChild(itemView);
       });
-      this._educationContainer.style.display = "inline-block";
+      this._educationContainer.style.display = "flex";
     } else {
       this._educationContainer.style.display = "none";
     }
