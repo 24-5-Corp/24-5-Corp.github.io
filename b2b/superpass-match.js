@@ -436,9 +436,9 @@ class ResumeSection extends Matchup {
     clonedCV.addEventListener("click", (event) => {
       if (event.target === action) return;
 
-      [...this._cvList.children].forEach((item) => resetDocument(item));
-
       if (isPdf) {
+        [...this._cvList.children].forEach((item) => resetDocument(item));
+
         const div = clonedCV.querySelector(".resume-list-item-div");
         div.style.borderColor = style.getPropertyValue("--ssgsag-blue");
         div.style.borderWidth = "2px";
