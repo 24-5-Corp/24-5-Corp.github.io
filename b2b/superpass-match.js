@@ -232,7 +232,6 @@ class ResumeSection extends Matchup {
     model.documents.forEach((cv) => this._bindCV(cv));
     this._bindAdditionalinfo(model);
     Webflow.require("ix2").init();
-    [...this._cvList.children][0].click();
 
     this._cancel.style.display = getCancelDisplay(this._status);
     this._cancel.addEventListener("click", () => {
