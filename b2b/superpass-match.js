@@ -63,7 +63,7 @@ class Matchup {
     this._date = element.querySelector(".match-date-text");
     this._name = element.querySelector(".match-name-block");
 
-    this._skillList = element.querySelector(".match-card-skil-div");
+    this._skillList = element.querySelector(".match-card-skil-inner-div");
     this._skill = element.querySelector(".match-card-skill");
   }
 
