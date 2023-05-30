@@ -379,7 +379,7 @@ class ProjectInput extends Input {
     startDate.textContent = data.startDate;
 
     const endDate = project.querySelector("#endDate");
-    endDate.textContent = data.startDate;
+    endDate.textContent = data.endDate;
 
     project.querySelector("#delete").addEventListener("click", () => {
       this._projectList.removeChild(project);
@@ -1214,7 +1214,7 @@ class EducationInput extends Input {
     startDate.textContent = data.startDate;
 
     const endDate = education.querySelector("#endDate");
-    endDate.textContent = data.startDate;
+    endDate.textContent = data.endDate;
 
     education.querySelector("#delete").addEventListener("click", () => {
       this._educationList.removeChild(education);
