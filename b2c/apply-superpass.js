@@ -983,11 +983,15 @@ class LanguageTestInput extends Input {
 
 class LanguageAbilityInput extends Input {
   grades = [
-    { id: 0, name: "초급" },
-    { id: 1, name: "중급(업무상 의사소통 가능)" },
-    { id: 2, name: "중상급(업무상 원활한 의사소통)" },
-    { id: 3, name: "고급(자유자재의 의사소통)" },
-    { id: 4, name: "원어민 수준" },
+    { id: 0, proficiency: "beginner", name: "초급" },
+    { id: 1, proficiency: "novice", name: "중급(업무상 의사소통 가능)" },
+    {
+      id: 2,
+      proficiency: "intermediate",
+      name: "중상급(업무상 원활한 의사소통)",
+    },
+    { id: 3, proficiency: "advanced", name: "고급(자유자재의 의사소통)" },
+    { id: 4, proficiency: "native", name: "원어민 수준" },
   ];
   constructor(element) {
     super(element);
