@@ -438,12 +438,12 @@ class ResumeSection extends Matchup {
 
       [...this._cvList.children].forEach((item) => resetDocument(item));
 
-      const div = clonedCV.querySelector(".resume-list-item-div");
-      div.style.borderColor = style.getPropertyValue("--ssgsag-blue");
-      div.style.borderWidth = "2px";
-      div.style.padding = "0 9px";
-
       if (isPdf) {
+        const div = clonedCV.querySelector(".resume-list-item-div");
+        div.style.borderColor = style.getPropertyValue("--ssgsag-blue");
+        div.style.borderWidth = "2px";
+        div.style.padding = "0 9px";
+
         this._iframe.src = cv.documentUrl;
       } else {
         window.open(cv.documentUrl, "_blank");
