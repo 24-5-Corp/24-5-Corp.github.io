@@ -280,7 +280,9 @@ class ResumeSection extends Matchup {
       removeAllChildren(this._projectList);
       model.repProjects.forEach((project) => {
         const itemView = this._project.cloneNode(true);
-        const endDate = project.endDate ? makeDateMonth(project.endDate) : "진행 중";
+        const endDate = project.endDate
+          ? makeDateMonth(project.endDate)
+          : "진행 중";
         itemView.querySelector(
           ".resume-item-date-text"
         ).textContent = `${makeDateMonth(project.startDate)}~${endDate}`;
@@ -302,7 +304,7 @@ class ResumeSection extends Matchup {
       removeAllChildren(this._awardList);
       model.awards.forEach((award) => {
         const itemView = this._award.cloneNode(true);
-        itemView.querySelector(".resume-item-date-text").textContent = 
+        itemView.querySelector(".resume-item-date-text").textContent =
           makeDateMonth(award.awardDate);
         itemView.querySelector(".resume-item-title-text").textContent =
           award.name;
@@ -322,9 +324,9 @@ class ResumeSection extends Matchup {
       removeAllChildren(this._certificateList);
       model.certificates.forEach((certificate) => {
         const itemView = this._certificate.cloneNode(true);
-        itemView.querySelector(".resume-item-date-text").textContent = 
+        itemView.querySelector(".resume-item-date-text").textContent =
           makeDateMonth(certificate.acquisitionDate);
-        itemView.querySelector(".resume-item-title-text").textContent = 
+        itemView.querySelector(".resume-item-title-text").textContent =
           certificate.name;
         const subTitle = certificate.grade
           ? `${certificate.issuer} | ${certificate.grade}`
@@ -345,7 +347,7 @@ class ResumeSection extends Matchup {
         itemView.querySelector(".resume-item-date-text").textContent =
           makeDateMonth(languageTest.acquisitionDate);
         itemView.querySelector(".resume-item-title-text").textContent =
-        languageTest.language;
+          languageTest.language;
         const subTitle = languageTest.grade
           ? `${languageTest.name} | ${languageTest.grade}`
           : languageTest.name;
@@ -377,7 +379,9 @@ class ResumeSection extends Matchup {
       removeAllChildren(this._educationList);
       model.educations.forEach((education) => {
         const itemView = this._education.cloneNode(true);
-        const endDate = education.endDate ? makeDateMonth(education.endDate) : "진행 중";
+        const endDate = education.endDate
+          ? makeDateMonth(education.endDate)
+          : "진행 중";
         itemView.querySelector(
           ".resume-item-date-text"
         ).textContent = `${makeDateMonth(education.startDate)}~${endDate}`;
@@ -394,6 +398,8 @@ class ResumeSection extends Matchup {
   }
 
   _bindCV(cv) {
+    [...this._cvList.children].forEach((item) => resetDocument(item));
+
     const clonedCV = this._cv.cloneNode(true);
 
     clonedCV.querySelector(".resume-title").textContent =
@@ -431,19 +437,18 @@ class ResumeSection extends Matchup {
     clonedCV.addEventListener("click", (event) => {
       if (event.target === action) return;
 
-      [...this._cvList.children].forEach((item) => {
-        const div = item.querySelector(".resume-list-item-div");
-        div.style.borderColor = style.getPropertyValue("--silhouette");
-        div.style.borderWidth = "1px";
-        div.style.padding = "0 10px";
-      });
+      [...this._cvList.children].forEach((item) => resetDocument(item));
 
       const div = clonedCV.querySelector(".resume-list-item-div");
       div.style.borderColor = style.getPropertyValue("--ssgsag-blue");
       div.style.borderWidth = "2px";
       div.style.padding = "0 9px";
 
-      this._iframe.src = cv.documentUrl;
+      if (isPdf) {
+        this._iframe.src = cv.documentUrl;
+      } else {
+        window.open(cv.documentUrl, "_blank");
+      }
     });
   }
 
@@ -454,6 +459,13 @@ class ResumeSection extends Matchup {
     this._content.scrollTo(0, 0);
   }
 }
+
+const resetDocument = (item) => {
+  const div = item.querySelector(".resume-list-item-div");
+  div.style.borderColor = style.getPropertyValue("--silhouette");
+  div.style.borderWidth = "1px";
+  div.style.padding = "0 10px";
+};
 
 const accessToken = localStorage.getItem("accessToken");
 const params = new URLSearchParams(location.search);
