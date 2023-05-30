@@ -264,7 +264,7 @@ class ResumeSection extends Matchup {
 
     const academic = model.academicRecord;
     this._university.textContent = academic.university + academic.major;
-    const academicStatus = academic.status.name;
+    let academicStatus = academic.status.name;
     if (academic.status.id != 0) {
       academicStatus += ` (${model.academicRecord.grade}학년/${model.academicRecord.semester}학기)`;
     }
