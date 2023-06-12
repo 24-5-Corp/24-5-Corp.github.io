@@ -194,6 +194,11 @@ const employmentPeriod = new ConditionedDropdown(
 );
 employmentPeriod.key = "employmentPeriodId";
 
+const appealKeyword = new AppealKeywordInput(
+  document.querySelector(".appealkeyword-section")
+);
+appealKeyword.key = "repKeywordIds";
+
 const requirementSkills = new SkillSearch(
   document.querySelector("#requirementSkills")
 );
@@ -215,6 +220,7 @@ const requriedApplyInputs = [
   job,
   recruitmentType,
   employmentPeriod,
+  appealKeyword,
   requirementSkills,
 ];
 const optionalApplyInputs = [preferComment, recruitmentUrl];

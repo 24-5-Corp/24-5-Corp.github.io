@@ -177,6 +177,7 @@ class AcademicInput extends Input {
       (score) => score.id == this._stdScore.value
     ).name;
     data[this._graduate.key] = this._graduate.value;
+    data[this._grade.key] = this._grade.value;
     data[this._semester.key] = this._semester.value;
     data[this._year.key] = this._year.value;
     data[this._month.key] = this._month.value;
@@ -378,7 +379,7 @@ class ProjectInput extends Input {
     startDate.textContent = data.startDate;
 
     const endDate = project.querySelector("#endDate");
-    endDate.textContent = data.startDate;
+    endDate.textContent = data.endDate;
 
     project.querySelector("#delete").addEventListener("click", () => {
       this._projectList.removeChild(project);
@@ -983,11 +984,15 @@ class LanguageTestInput extends Input {
 
 class LanguageAbilityInput extends Input {
   grades = [
-    { id: 0, name: "초급" },
-    { id: 1, name: "중급(업무상 의사소통 가능)" },
-    { id: 2, name: "중상급(업무상 원활한 의사소통)" },
-    { id: 3, name: "고급(자유자재의 의사소통)" },
-    { id: 4, name: "원어민 수준" },
+    { id: 0, proficiency: "beginner", name: "초급" },
+    { id: 1, proficiency: "novice", name: "중급(업무상 의사소통 가능)" },
+    {
+      id: 2,
+      proficiency: "intermediate",
+      name: "중상급(업무상 원활한 의사소통)",
+    },
+    { id: 3, proficiency: "advanced", name: "고급(자유자재의 의사소통)" },
+    { id: 4, proficiency: "native", name: "원어민 수준" },
   ];
   constructor(element) {
     super(element);
@@ -1209,7 +1214,7 @@ class EducationInput extends Input {
     startDate.textContent = data.startDate;
 
     const endDate = education.querySelector("#endDate");
-    endDate.textContent = data.startDate;
+    endDate.textContent = data.endDate;
 
     education.querySelector("#delete").addEventListener("click", () => {
       this._educationList.removeChild(education);
@@ -1440,12 +1445,12 @@ applyForm.onSubmit = () => {
   applyForm.validate();
 
   if (!applyForm.isValid) {
-    //logScreenView({ screenName: "superpass_apply_popup_error" });
+    logScreenView({ screenName: "superpass_apply_popup_error" });
     applyErrorModal.handleShow(true);
     return;
   }
 
-  //logScreenView({ screenName: "superpass_apply_popup_complete" });
+  logScreenView({ screenName: "superpass_apply_popup_complete" });
   applyCheckModal.handleShow(true);
 };
 
@@ -1480,13 +1485,13 @@ applyCheckModal.onConfirm = () => {
       body: JSON.stringify(data),
     })
     .then((response) => {
-      // fbq("track", "SubmitApplication");
-      // gtag("event", "conversion", {
-      //   send_to: "AW-759394218/FOYqCLOkrZQYEKrfjeoC",
-      //   value: 1000.0,
-      //   currency: "KRW",
-      // });
-      //logScreenView({ screenName: "superpass_apply_popup_submit" });
+      fbq("track", "SubmitApplication");
+      gtag("event", "conversion", {
+        send_to: "AW-759394218/FOYqCLOkrZQYEKrfjeoC",
+        value: 1000.0,
+        currency: "KRW",
+      });
+      logScreenView({ screenName: "superpass_apply_popup_submit" });
       applyCheckModal.handleShow(false);
       applyDoneModal.handleShow(true);
     })
@@ -1503,95 +1508,3 @@ applyDoneModal.onCheck = () => {
 const applyErrorModal = new AlertModal(
   document.querySelector("#applyErrorModal")
 );
-
-/*
-const applyForm = new Form(document.querySelector("#applyForm"), [
-  name,
-  email,
-  contact,
-  resume,
-  graduate,
-  grade,
-  semester,
-  year,
-  month,
-  jobGroup,
-  job,
-  requirementSkills,
-  type,
-  region,
-  date,
-  additional,
-  term,
-]);
-applyForm.onSubmit = () => {
-  applyForm.validate();
-
-  if (!applyForm.isValid) {
-    logScreenView({ screenName: "superpass_apply_popup_error" });
-    applyErrorModal.handleShow(true);
-    return;
-  }
-
-  logScreenView({ screenName: "superpass_apply_popup_complete" });
-  applyCheckModal.handleShow(true);
-};
-
-const applyCheckModal = new ConfirmModal(
-  document.querySelector("#applyCheckModal")
-);
-applyCheckModal.onConfirm = () => {
-  adjustOverflow();
-
-  const personalInfo = {};
-  personalInfo[name.key] = name.value;
-  personalInfo[email.key] = email.value;
-  personalInfo[contact.key] = contact.value;
-
-  const educationInfo = {};
-  educationInfo[graduate.key] = graduate.value;
-  educationInfo[grade.key] = grade.value;
-  educationInfo[semester.key] = semester.value;
-  educationInfo[year.key] = year.value;
-  educationInfo[month.key] = month.value;
-
-  const preferJob = {};
-  preferJob[jobGroup.key] = jobGroup.value;
-  preferJob[job.key] = job.value[job.key];
-
-  const workCondtition = {};
-  workCondtition[type.key] = type.value[type.key];
-  workCondtition[region.key] = region.value[region.key];
-  workCondtition[date.key] = date.value;
-  workCondtition[additional.key] = additional.value;
-
-  const data = {};
-  data.personalInfo = personalInfo;
-  data.document = resume.value;
-  data.educationInfo = educationInfo;
-  data.preferJob = preferJob;
-  data.skills = requirementSkills.value;
-  data.workCondtition = workCondtition;
-  data.term = term.value;
-
-  apiService
-    .makeRequest("/superpass/v2/apply-seeker", {
-      method: "POST",
-      body: JSON.stringify(data),
-    })
-    .then((response) => {
-      fbq("track", "SubmitApplication");
-      gtag("event", "conversion", {
-        send_to: "AW-759394218/FOYqCLOkrZQYEKrfjeoC",
-        value: 1000.0,
-        currency: "KRW",
-      });
-      logScreenView({ screenName: "superpass_apply_popup_submit" });
-      applyCheckModal.handleShow(false);
-      applyDoneModal.handleShow(true);
-    })
-    .catch((error) => console.error(error));
-};
-
-
-*/
