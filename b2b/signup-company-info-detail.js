@@ -1,4 +1,5 @@
 logScreenView({ screenName: "signup_biz_info" });
+addLogButtonEventListener();
 
 const accessToken = localStorage.getItem("accessToken");
 const params = new URLSearchParams(location.search);
