@@ -1302,7 +1302,7 @@ class JobSkillInput extends Input {
           this._job.bind(response.data);
           this._job.updateValidity(true);
           this._job.element.style.display =
-            this._jobGroup.value !== "" ? "block" : "none";
+            this._jobGroup.value !== "" ? "flex" : "none";
         })
         .catch((error) => console.error(error));
     };
