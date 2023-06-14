@@ -1421,7 +1421,6 @@ const workConditition = new WorkConditionInput(
   document.querySelector(".workcondition-section")
 );
 workConditition.key = "workConditition";
-///
 
 const term = new Checkbox(document.querySelector("#term"));
 term.key = "term";
@@ -1453,6 +1452,22 @@ applyForm.onSubmit = () => {
   logScreenView({ screenName: "superpass_apply_popup_complete" });
   applyCheckModal.handleShow(true);
 };
+
+const checkFormData = () => {
+  applyForm.validate();
+
+  if (!applyForm.isValid) {
+    logScreenView({ screenName: "superpass_apply_popup_error" });
+    applyErrorModal.handleShow(true);
+    return;
+  }
+
+  logScreenView({ screenName: "superpass_apply_popup_complete" });
+  applyCheckModal.handleShow(true);
+}
+
+const submitButton = document.querySelector(".submit-button");
+submitButton.addEventListener("click", checkFormData);
 
 const applyCheckModal = new ConfirmModal(
   document.querySelector("#applyCheckModal")
@@ -1486,11 +1501,6 @@ applyCheckModal.onConfirm = () => {
     })
     .then((response) => {
       fbq("track", "SubmitApplication");
-      gtag("event", "conversion", {
-        send_to: "AW-759394218/FOYqCLOkrZQYEKrfjeoC",
-        value: 1000.0,
-        currency: "KRW",
-      });
       logScreenView({ screenName: "superpass_apply_popup_submit" });
       applyCheckModal.handleShow(false);
       applyDoneModal.handleShow(true);
