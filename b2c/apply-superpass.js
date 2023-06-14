@@ -4,7 +4,7 @@ class ProfileInput extends Input {
 
     this._name = new RegexInput(element.querySelector("#name"));
     this._name.key = "name";
-    this._name.regexMessage = name.message;
+    this._name.regexMessage = "* 2~30자 이내로 입력해주세요.";
     this._name.regex = /^.{2,30}$/;
 
     this._email = new RegexInput(element.querySelector("#email"));
@@ -41,6 +41,10 @@ class ProfileInput extends Input {
     data[this._contact.key] = this._contact.value;
 
     return data;
+  }
+
+  get isValid() {
+    return this._name.isValid && this._email.isValid && this._contact.isValid;
   }
 }
 
@@ -93,9 +97,16 @@ class AcademicInput extends Input {
     this._major = new Input(element.querySelector("#major"));
     this._major.key = "major";
 
-    this._avgScore = new Input(element.querySelector("#avgScore"));
+    this._avgScore = new RegexInput(element.querySelector("#avgScore"));
     this._avgScore.key = "avgScore";
-    this._avgScore.message = "";
+    this._avgScore.regexMessage = "* 학점을 올바르게 입력해주세요.";
+    this._avgScore.regex = /^[0-9](\.[0-9]{1,2})?$/;
+    this._avgScore.replace = (input, value) => {
+      input.value = value
+        .replace(/[^0-9]/g, "")
+        .substring(0, 3)
+        .replace(/^(\d{1})(\d{1,2})$/, `$1.$2`);
+    };
 
     this._stdScore = new Dropdown(element.querySelector("#stdScore"));
     this._stdScore.key = "stdScore";
@@ -183,6 +194,23 @@ class AcademicInput extends Input {
     data[this._month.key] = this._month.value;
 
     return data;
+  }
+
+  get isValid() {
+    return (
+      this._university.isValid &&
+      this._major.isValid &&
+      this._avgScore.isValid &&
+      this._stdScore.isValid &&
+      Number(
+        this.stdScores.find((score) => score.id == this._stdScore.value).name
+      ) >= Number(this._avgScore.value) &&
+      this._graduate.isValid &&
+      this._grade.isValid &&
+      this._semester.isValid &&
+      this._year.isValid &&
+      this._month.isValid
+    );
   }
 }
 
@@ -513,6 +541,8 @@ class ResumeInput extends Input {
   }
 
   validate() {
+    if (this.isValid) return;
+
     this._error.textContent = "* 이력서는 필수 항목입니다.";
     super.validate();
   }
@@ -1270,8 +1300,9 @@ class JobSkillInput extends Input {
         .makeRequest(`/common/v2/job?jobGroupId=${this._jobGroup.value}`)
         .then((response) => {
           this._job.bind(response.data);
+          this._job.updateValidity(true);
           this._job.element.style.display =
-            this._jobGroup.value !== "" ? "block" : "none";
+            this._jobGroup.value !== "" ? "flex" : "none";
         })
         .catch((error) => console.error(error));
     };
@@ -1283,12 +1314,17 @@ class JobSkillInput extends Input {
   }
 
   get isValid() {
-    return this._jobGroup.isValid && this._job.isValid;
+    return (
+      this._jobGroup.isValid &&
+      this._job.isValid &&
+      this._requirementSkills.isValid
+    );
   }
 
   validate() {
     this._jobGroup.validate();
     this._job.validate();
+    this._requirementSkills.validate();
   }
 
   get data() {
@@ -1455,7 +1491,7 @@ const checkFormData = () => {
 
   logScreenView({ screenName: "superpass_apply_popup_complete" });
   applyCheckModal.handleShow(true);
-}
+};
 
 const submitButton = document.querySelector(".submit-button");
 submitButton.addEventListener("click", checkFormData);
