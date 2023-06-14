@@ -104,7 +104,7 @@ class AcademicInput extends Input {
     this._avgScore.replace = (input, value) => {
       input.value = value
         .replace(/[^0-9]/g, "")
-        .substring(0, 4)
+        .substring(0, 3)
         .replace(/^(\d{1})(\d{1,2})$/, `$1.$2`);
     };
 
