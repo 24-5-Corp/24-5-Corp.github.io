@@ -42,6 +42,10 @@ class ProfileInput extends Input {
 
     return data;
   }
+
+  get isValid() {
+    return this._name.isValid && this._email.isValid && this._contact.isValid;
+  }
 }
 
 class AcademicInput extends Input {
@@ -183,6 +187,20 @@ class AcademicInput extends Input {
     data[this._month.key] = this._month.value;
 
     return data;
+  }
+
+  get isValid() {
+    return (
+      this._university.isValid &&
+      this._major.isValid &&
+      this._avgScore.isValid &&
+      this._stdScore.isValid &&
+      this._graduate.isValid &&
+      this._grade.isValid &&
+      this._semester.isValid &&
+      this._year.isValid &&
+      this._month.isValid
+    );
   }
 }
 
@@ -1455,7 +1473,7 @@ const checkFormData = () => {
 
   logScreenView({ screenName: "superpass_apply_popup_complete" });
   applyCheckModal.handleShow(true);
-}
+};
 
 const submitButton = document.querySelector(".submit-button");
 submitButton.addEventListener("click", checkFormData);
