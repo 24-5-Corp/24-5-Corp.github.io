@@ -1301,12 +1301,17 @@ class JobSkillInput extends Input {
   }
 
   get isValid() {
-    return this._jobGroup.isValid && this._job.isValid;
+    return (
+      this._jobGroup.isValid &&
+      this._job.isValid &&
+      this._requirementSkills.isValid
+    );
   }
 
   validate() {
     this._jobGroup.validate();
     this._job.validate();
+    this._requirementSkills.validate();
   }
 
   get data() {
