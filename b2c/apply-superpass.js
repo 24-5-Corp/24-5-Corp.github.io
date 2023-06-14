@@ -4,7 +4,7 @@ class ProfileInput extends Input {
 
     this._name = new RegexInput(element.querySelector("#name"));
     this._name.key = "name";
-    this._name.regexMessage = name.message;
+    this._name.regexMessage = "* 2~30자 이내로 입력해주세요.";
     this._name.regex = /^.{2,30}$/;
 
     this._email = new RegexInput(element.querySelector("#email"));
@@ -97,9 +97,16 @@ class AcademicInput extends Input {
     this._major = new Input(element.querySelector("#major"));
     this._major.key = "major";
 
-    this._avgScore = new Input(element.querySelector("#avgScore"));
+    this._avgScore = new RegexInput(element.querySelector("#avgScore"));
     this._avgScore.key = "avgScore";
-    this._avgScore.message = "";
+    this._avgScore.regexMessage = "* 학점을 올바르게 입력해주세요.";
+    this._avgScore.regex = /^[0-9](\.[0-9]{1,2})?$/;
+    this._avgScore.replace = (input, value) => {
+      input.value = value
+        .replace(/[^0-9.]/g, "")
+        .substring(0, 4)
+        .replace(/^(\d{1})(\d{2})$/, `$1.$2`);
+    };
 
     this._stdScore = new Dropdown(element.querySelector("#stdScore"));
     this._stdScore.key = "stdScore";
@@ -195,6 +202,9 @@ class AcademicInput extends Input {
       this._major.isValid &&
       this._avgScore.isValid &&
       this._stdScore.isValid &&
+      Number(
+        this.stdScores.find((score) => score.id == this._stdScore.value).name
+      ) >= Number(this._avgScore.value) &&
       this._graduate.isValid &&
       this._grade.isValid &&
       this._semester.isValid &&
