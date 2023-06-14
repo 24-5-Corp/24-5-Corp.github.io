@@ -1436,6 +1436,19 @@ const applyForm = new Form(document.querySelector("#applyForm"), [
   term,
 ]);
 
+applyForm.onSubmit = () => {
+  applyForm.validate();
+
+  if (!applyForm.isValid) {
+    logScreenView({ screenName: "superpass_apply_popup_error" });
+    applyErrorModal.handleShow(true);
+    return;
+  }
+
+  logScreenView({ screenName: "superpass_apply_popup_complete" });
+  applyCheckModal.handleShow(true);
+};
+
 const checkFormData = () => {
   applyForm.validate();
 
@@ -1483,13 +1496,13 @@ applyCheckModal.onConfirm = () => {
       body: JSON.stringify(data),
     })
     .then((response) => {
-      // fbq("track", "SubmitApplication");
-      // gtag("event", "conversion", {
-      //   send_to: "AW-759394218/FOYqCLOkrZQYEKrfjeoC",
-      //   value: 1000.0,
-      //   currency: "KRW",
-      // });
-      //logScreenView({ screenName: "superpass_apply_popup_submit" });
+      fbq("track", "SubmitApplication");
+      gtag("event", "conversion", {
+        send_to: "AW-759394218/FOYqCLOkrZQYEKrfjeoC",
+        value: 1000.0,
+        currency: "KRW",
+      });
+      logScreenView({ screenName: "superpass_apply_popup_submit" });
       applyCheckModal.handleShow(false);
       applyDoneModal.handleShow(true);
     })

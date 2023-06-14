@@ -468,6 +468,11 @@ class Form {
   onSubmit;
 
   constructor(element, components) {
+    this._submit = element.querySelector(".submit-form");
+    this._submit.addEventListener("click", (event) => {
+      this.handleSubmit(event);
+    });
+    
     this._components = components;
   }
 
