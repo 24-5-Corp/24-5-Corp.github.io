@@ -531,6 +531,8 @@ class ResumeInput extends Input {
   }
 
   validate() {
+    if (this.isValid) return;
+
     this._error.textContent = "* 이력서는 필수 항목입니다.";
     super.validate();
   }
