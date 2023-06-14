@@ -103,9 +103,9 @@ class AcademicInput extends Input {
     this._avgScore.regex = /^[0-9](\.[0-9]{1,2})?$/;
     this._avgScore.replace = (input, value) => {
       input.value = value
-        .replace(/[^0-9.]/g, "")
+        .replace(/[^0-9]/g, "")
         .substring(0, 4)
-        .replace(/^(\d{1})(\d{2})$/, `$1.$2`);
+        .replace(/^(\d{1})(\d{1,2})$/, `$1.$2`);
     };
 
     this._stdScore = new Dropdown(element.querySelector("#stdScore"));
