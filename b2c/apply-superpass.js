@@ -1288,6 +1288,7 @@ class JobSkillInput extends Input {
         .makeRequest(`/common/v2/job?jobGroupId=${this._jobGroup.value}`)
         .then((response) => {
           this._job.bind(response.data);
+          this._job.updateValidity(true);
           this._job.element.style.display =
             this._jobGroup.value !== "" ? "block" : "none";
         })
