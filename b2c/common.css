@@ -2,20 +2,32 @@
   --white: #ffffff;
 
   --primary: #444444;
+  --secondary: #777777;
   --teriary: #aaaaaa;
   --disabled: #cccccc;
   --divider: #e2e2e2;
   --silhouette: #eeeeee;
   --default: #f7f7f7;
 
+  --blue-sub: #1a54da;
+  --blue-20: #d6e2fd;
+
   --ssgsag-blue: #656ef0;
   --ssgsag-blue-30: #d1d4fb;
 
+  --red-sub: #ff5247;
   --red: #fe6d6d;
+  --red-20: #ffe2e2;
+  /*NOTE: Deprecated*/
   --red20: #ffe2e2;
 
+  --yellow-20: #fff8dd;
+  /*NOTE: Deprecated*/
   --yellow20: #fff8dd;
 
+  --green-sub: #189e58;
+  --green-20: #d5f2e4;
+  /*NOTE: Deprecated*/
   --green20: #d5f2e4;
 
   --main-light-color: #f3f5fb;
