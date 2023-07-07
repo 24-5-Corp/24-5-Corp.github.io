@@ -316,7 +316,7 @@ const bindMatchups = (list, item, matchup) => {
       $status.style.background = style.getPropertyValue("--blue-20");
       break;
     case matchupStatusTypes.cancelled:
-      $status.textContent = "기업 취소";
+      $status.textContent = "취소";
       break;
     default:
       break;
