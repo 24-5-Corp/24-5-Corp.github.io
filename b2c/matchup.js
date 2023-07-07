@@ -294,7 +294,7 @@ const bindMatchups = (list, item, matchup) => {
     case matchupStatusTypes.refuseInterview:
     case matchupStatusTypes.refuseJoin: // NOTE: deprecated
       $status.textContent = "거절";
-      $status.break;
+      break;
     case matchupStatusTypes.timeoutRequestInterview:
       $status.textContent = "만료";
       break;
