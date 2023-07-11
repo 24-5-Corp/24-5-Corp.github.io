@@ -79,12 +79,13 @@ class MyAppicationView {
 
     // 대표 프로젝트
     if (model.repProjects.length > 0) {
+      const projectContainer = this._recordItem.cloneNode(true);
+      const projectList = projectContainer.querySelector(".record-list");
+      const projectRecord = projectList.querySelector(".application-record");
+      projectList.removeChild(projectRecord);
+
       model.repProjects.forEach((project) => {
-        const projectContainer = this._recordItem.cloneNode(true);
-        const projectList = projectContainer.querySelector(".record-list");
-        const projectRecord = projectList.querySelector(".application-record");
         const clonedProjectRecord = projectRecord.cloneNode(true);
-        projectList.removeChild(projectRecord);
         projectContainer.querySelector(".record-container-title").textContent =
           "대표 프로젝트";
 
@@ -93,7 +94,7 @@ class MyAppicationView {
 
         clonedProjectRecord.querySelector(
           ".record-sub-title"
-        ).textContent = `${project.category} / ${project.role}`;
+        ).textContent = `${project.category} | ${project.role}`;
 
         const projectDate = project.inProgress
           ? `${project.startDate} ~ 진행중`
@@ -182,6 +183,14 @@ const applicationDto = {
       startDate: "2023.05",
       endDate: "2023.05",
       inProgress: false,
+    },
+    {
+      category: 1,
+      name: "프로젝트2",
+      role: "역할",
+      startDate: "2023.05",
+      endDate: "",
+      inProgress: true,
     },
   ],
 
