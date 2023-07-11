@@ -1,3 +1,37 @@
+class RadioGroup extends RegexInput {
+  constructor(element) {
+    super(element);
+
+    this._input.disabled = true;
+
+    this._buttons = element.querySelectorAll("label div");
+    this._radios = element.querySelectorAll("label input");
+    this._input.reasonIds = [];
+
+    for (const radio of this._radios) {
+      radio.addEventListener("input", (event) => {
+        const reasonId = parseInt(event.target.id);
+        this._input.reasonIds = [reasonId];
+
+        this._input.dispatchEvent(this.inputEvent);
+      });
+    }
+  }
+
+  get isValid() {
+    return this._input.reasonIds.length !== 0;
+  }
+
+  reset() {
+    for (const button of this._buttons) {
+      button.classList.remove("w--redirected-checked");
+    }
+    for (const radio of this._radios) {
+      radio.checked = false;
+    }
+  }
+}
+
 // NOTE: const
 const applyStatusTypes = {
   prepare: 0,
@@ -198,6 +232,24 @@ const matchupCheckModal = new ConfirmModal(
   document.querySelector(".match-check-modal")
 );
 
+const radioGroup = new RadioGroup(document.querySelector("#cancelRadio"));
+radioGroup.extract = (input, _) => {
+  return { reasonIds: input.reasonIds };
+};
+
+const cancelForm = new Form(document.querySelector("#cancelForm"), [
+  radioGroup,
+]);
+
+radioGroup.onInput = () => {
+  cancelForm.isEnabled = radioGroup.isValid;
+};
+
+const matchupCancelModal = new PromptModal(
+  document.querySelector(".match-cancel-modal"),
+  cancelForm
+);
+
 const bindApplyStatus = (applyStatus) => {
   const $title = $information.querySelector(".information-title");
   const $subtitle = $information.querySelector(".information-subtitle");
@@ -260,16 +312,18 @@ const bindMatchups = (list, item, matchup) => {
   };
   const accept = async () => {
     matchupCheckModal.handleShow(true);
-    matchupCheckModal.onConfirm = () => {
-      postMatchupReply(matchup.id, true)
-        .then((_) => {
-          return await fetchMatchup();
-        });
-    }
+    matchupCheckModal.onConfirm = async () => {
+      await postMatchupReply(matchup.id, true);
+      await fetchMatchup();
+    };
   };
   const reject = async () => {
-    await postMatchupReply(matchup.id, false);
-    await fetchMatchup();
+    matchupCancelModal.handleShow(true);
+    cancelForm.onSubmit = async () => {
+      await postMatchupReply(matchup.id, false);
+      await fetchMatchup();
+      matchupCancelModal.handleShow(false);
+    };
   };
 
   $status.style.color = style.getPropertyValue("--secondary");
