@@ -259,197 +259,14 @@ const workConditition = new WorkConditionInput(
 workConditition.key = "workConditition";
 
 // NOTE: api
-class MockApiService {
-  applicationDto = {
-    id: 0,
-
-    seeker: {
-      name: "피니",
-      email: "moonp@ssgsag.kr",
-      contact: "010-2415-8974",
-    },
-
-    academicRecord: {
-      university: "한국해양대학교",
-      major: "해양공학과",
-      avgScore: 4.0,
-      stdScore: 4.5,
-      graduate: 1,
-      grade: 1,
-      semester: 2,
-      graduateYearMonth: "202302",
-    },
-
-    documents: [
-      {
-        type: 0,
-        name: "피니 마이커리어.pdf",
-        documentUrl:
-          "https://s3.ap-northeast-2.amazonaws.com/project-hs/resumes/00e0c239-f682-45da-bcf9-d85bcc961923.pdf",
-      },
-    ],
-
-    repKeywords: ["창의적인", "도전적인"],
-
-    repProjects: [
-      {
-        category: 1,
-        name: "프로젝트",
-        role: "역할",
-        startDate: "2023.05",
-        endDate: "2023.05",
-        inProgress: false,
-      },
-    ],
-
-    awards: [],
-    certificates: [],
-    languageTests: [],
-    languages: [],
-    educations: [],
-
-    jobSkill: {
-      jobGroup: "개발",
-      jobs: ["웹 개발자", "서버 개발자"],
-      skills: [
-        {
-          id: 728,
-          name: "C",
-        },
-      ],
-    },
-
-    workCondition: {
-      recruitmentTypeGroups: [
-        {
-          id: 1,
-          name: "인턴십",
-        },
-      ],
-      regions: [
-        {
-          id: 1,
-          name: "서울",
-        },
-        {
-          id: 2,
-          name: "경기",
-        },
-      ],
-      workStart: "2023-03-07",
-      additional: "Hello, World!",
-    },
-  };
-
-  makeRequest = async (endpoint, options = {}) => {
-    await new Promise((resolve) => setTimeout(resolve, 100));
-    console.log(`Endpoint: ${endpoint}`);
-    console.log(`Method: ${options.method}`);
-
-    if (options.method === "GET") {
-      return this.applicationDto;
-    } else if (options.method === "PUT") {
-      console.log(options.body);
-    }
-  };
-
-  pushPortfolio = async () => {
-    const portfolio = {
-      type: 1,
-      name: "피니 마이커리어.pdf",
-      documentUrl:
-        "https://s3.ap-northeast-2.amazonaws.com/project-hs/resumes/00e0c239-f682-45da-bcf9-d85bcc961923.pdf",
-      thumbnailUrl:
-        "https://s3.ap-northeast-2.amazonaws.com/project-hs/9ef5a7bf-c0f5-4710-9db3-8285c54b10c1.png",
-    };
-
-    this.applicationDto.documents.push(portfolio);
-    await fetchApplication();
-  };
-
-  pushProject = async () => {
-    const project = {
-      category: 1,
-      name: "프로젝트",
-      role: "역할",
-      startDate: "2023.05",
-      endDate: "2023.05",
-      inProgress: false,
-    };
-
-    this.applicationDto.repProjects.push(project);
-    await fetchApplication();
-  };
-
-  pushAward = async () => {
-    const award = {
-      name: "피니즈3기",
-      prize: "금상",
-      host: "이십사점오",
-      awardDate: "2021.06",
-    };
-
-    this.applicationDto.awards.push(award);
-    await fetchApplication();
-  };
-
-  pushCertificate = async () => {
-    const certificate = {
-      name: "의료기기 RA전문가",
-      issuer: "한국의료기기안전정보원",
-      grade: "1급",
-      acquisitionDate: "2023.05",
-    };
-
-    this.applicationDto.certificates.push(certificate);
-    await fetchApplication();
-  };
-
-  pushLanguageTest = async () => {
-    const languageTest = {
-      language: "영어",
-      name: "TOEIC",
-      grade: 990,
-      acquisitionDate: "2023.05",
-    };
-
-    this.applicationDto.languageTests.push(languageTest);
-    await fetchApplication();
-  };
-
-  pushLanguage = async () => {
-    const language = {
-      name: "영어",
-      proficiency: "초급",
-    };
-
-    this.applicationDto.languages.push(language);
-    await fetchApplication();
-  };
-
-  pushEducation = async () => {
-    const education = {
-      courseName: "부트캠프",
-      institutionName: "스파르타코딩클럽",
-      startDate: "2023.05",
-      endDate: "2023.05",
-      inProgress: false,
-    };
-
-    this.applicationDto.educations.push(education);
-    await fetchApplication();
-  };
-}
-const mockApiService = new MockApiService();
-
 const getApplication = async () => {
-  return await mockApiService.makeRequest("/superpass/v2/apply-seeker", {
+  return await apiService.makeRequest("/superpass/v2/apply-seeker", {
     method: "GET",
   });
 };
 
 const putApplication = async (application) => {
-  return await mockApiService.makeRequest("/superpass/v2/apply-seeker", {
+  return await apiService.makeRequest("/superpass/v2/apply-seeker", {
     method: "PUT",
     body: JSON.stringify(application),
   });
@@ -459,11 +276,11 @@ const mapper = {
   credentials: {
     repProjects: (repProjects) => {
       return repProjects.map((repProject) => {
-        let date = repProject.startDate;
+        let date = parseDate(repProject.startDate);
         if (repProject.inProgress) {
           date += "진행중";
         } else if (repProject.endDate) {
-          date += `~${repProject.endDate}`;
+          date += `~${parseDate(repProject.endDate)}`;
         }
         const categoryName = projectCategories.find(
           (category) => category.id === repProject.category
@@ -487,7 +304,7 @@ const mapper = {
         return {
           title: award.name,
           subtitle: subtitle,
-          date: award.awardDate,
+          date: parseDate(award.awardDate),
         };
       });
     },
@@ -497,7 +314,7 @@ const mapper = {
         return {
           title: certificate.name,
           subtitle: `${certificate.issuer} | ${certificate.grade}`,
-          date: certificate.acquisitionDate,
+          date: parseDate(certificate.acquisitionDate),
         };
       });
     },
@@ -507,7 +324,7 @@ const mapper = {
         return {
           title: languageTest.language,
           subtitle: `${languageTest.name} | ${languageTest.grade}`,
-          date: languageTest.acquisitionDate,
+          date: parseDate(languageTest.acquisitionDate),
         };
       });
     },
@@ -523,11 +340,11 @@ const mapper = {
 
     educations: (educations) => {
       return educations.map((education) => {
-        let date = education.startDate;
+        let date = parseDate(education.startDate);
         if (education.inProgress) {
           date += "진행중";
         } else if (education.endDate) {
-          date += `~${education.endDate}`;
+          date += `~${parseDate(education.endDate)}`;
         }
 
         return {
@@ -541,6 +358,22 @@ const mapper = {
 };
 
 // NOTE: webflow
+const parseDate = (dateString, hasDay = false) => {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = formattedNumber(date.getMonth() + 1, 2);
+  if (hasDay) {
+    const day = formattedNumber(date.getDate(), 2);
+    return `${year}.${month}.${day}`;
+  } else {
+    return `${year}.${month}`;
+  }
+};
+
+const parsePhoneNumber = (phoneNumber) => {
+  return phoneNumber.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+};
+
 const $nameField = document.querySelector("#name-field");
 const $emailField = document.querySelector("#email-field");
 const $contactField = document.querySelector("#contact-field");
@@ -626,10 +459,12 @@ const bindResumes = (list, resumes) => {
 };
 
 const fetchApplication = async () => {
-  return getApplication().then((applicationDto) => {
+  return getApplication().then((response) => {
+    const applicationDto = response.data;
+
     bindText($nameField, applicationDto.seeker.name);
     bindText($emailField, applicationDto.seeker.email);
-    bindText($contactField, applicationDto.seeker.contact);
+    bindText($contactField, parsePhoneNumber(applicationDto.seeker.contact));
 
     // NOTE: academic
     academic._university.value = applicationDto.academicRecord.university;
@@ -638,7 +473,9 @@ const fetchApplication = async () => {
     academic._avgScore.value =
       applicationDto.academicRecord.avgScore.toString();
     academic._stdScore.value = academic.stdScores.find(
-      (score) => score.name == applicationDto.academicRecord.stdScore
+      (score) =>
+        parseFloat(score.name) ===
+        parseFloat(applicationDto.academicRecord.stdScore)
     ).id;
     academic._graduate.value = applicationDto.academicRecord.graduate;
     academic._grade.value = applicationDto.academicRecord.grade;
@@ -700,7 +537,10 @@ const fetchApplication = async () => {
       );
       checkbox.value = true;
     });
-    workConditition._date.value = applicationDto.workCondition.workStart;
+    workConditition._date.value = parseDate(
+      applicationDto.workCondition.workStart,
+      true
+    );
     workConditition._additional.value = applicationDto.workCondition.additional;
   });
 };
@@ -708,7 +548,7 @@ const fetchApplication = async () => {
 $editButton.addEventListener("click", () => {
   const application = {
     educationInfo: academic.data,
-    skills: requirementSkills.data,
+    skills: requirementSkills.value,
     workCondtition: workConditition.data,
   };
 
