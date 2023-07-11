@@ -2,7 +2,6 @@ class MyAppicationView {
   constructor(element) {
     this._element = element;
 
-    this._container = element.querySelector(".application-container");
     this._name = element.querySelector(".application-name");
     this._introduceContainer = element.querySelector(".application-introduce");
     this._keywordList = element.querySelector(".application-introduce-keyword");
@@ -14,13 +13,16 @@ class MyAppicationView {
     this._recordContainer = element.querySelector(
       ".application-record-container"
     );
+    this._recordList = element.querySelector(".application-record-list");
     this._record = element.querySelector(".application-record");
     this._skillList = element.querySelector(".application-skill-list");
 
-    this._workType = element.querySelector(".work-type");
-    this._workLocation = element.querySelector(".work-location");
-    this._workStartDate = element.querySelector(".work-start-date");
-    this._workAdditional = element.querySelector(".work-additional");
+    this._workType = element.querySelector(".application-work-type");
+    this._workLocation = element.querySelector(".application-work-location");
+    this._workStartDate = element.querySelector(".application-work-start-date");
+    this._workAdditional = element.querySelector(
+      ".application-work-additional"
+    );
   }
 
   bind(model) {
@@ -61,6 +63,13 @@ class MyAppicationView {
     academicList.appendChild(academic);
     this._container.appendChild(academicContainer);
 
+    // 스킬
+    repKeywords.forEach((skill) => {
+      const clonedSkill = this._keyword.cloneNode(true);
+      clonedSkill.textContent = skill;
+      this._skillList.appendChild(clonedSkill);
+    });
+
     // 근무조건
     const workCondition = model.workCondition;
     const workTypeArray = [];
@@ -80,21 +89,104 @@ class MyAppicationView {
       this._workAdditional.textContent = workCondition.additional;
     }
 
-    this._container.style.display = "flex";
+    this._element.style.display = "flex";
   }
 }
 
-const getApplyStatus = () => {
-  apiService
-    .makeRequest("/apply-status")
-    .then((response) => {
-      // -> 있으면 신청서 조회 get
-      // -> 없으면 신청 유도 뷰 노출
-    })
-    .catch((error) => console.error(error));
+const applicationDto = {
+  id: 0,
+
+  seeker: {
+    name: "피니",
+    email: "moonp@ssgsag.kr",
+    contact: "010-2415-8974",
+  },
+
+  academicRecord: {
+    university: "한국해양대학교",
+    major: "해양공학과",
+    avgScore: 4.0,
+    stdScore: 4.5,
+    graduate: 1,
+    grade: 1,
+    semester: 2,
+    graduateYearMonth: "202302",
+  },
+
+  documents: [
+    {
+      type: 0,
+      name: "피니 마이커리어.pdf",
+      documentUrl:
+        "https://s3.ap-northeast-2.amazonaws.com/project-hs/resumes/00e0c239-f682-45da-bcf9-d85bcc961923.pdf",
+    },
+  ],
+
+  repKeywords: ["창의적인", "도전적인"],
+
+  repProjects: [
+    {
+      category: 1,
+      name: "프로젝트",
+      role: "역할",
+      startDate: "2023.05",
+      endDate: "2023.05",
+      inProgress: false,
+    },
+  ],
+
+  awards: [],
+  certificates: [],
+  languageTests: [],
+  languages: [],
+  educations: [],
+
+  jobSkill: {
+    jobGroup: "개발",
+    jobs: ["웹 개발자", "서버 개발자"],
+    skills: [
+      {
+        id: 728,
+        name: "C",
+      },
+    ],
+  },
+
+  workCondition: {
+    recruitmentTypeGroups: [
+      {
+        id: 1,
+        name: "인턴십",
+      },
+    ],
+    regions: [
+      {
+        id: 1,
+        name: "서울",
+      },
+      {
+        id: 2,
+        name: "경기",
+      },
+    ],
+    workStart: "2023-03-07",
+    additional: "Hello, World!",
+  },
 };
 
-const application = new MyAppicationView();
+const getApplyStatus = () => {
+  // apiService
+  //   .makeRequest("/apply-status")
+  //   .then((response) => {
+  //     // -> 있으면 신청서 조회 get
+  //     // -> 없으면 신청 유도 뷰 노출
+  //   })
+  //   .catch((error) => console.error(error));
+};
+
+const application = new MyAppicationView(
+  document.querySelector(".application-container")
+);
 
 const getApplySeeker = () => {
   apiService
@@ -106,4 +198,5 @@ const getApplySeeker = () => {
 };
 
 // 신청 상태 get
-getApplyStatus();
+// getApplyStatus();
+application.bind(applicationDto);
