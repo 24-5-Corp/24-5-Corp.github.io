@@ -48,6 +48,7 @@ class MyAppicationView {
     const academicContainer = this._recordItem.cloneNode(true);
     const academicList = academicContainer.querySelector(".record-list");
     const academicRecord = this._record.cloneNode(true);
+    academicList.removeChild(academicRecord);
     academicContainer.querySelector(".record-container-title").textContent =
       "학적 정보";
 
@@ -67,9 +68,10 @@ class MyAppicationView {
     this._recordContainer.appendChild(academicContainer);
 
     // 스킬
-    model.repKeywords.forEach((skill) => {
+    this._skillList.removeChild(this._keyword);
+    model.jobSkill.skills.forEach((skill) => {
       const clonedSkill = this._keyword.cloneNode(true);
-      clonedSkill.textContent = skill;
+      clonedSkill.textContent = skill.name;
       this._skillList.appendChild(clonedSkill);
     });
 
