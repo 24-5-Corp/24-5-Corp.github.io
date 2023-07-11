@@ -13,7 +13,6 @@ class MyAppicationView {
 
     this._recordContainer = element.querySelector(".record-contents-container");
     this._recordItem = element.querySelector(".record-item-container");
-    this._record = element.querySelector(".application-record");
     this._skillList = element.querySelector(".application-skill-list");
 
     this._workType = element.querySelector(".application-work-type");
@@ -47,24 +46,25 @@ class MyAppicationView {
     const academic = model.academicRecord;
     const academicContainer = this._recordItem.cloneNode(true);
     const academicList = academicContainer.querySelector(".record-list");
-    const academicRecord = this._record.cloneNode(true);
+    const academicRecord = academicList.querySelector(".application-record");
+    const clonedAcademicRecord = academicRecord.cloneNode(true);
     academicList.removeChild(academicRecord);
     academicContainer.querySelector(".record-container-title").textContent =
       "학적 정보";
 
-    academicRecord.querySelector(
+    clonedAcademicRecord.querySelector(
       ".record-title"
     ).textContent = `${academic.university} ${academic.major}`;
 
-    academicRecord.querySelector(
+    clonedAcademicRecord.querySelector(
       ".record-sub-title"
     ).textContent = `학점 ${academic.avgScore} / ${academic.stdScore}`;
 
     let description = `${academic.graduate} (${academic.graduateYearMonth} 졸업)`;
-    academicRecord.querySelector(".record-description").textContent =
+    clonedAcademicRecord.querySelector(".record-description").textContent =
       description;
 
-    academicList.appendChild(academicRecord);
+    academicList.appendChild(clonedAcademicRecord);
     this._recordContainer.appendChild(academicContainer);
 
     // 스킬
