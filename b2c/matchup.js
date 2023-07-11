@@ -261,8 +261,10 @@ const bindMatchups = (list, item, matchup) => {
   const accept = async () => {
     matchupCheckModal.handleShow(true);
     matchupCheckModal.onConfirm = () => {
-      await postMatchupReply(matchup.id, true);
-      await fetchMatchup();
+      postMatchupReply(matchup.id, true)
+        .then((_) => {
+          return await fetchMatchup();
+        });
     }
   };
   const reject = async () => {
