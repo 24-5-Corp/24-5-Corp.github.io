@@ -1103,6 +1103,8 @@ class Checkbox extends Input {
     this._check.checked = checked;
     if (!checked) {
       this._input.classList.remove("w--redirected-checked");
+    } else {
+      this._input.classList.add("w--redirected-checked");
     }
     this._input.dispatchEvent(this.inputEvent);
   }
