@@ -14,6 +14,7 @@ class MyAppicationView {
     this._recordContainer = element.querySelector(".record-contents-container");
     this._recordItem = element.querySelector(".record-item-container");
     this._skillList = element.querySelector(".application-skill-list");
+    this._skill = element.querySelector(".skill-chip");
 
     this._workType = element.querySelector(".application-work-type");
     this._workLocation = element.querySelector(".application-work-location");
@@ -68,9 +69,8 @@ class MyAppicationView {
     this._recordContainer.appendChild(academicContainer);
 
     // 스킬
-    this._skillList.removeChild(this._keyword);
     model.jobSkill.skills.forEach((skill) => {
-      const clonedSkill = this._keyword.cloneNode(true);
+      const clonedSkill = this._skill.cloneNode(true);
       clonedSkill.textContent = skill.name;
       this._skillList.appendChild(clonedSkill);
     });
@@ -100,6 +100,7 @@ class MyAppicationView {
   reset() {
     this._recordContainer.removeChild(this._recordItem);
     this._cvList.removeChild(this._cv);
+    this._skillList.removeChild(this._skill);
   }
 }
 
