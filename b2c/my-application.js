@@ -30,7 +30,7 @@ class MyAppicationView {
     this._email.textContent = model.seeker.email;
     this._contact.textContent = model.seeker.contact;
 
-    if (model.repKeywords) {
+    if (model.repKeywords.length > 0) {
       model.repKeywords.forEach((keyword) => {
         const clonedKeyword = this._keyword.cloneNode(true);
         clonedKeyword.textContent = keyword;
@@ -76,6 +76,35 @@ class MyAppicationView {
 
     academicList.appendChild(clonedAcademicRecord);
     this._recordContainer.appendChild(academicContainer);
+
+    // 대표 프로젝트
+    if (model.repProjects.length > 0) {
+      model.repProjects.forEach((project) => {
+        const projectContainer = this._recordItem.cloneNode(true);
+        const projectList = projectContainer.querySelector(".record-list");
+        const projectRecord = projectList.querySelector(".application-record");
+        const clonedProjectRecord = projectRecord.cloneNode(true);
+        projectList.removeChild(projectRecord);
+        projectContainer.querySelector(".record-container-title").textContent =
+          "대표 프로젝트";
+
+        clonedProjectRecord.querySelector(".record-title").textContent =
+          project.name;
+
+        clonedProjectRecord.querySelector(
+          ".record-sub-title"
+        ).textContent = `${project.category} / ${project.role}`;
+
+        const projectDate = project.inProgress
+          ? `${project.startDate} ~ 진행중`
+          : `${project.startDate} ~ ${project.endDate}`;
+        clonedProjectRecord.querySelector(".record-description").textContent =
+          projectDate;
+
+        projectList.appendChild(clonedProjectRecord);
+        this._recordContainer.appendChild(projectContainer);
+      });
+    }
 
     // 스킬
     model.jobSkill.skills.forEach((skill) => {
@@ -143,7 +172,7 @@ const applicationDto = {
     },
   ],
 
-  repKeywords: ["창의적인", "도전적인"],
+  repKeywords: [],
 
   repProjects: [
     {
