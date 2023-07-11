@@ -346,7 +346,11 @@ class MockApiService {
     console.log(`Endpoint: ${endpoint}`);
     console.log(`Method: ${options.method}`);
 
-    return this.applicationDto;
+    if (options.method === "GET") {
+      return this.applicationDto;
+    } else if (options.method === "PUT") {
+      console.log(options.body);
+    }
   };
 
   pushPortfolio = async () => {
@@ -439,8 +443,15 @@ class MockApiService {
 const mockApiService = new MockApiService();
 
 const getApplication = async () => {
-  return await mockApiService.makeRequest("/superpass/apply-seeker", {
+  return await mockApiService.makeRequest("/superpass/v2/apply-seeker", {
     method: "GET",
+  });
+};
+
+const putApplication = async (application) => {
+  return await mockApiService.makeRequest("/superpass/v2/apply-seeker", {
+    method: "PUT",
+    body: JSON.stringify(application),
   });
 };
 
@@ -551,6 +562,8 @@ const $chipItem = document.querySelector(".chip-item");
 const $resumeItem = document.querySelector(".resume-item");
 const $credentialItem = document.querySelector(".credential-item");
 const $credentialEmpty = document.querySelector(".credential-empty");
+
+const $editButton = document.querySelector(".edit-button");
 
 const bindText = (field, text) => {
   field.querySelector(".text").textContent = text;
@@ -691,5 +704,15 @@ const fetchApplication = async () => {
     workConditition._additional.value = applicationDto.workCondition.additional;
   });
 };
+
+$editButton.addEventListener("click", () => {
+  const application = {
+    educationInfo: academic.data,
+    skills: requirementSkills.data,
+    workCondtition: workConditition.data,
+  };
+
+  putApplication(application);
+});
 
 fetchApplication();
