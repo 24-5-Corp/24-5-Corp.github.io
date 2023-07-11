@@ -6,12 +6,11 @@ class RadioGroup extends RegexInput {
 
     this._buttons = element.querySelectorAll("label div");
     this._radios = element.querySelectorAll("label input");
-    this._input.reasonIds = [];
 
     for (const radio of this._radios) {
       radio.addEventListener("input", (event) => {
         const reasonId = parseInt(event.target.id);
-        this._input.reasonIds = [reasonId];
+        this._input.reasonId = reasonId;
 
         this._input.dispatchEvent(this.inputEvent);
       });
@@ -19,7 +18,7 @@ class RadioGroup extends RegexInput {
   }
 
   get isValid() {
-    return this._input.reasonIds.length !== 0;
+    return !!this._input.reasonId;
   }
 
   reset() {
@@ -42,16 +41,10 @@ const applyStatusTypes = {
   reject: 5,
 };
 
-const filterTypes = {
-  all: 0,
-  success: 1,
-  history: 2,
-};
-
 const recruitmentTypes = {
-  newcomer: 0,
   experimental: 1,
   transitional: 2,
+  newcomer: 3,
 };
 
 const matchupStatusTypes = {
@@ -79,117 +72,26 @@ const matchupStatusTypes = {
 };
 
 // NOTE: api
-class MockApiService {
-  applyStatusDto = {
-    applyStatus: 0,
-  };
-
-  matchupDto = {
-    totalCount: 0,
-    data: [],
-  };
-
-  makeRandomNumber = (min, max) => {
-    return Math.floor(Math.random() * (max - min) + min);
-  };
-
-  makeRequest = async (endpoint, options = {}) => {
-    await new Promise((resolve) => setTimeout(resolve, 100));
-    console.log(`Endpoint: ${endpoint}`);
-    console.log(`Method: ${options.method}`);
-
-    if (endpoint.includes("apply")) {
-      return this.applyStatusDto;
-    } else if (endpoint.includes("filter")) {
-      return this.matchupDto;
-    } else if (endpoint.includes("agree")) {
-      const matchupId = endpoint.match(/\d+/)?.[0];
-      console.log(`MatchupId: ${matchupId}`);
-
-      const agreesMatchup = JSON.parse(options.body).agree;
-      console.log(`AgreesMatchup: ${agreesMatchup}`);
-
-      this.matchupDto.data[matchupId].status = agreesMatchup
-        ? matchupStatusTypes.acceptInterview
-        : matchupStatusTypes.refuseInterview;
-    }
-  };
-
-  changeApplyStatus = async (applyStatus) => {
-    this.applyStatusDto.applyStatus = applyStatus;
-    await fetchMatchup();
-  };
-
-  appendMatchup = async (status) => {
-    const recrutimentId = this.makeRandomNumber(0, 3);
-    const periodId = this.makeRandomNumber(0, 3);
-
-    const matchup = {
-      id: this.matchupDto.totalCount,
-      status: status,
-      company: {
-        thumbnailUrl:
-          "https://oopy.lazyrockets.com/api/rest/cdn/image/62ee1584-df8b-4b6c-a0bc-b3f074356f89.png",
-        name: "주식회사 이십사점오",
-        workRegion: {
-          name: "서울",
-        },
-        proposalUrl: "https://ssgsag.kr",
-      },
-      jobpost: {
-        title: "소프트웨어 엔지니어",
-        recruitmentType: {
-          id: recrutimentId,
-          name:
-            recrutimentId === 0
-              ? "신입"
-              : recrutimentId === 1
-              ? "인턴십 (체험형)"
-              : "인턴십 (전환형)",
-        },
-        workPeriod:
-          recrutimentId === 0
-            ? null
-            : periodId === 0
-            ? 3
-            : periodId === 1
-            ? 6
-            : 12,
-      },
-      responseExpirationAt: "2023-07-28T00:00:00",
-    };
-
-    this.matchupDto.data.push(matchup);
-    this.matchupDto.totalCount += 1;
-
-    await fetchMatchup();
-  };
-}
-const mockApiService = new MockApiService();
-
 const getApplyStatus = async () => {
-  return await mockApiService.makeRequest("/superpass/user-apply-status", {
+  return await apiService.makeRequest("/superpass/v2/apply-status", {
     method: "GET",
   });
 };
 
-const getMatchups = async (filterType) => {
-  return await mockApiService.makeRequest(
-    `/superpass/matches?filterType=${filterType}`,
-    {
-      method: "GET",
-    }
-  );
+const getMatchups = async () => {
+  return await apiService.makeRequest("/superpass/v2/seeker/matchup", {
+    method: "GET",
+  });
 };
 
-const postMatchupReply = async (matchupId, agreesMatchup) => {
-  console.log("하하", matchupId);
-  return await mockApiService.makeRequest(
-    `/superpass/matches/${matchupId}/agree`,
+const putMatchupReply = async (matchupId, agreesMatchup, reason = null) => {
+  return await apiService.makeRequest(
+    `/superpass/v2/seeker/matchup/${matchupId}`,
     {
-      method: "POST",
+      method: "PUT",
       body: JSON.stringify({
         agree: agreesMatchup,
+        reason: reason,
       }),
     }
   );
@@ -199,7 +101,7 @@ const mapToMatchup = (matchupDto) => {
   return {
     id: matchupDto.id,
     status: matchupDto.status,
-    thumbnailUrl: matchupDto.company.thumbnail,
+    thumbnailUrl: matchupDto.company.thumbnailUrl,
     company: matchupDto.company.name,
     position: matchupDto.jobpost.title,
     condition: () => {
@@ -233,9 +135,7 @@ const matchupCheckModal = new ConfirmModal(
 );
 
 const radioGroup = new RadioGroup(document.querySelector("#cancelRadio"));
-radioGroup.extract = (input, _) => {
-  return { reasonIds: input.reasonIds };
-};
+radioGroup.extract = (input, _) => input.reasonId;
 
 const cancelForm = new Form(document.querySelector("#cancelForm"), [
   radioGroup,
@@ -313,14 +213,14 @@ const bindMatchups = (list, item, matchup) => {
   const accept = async () => {
     matchupCheckModal.handleShow(true);
     matchupCheckModal.onConfirm = async () => {
-      await postMatchupReply(matchup.id, true);
+      await putMatchupReply(matchup.id, true);
       await fetchMatchup();
     };
   };
   const reject = async () => {
     matchupCancelModal.handleShow(true);
     cancelForm.onSubmit = async () => {
-      await postMatchupReply(matchup.id, false);
+      await putMatchupReply(matchup.id, false, radioGroup.value);
       await fetchMatchup();
       matchupCancelModal.handleShow(false);
     };
@@ -394,7 +294,7 @@ const fetchMatchup = async () => {
       const applyStatus = applyStatusDto.applyStatus;
 
       bindApplyStatus(applyStatus);
-      return getMatchups(filterTypes.all);
+      return getMatchups();
     })
     .then((matchupDto) => {
       bindTotalCount(matchupDto.totalCount);
