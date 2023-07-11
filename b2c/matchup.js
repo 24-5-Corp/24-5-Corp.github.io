@@ -194,6 +194,10 @@ const $count = document.querySelector(".matchup-count");
 const $information = document.querySelector(".information");
 const $empty = document.querySelector(".matchup-empty");
 
+const matchupCheckModal = new ConfirmModal(
+  document.querySelector(".match-check-modal")
+);
+
 const bindApplyStatus = (applyStatus) => {
   const $title = $information.querySelector(".information-title");
   const $subtitle = $information.querySelector(".information-subtitle");
@@ -255,8 +259,11 @@ const bindMatchups = (list, item, matchup) => {
     window.open(matchup.proposalUrl);
   };
   const accept = async () => {
-    await postMatchupReply(matchup.id, true);
-    await fetchMatchup();
+    matchupCheckModal.handleShow(true);
+    matchupCheckModal.onConfirm = () => {
+      await postMatchupReply(matchup.id, true);
+      await fetchMatchup();
+    }
   };
   const reject = async () => {
     await postMatchupReply(matchup.id, false);
