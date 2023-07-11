@@ -10,10 +10,11 @@ class MyAppicationView {
     this._contact = element.querySelector(".application-contact");
     this._cvList = element.querySelector(".application-document-list");
     this._cv = element.querySelector(".application-document");
+
     this._recordContainer = element.querySelector(
       ".application-record-container"
     );
-    this._recordList = element.querySelector(".application-record-list");
+    this._recordItem = element.querySelector(".record-item-container");
     this._record = element.querySelector(".application-record");
     this._skillList = element.querySelector(".application-skill-list");
 
@@ -31,6 +32,7 @@ class MyAppicationView {
     this._contact.textContent = model.seeker.contact;
 
     model.documents.forEach((document) => {
+      console.log(document);
       const clonedCV = this._cv.cloneNode(true);
       const icon = document.documentUrl.endsWith(".pdf")
         ? "https://uploads-ssl.webflow.com/64abb259c07028189d10bc82/64abb259c07028189d10bcd6_ic_resume.svg"
@@ -44,7 +46,7 @@ class MyAppicationView {
 
     // 학적 정보
     const academic = model.academicRecord;
-    const academicContainer = this._recordContainer.cloneNode(true);
+    const academicContainer = this._recordItem.cloneNode(true);
     const academicList = academicContainer.querySelector(".record-list");
     const academicRecord = this._record.cloneNode(true);
     academicContainer.querySelector(".record-container-title").textContent =
@@ -62,11 +64,11 @@ class MyAppicationView {
     academicRecord.querySelector(".record-description").textContent =
       description;
 
-    academicList.appendChild(academic);
-    this._container.appendChild(academicContainer);
+    academicList.appendChild(academicRecord);
+    this._recordContainer.appendChild(academicContainer);
 
     // 스킬
-    repKeywords.forEach((skill) => {
+    model.repKeywords.forEach((skill) => {
       const clonedSkill = this._keyword.cloneNode(true);
       clonedSkill.textContent = skill;
       this._skillList.appendChild(clonedSkill);
