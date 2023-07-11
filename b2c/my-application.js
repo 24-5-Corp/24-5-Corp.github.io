@@ -25,6 +25,7 @@ class MyAppicationView {
   }
 
   bind(model) {
+    this.reset();
     this._name.textContent = model.seeker.name;
     this._email.textContent = model.seeker.email;
     this._contact.textContent = model.seeker.contact;
@@ -56,7 +57,7 @@ class MyAppicationView {
 
     academicRecord.querySelector(
       ".record-sub-title"
-    ).textContent = `학점 ${academic.avgScore} ${academic.stdScore}`;
+    ).textContent = `학점 ${academic.avgScore} / ${academic.stdScore}`;
 
     let description = `${academic.graduate} (${academic.graduateYearMonth} 졸업)`;
     academicRecord.querySelector(".record-description").textContent =
@@ -92,6 +93,11 @@ class MyAppicationView {
     }
 
     this._element.style.display = "flex";
+  }
+
+  reset() {
+    this._recordContainer.removeChild(this._recordItem);
+    this._cvList.removeChild(this._cv);
   }
 }
 
