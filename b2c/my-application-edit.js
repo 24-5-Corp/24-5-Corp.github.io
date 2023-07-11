@@ -683,7 +683,7 @@ const fetchApplication = async () => {
     });
     applicationDto.workCondition.regions.forEach((region) => {
       const checkbox = new Checkbox(
-        workConditition._type._input.childNodes[region.id - 1]
+        workConditition._region._input.childNodes[region.id - 1]
       );
       checkbox.value = true;
     });
