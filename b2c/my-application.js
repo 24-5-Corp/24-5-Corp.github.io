@@ -11,9 +11,7 @@ class MyAppicationView {
     this._cvList = element.querySelector(".application-document-list");
     this._cv = element.querySelector(".application-document");
 
-    this._recordContainer = element.querySelector(
-      ".application-record-container"
-    );
+    this._recordContainer = element.querySelector(".record-contents-container");
     this._recordItem = element.querySelector(".record-item-container");
     this._record = element.querySelector(".application-record");
     this._skillList = element.querySelector(".application-skill-list");
