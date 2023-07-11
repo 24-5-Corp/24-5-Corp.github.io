@@ -30,8 +30,17 @@ class MyAppicationView {
     this._email.textContent = model.seeker.email;
     this._contact.textContent = model.seeker.contact;
 
+    if (model.repKeywords) {
+      model.repKeywords.forEach((keyword) => {
+        const clonedKeyword = this._keyword.cloneNode(true);
+        clonedKeyword.textContent = keyword;
+        this._keywordList.appendChild(clonedKeyword);
+      });
+    } else {
+      this._introduceContainer.style.display = "none";
+    }
+
     model.documents.forEach((document) => {
-      console.log(document);
       const clonedCV = this._cv.cloneNode(true);
       const icon = document.documentUrl.endsWith(".pdf")
         ? "https://uploads-ssl.webflow.com/64abb259c07028189d10bc82/64abb259c07028189d10bcd6_ic_resume.svg"
@@ -101,6 +110,7 @@ class MyAppicationView {
     this._recordContainer.removeChild(this._recordItem);
     this._cvList.removeChild(this._cv);
     this._skillList.removeChild(this._skill);
+    this._keywordList.removeChild(this._keyword);
   }
 }
 
