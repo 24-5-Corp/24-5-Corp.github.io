@@ -253,7 +253,7 @@ class MyAppicationView {
         $date.style.display = "none";
       }
 
-      this._credentialList.appendChild(clonedAwardRecord);
+      this._credentialList.appendChild(clonedItem);
     });
   };
 }
