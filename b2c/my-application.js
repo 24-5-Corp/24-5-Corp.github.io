@@ -1,3 +1,88 @@
+const mapper = {
+  credentials: {
+    repProjects: (repProjects) => {
+      return repProjects.map((repProject) => {
+        let date = parseDate(repProject.startDate);
+        if (repProject.inProgress) {
+          date += "진행중";
+        } else if (repProject.endDate) {
+          date += `~${parseDate(repProject.endDate)}`;
+        }
+        const categoryName = projectCategories.find(
+          (category) => category.id === repProject.category
+        ).name;
+
+        return {
+          title: repProject.name,
+          subtitle: `${categoryName} | ${repProject.role}`,
+          date: date,
+        };
+      });
+    },
+
+    awards: (awards) => {
+      return awards.map((award) => {
+        let subtitle = award.prize;
+        if (award.prize) {
+          subtitle += ` | ${award.host}`;
+        }
+
+        return {
+          title: award.name,
+          subtitle: subtitle,
+          date: parseDate(award.awardDate),
+        };
+      });
+    },
+
+    certificates: (certificates) => {
+      return certificates.map((certificate) => {
+        return {
+          title: certificate.name,
+          subtitle: `${certificate.issuer} | ${certificate.grade}`,
+          date: parseDate(certificate.acquisitionDate),
+        };
+      });
+    },
+
+    languageTests: (languageTests) => {
+      return languageTests.map((languageTest) => {
+        return {
+          title: languageTest.language,
+          subtitle: `${languageTest.name} | ${languageTest.grade}`,
+          date: parseDate(languageTest.acquisitionDate),
+        };
+      });
+    },
+
+    languages: (languages) => {
+      return languages.map((language) => {
+        return {
+          title: language.name,
+          subtitle: language.proficiency,
+        };
+      });
+    },
+
+    educations: (educations) => {
+      return educations.map((education) => {
+        let date = parseDate(education.startDate);
+        if (education.inProgress) {
+          date += "진행중";
+        } else if (education.endDate) {
+          date += `~${parseDate(education.endDate)}`;
+        }
+
+        return {
+          title: education.courseName,
+          subtitle: education.institutionName,
+          date: date,
+        };
+      });
+    },
+  },
+};
+
 class MyAppicationView {
   constructor(element) {
     this._element = element;
@@ -21,6 +106,12 @@ class MyAppicationView {
     this._workStartDate = element.querySelector(".application-work-start-date");
     this._workAdditional = element.querySelector(
       ".application-work-additional"
+    );
+
+    this._additionalContainer = this._recordItem.cloneNode(true);
+    this._additionalList = additionalContainer.querySelector(".record-list");
+    this._additionalRecord = additionalList.querySelector(
+      ".application-record"
     );
   }
 
@@ -83,12 +174,11 @@ class MyAppicationView {
       const projectList = projectContainer.querySelector(".record-list");
       const projectRecord = projectList.querySelector(".application-record");
       projectList.removeChild(projectRecord);
+      projectContainer.querySelector(".record-container-title").textContent =
+        "대표 프로젝트";
 
       model.repProjects.forEach((project) => {
         const clonedProjectRecord = projectRecord.cloneNode(true);
-        projectContainer.querySelector(".record-container-title").textContent =
-          "대표 프로젝트";
-
         clonedProjectRecord.querySelector(".record-title").textContent =
           project.name;
 
@@ -103,9 +193,17 @@ class MyAppicationView {
           projectDate;
 
         projectList.appendChild(clonedProjectRecord);
-        this._recordContainer.appendChild(projectContainer);
       });
+
+      this._recordContainer.appendChild(projectContainer);
     }
+
+    additionalList.removeChild(additionalRecord);
+    additionalContainer.querySelector(".record-container-title").textContent =
+      "추가 이력";
+
+    // 수상
+    bindCredential(model.awards);
 
     // 스킬
     model.jobSkill.skills.forEach((skill) => {
@@ -142,6 +240,26 @@ class MyAppicationView {
     this._skillList.removeChild(this._skill);
     this._keywordList.removeChild(this._keyword);
   }
+
+  bindCredential = (credentials) => {
+    credentials.forEach((credential) => {
+      const clonedRecord = additionalRecord.cloneNode(true);
+      const $title = clonedRecord.querySelector(".record-title");
+      const $subtitle = clonedRecord.querySelector(".record-sub-title");
+      const $date = clonedRecord.querySelector(".record-description");
+
+      $title.textContent = credential.title;
+      $subtitle.textContent = credential.subtitle;
+
+      if (credential.date) {
+        $date.textContent = credential.date;
+      } else {
+        $date.style.display = "none";
+      }
+
+      additionalList.appendChild(clonedAwardRecord);
+    });
+  };
 }
 
 const applicationDto = {
@@ -194,7 +312,20 @@ const applicationDto = {
     },
   ],
 
-  awards: [],
+  awards: [
+    {
+      name: "AWS 해커톤",
+      prize: "1등",
+      host: "AWS",
+      awardDate: "2023-02",
+    },
+    {
+      name: "AWS 해커톤 2",
+      prize: "2등",
+      host: "AWS",
+      awardDate: "2023-02",
+    },
+  ],
   certificates: [],
   languageTests: [],
   languages: [],
