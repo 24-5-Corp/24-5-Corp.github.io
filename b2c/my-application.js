@@ -1,3 +1,15 @@
+const parseDate = (dateString, hasDay = false) => {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = formattedNumber(date.getMonth() + 1, 2);
+  if (hasDay) {
+    const day = formattedNumber(date.getDate(), 2);
+    return `${year}.${month}.${day}`;
+  } else {
+    return `${year}.${month}`;
+  }
+};
+
 const mapper = {
   credentials: {
     repProjects: (repProjects) => {
