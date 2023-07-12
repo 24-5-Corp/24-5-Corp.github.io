@@ -108,12 +108,9 @@ class MyAppicationView {
       ".application-work-additional"
     );
 
-    this._additionalContainer = this._recordItem.cloneNode(true);
-    this._additionalList =
-      this._additionalContainer.querySelector(".record-list");
-    this._additionalRecord = this._additionalContainer.querySelector(
-      ".application-record"
-    );
+    this._credentialContainer = element.querySelector(".credential-container");
+    this._credentialList = element.querySelector(".credential-list");
+    this._credentialItem = element.querySelector(".credential-item");
   }
 
   bind(model) {
@@ -199,13 +196,13 @@ class MyAppicationView {
       this._recordContainer.appendChild(projectContainer);
     }
 
-    this._additionalList.removeChild(additionalRecord);
-    this._additionalContainer.querySelector(
-      ".record-container-title"
+    this._credentialList.removeChild(this._credentialItem);
+    this._credentialContainer.querySelector(
+      ".credential-container-title"
     ).textContent = "추가 이력";
 
     // 수상
-    bindCredential(model.awards);
+    this.bindCredential(model.awards);
 
     // 스킬
     model.jobSkill.skills.forEach((skill) => {
@@ -245,10 +242,10 @@ class MyAppicationView {
 
   bindCredential = (credentials) => {
     credentials.forEach((credential) => {
-      const clonedRecord = additionalRecord.cloneNode(true);
-      const $title = clonedRecord.querySelector(".record-title");
-      const $subtitle = clonedRecord.querySelector(".record-sub-title");
-      const $date = clonedRecord.querySelector(".record-description");
+      const clonedItem = this._credentialItem.cloneNode(true);
+      const $title = clonedItem.querySelector(".credential-title");
+      const $subtitle = clonedItem.querySelector(".credential-sub-title");
+      const $date = clonedItem.querySelector(".credential-description");
 
       $title.textContent = credential.title;
       $subtitle.textContent = credential.subtitle;
@@ -259,7 +256,7 @@ class MyAppicationView {
         $date.style.display = "none";
       }
 
-      additionalList.appendChild(clonedAwardRecord);
+      this._credentialList.appendChild(clonedAwardRecord);
     });
   };
 }
