@@ -110,7 +110,7 @@ class MyAppicationView {
 
     this._credentialContainer = element.querySelector(".credential-container");
     this._credentialList = element.querySelector(".credential-list");
-    this._credentialItem = element.querySelector(".credential-item");
+    this._credentialRecord = element.querySelector(".credential-record");
   }
 
   bind(model) {
@@ -242,10 +242,10 @@ class MyAppicationView {
 
   bindCredential = (credentials) => {
     credentials.forEach((credential) => {
-      const clonedItem = this._credentialItem.cloneNode(true);
-      const $title = clonedItem.querySelector(".credential-title");
-      const $subtitle = clonedItem.querySelector(".credential-sub-title");
-      const $date = clonedItem.querySelector(".credential-description");
+      const clonedItem = this._credentialRecord.cloneNode(true);
+      const $title = clonedItem.querySelector(".record-title");
+      const $subtitle = clonedItem.querySelector(".record-sub-title");
+      const $date = clonedItem.querySelector(".record-description");
 
       $title.textContent = credential.title;
       $subtitle.textContent = credential.subtitle;
