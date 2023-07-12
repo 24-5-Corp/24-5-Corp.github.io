@@ -199,7 +199,7 @@ class MyAppicationView {
     this._credentialList.removeChild(this._credentialRecord);
 
     // 수상
-    this.bindCredential(model.awards);
+    this.bindCredential(mapper.credentials.awards(model.awards));
 
     // 스킬
     model.jobSkill.skills.forEach((skill) => {
