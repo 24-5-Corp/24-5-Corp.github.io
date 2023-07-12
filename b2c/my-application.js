@@ -109,7 +109,7 @@ class MyAppicationView {
     );
 
     this._credentialContainer = element.querySelector(".credential-container");
-    this._credentialList = element.querySelector(".credential-list");
+    this._credentialList = element.querySelector(".credential-record-list");
     this._credentialRecord = element.querySelector(".credential-record");
   }
 
