@@ -217,6 +217,10 @@ class MyAppicationView {
     this.bindCredential(mapper.credentials.languages(model.languages));
     this.bindCredential(mapper.credentials.educations(model.educations));
 
+    if (!this._credentialList.hasChildNodes()) {
+      this._credentialContainer.style.display = "none";
+    }
+
     // 스킬
     model.jobSkill.skills.forEach((skill) => {
       const clonedSkill = this._skill.cloneNode(true);
