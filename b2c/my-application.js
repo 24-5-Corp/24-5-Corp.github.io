@@ -1,3 +1,20 @@
+const projectCategories = [
+  { id: 1, name: "경력" },
+  { id: 2, name: "동아리/학회" },
+  { id: 3, name: "대외활동" },
+  { id: 4, name: "봉사활동" },
+  { id: 5, name: "프로젝트" },
+  { id: 6, name: "수강" },
+  { id: 100, name: "기타" },
+];
+
+const graduates = [
+  { id: 0, name: "졸업" },
+  { id: 1, name: "재학" },
+  { id: 2, name: "휴학" },
+  { id: 3, name: "유예" },
+];
+
 const parseDate = (dateString, hasDay = false) => {
   const date = new Date(dateString);
   const year = date.getFullYear();
@@ -171,7 +188,19 @@ class MyAppicationView {
       ".record-sub-title"
     ).textContent = `학점 ${academic.avgScore} / ${academic.stdScore}`;
 
-    let description = `${academic.graduate} (${academic.graduateYearMonth} 졸업)`;
+    const graduate = graduates.find(
+      (graduate) => graduate.id === academic.graduate
+    ).name;
+
+    let description = `${graduate} (${parseDate(
+      academic.graduateYearMonth
+    )} 졸업)`;
+
+    if (academic.graduate !== 0) {
+      description =
+        `${academic.grade}학년 ${academic.semester}학기 ` + description;
+    }
+
     clonedAcademicRecord.querySelector(".record-description").textContent =
       description;
 
@@ -192,13 +221,17 @@ class MyAppicationView {
         clonedProjectRecord.querySelector(".record-title").textContent =
           project.name;
 
+        const categoryName = projectCategories.find(
+          (category) => category.id === project.category
+        ).name;
+
         clonedProjectRecord.querySelector(
           ".record-sub-title"
-        ).textContent = `${project.category} | ${project.role}`;
+        ).textContent = `${categoryName} | ${project.role}`;
 
         const projectDate = project.inProgress
-          ? `${project.startDate} ~ 진행중`
-          : `${project.startDate} ~ ${project.endDate}`;
+          ? `${parseDate(project.startDate)} ~ 진행중`
+          : `${parseDate(project.startDate)} ~ ${parseDate(project.endDate)}`;
         clonedProjectRecord.querySelector(".record-description").textContent =
           projectDate;
 
