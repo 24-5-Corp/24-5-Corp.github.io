@@ -210,8 +210,12 @@ class MyAppicationView {
 
     this._credentialList.removeChild(this._credentialRecord);
 
-    // 수상
+    // 추가 이력
     this.bindCredential(mapper.credentials.awards(model.awards));
+    this.bindCredential(mapper.credentials.certificates(model.certificates));
+    this.bindCredential(mapper.credentials.languageTests(model.languageTests));
+    this.bindCredential(mapper.credentials.languages(model.languages));
+    this.bindCredential(mapper.credentials.educations(model.educations));
 
     // 스킬
     model.jobSkill.skills.forEach((skill) => {
@@ -334,10 +338,36 @@ const applicationDto = {
       awardDate: "2023-02",
     },
   ],
-  certificates: [],
-  languageTests: [],
-  languages: [],
-  educations: [],
+  certificates: [
+    {
+      name: "정보처리기사",
+      issuer: "한국산업인력공단",
+      grade: "1급",
+      acquisitionDate: "2023-01",
+    },
+  ],
+  languageTests: [
+    {
+      language: "영어",
+      name: "TOEIC",
+      grade: "150",
+      acquisitionDate: "2023-04",
+    },
+  ],
+  languages: [
+    {
+      name: "영어",
+      proficiency: "",
+    },
+  ],
+  educations: [
+    {
+      courseName: "부트캠프",
+      institutionName: "부트캠프 기관",
+      startDate: "2023-01",
+      endDate: "2023-03",
+    },
+  ],
 
   jobSkill: {
     jobGroup: "개발",
