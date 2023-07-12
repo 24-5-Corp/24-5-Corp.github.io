@@ -196,7 +196,7 @@ class MyAppicationView {
       this._recordContainer.appendChild(projectContainer);
     }
 
-    this._credentialList.removeChild(this._credentialItem);
+    this._credentialList.removeChild(this._credentialRecord);
     this._credentialContainer.querySelector(
       ".credential-container-title"
     ).textContent = "추가 이력";
