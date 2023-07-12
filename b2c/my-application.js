@@ -109,8 +109,9 @@ class MyAppicationView {
     );
 
     this._additionalContainer = this._recordItem.cloneNode(true);
-    this._additionalList = additionalContainer.querySelector(".record-list");
-    this._additionalRecord = additionalList.querySelector(
+    this._additionalList =
+      this._additionalContainer.querySelector(".record-list");
+    this._additionalRecord = this._additionalContainer.querySelector(
       ".application-record"
     );
   }
@@ -198,9 +199,10 @@ class MyAppicationView {
       this._recordContainer.appendChild(projectContainer);
     }
 
-    additionalList.removeChild(additionalRecord);
-    additionalContainer.querySelector(".record-container-title").textContent =
-      "추가 이력";
+    this._additionalList.removeChild(additionalRecord);
+    this._additionalContainer.querySelector(
+      ".record-container-title"
+    ).textContent = "추가 이력";
 
     // 수상
     bindCredential(model.awards);
