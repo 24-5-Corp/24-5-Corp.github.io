@@ -197,9 +197,6 @@ class MyAppicationView {
     }
 
     this._credentialList.removeChild(this._credentialRecord);
-    this._credentialContainer.querySelector(
-      ".credential-container-title"
-    ).textContent = "추가 이력";
 
     // 수상
     this.bindCredential(model.awards);
