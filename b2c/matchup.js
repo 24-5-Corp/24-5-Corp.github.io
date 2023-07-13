@@ -316,3 +316,7 @@ const fetchMatchup = async () => {
 };
 
 fetchMatchup();
+
+Webflow.push(() => {
+  document.querySelector("#matches").classList.add("current");
+});

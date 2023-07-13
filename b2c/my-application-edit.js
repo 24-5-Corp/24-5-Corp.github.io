@@ -556,3 +556,7 @@ $editButton.addEventListener("click", () => {
 });
 
 fetchApplication();
+
+Webflow.push(() => {
+  document.querySelector("#application").classList.add("current");
+});

@@ -465,3 +465,7 @@ const getApplySeeker = () => {
 // 신청 상태 get
 // getApplyStatus();
 application.bind(applicationDto);
+
+Webflow.push(() => {
+  document.querySelector("#application").classList.add("current");
+});
