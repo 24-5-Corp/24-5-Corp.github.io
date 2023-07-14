@@ -597,7 +597,11 @@ $editButton.addEventListener("click", () => {
     workCondition: workConditition.data,
   };
 
-  putApplication(application);
+  putApplication(application)
+    .then(() => {
+      location.href = "/my-application";
+    })
+    .catch((error) => console.error(error));
 });
 
 fetchApplication();
