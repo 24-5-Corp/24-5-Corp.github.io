@@ -1,4 +1,13 @@
 // NOTE: const
+const applyStatusTypes = {
+  prepare: 0,
+  apply: 1,
+  registeredPool: 2,
+  complated: 3,
+  cancelled: 4,
+  reject: 5,
+};
+
 const projectCategories = [
   { id: 1, name: "경력" },
   { id: 2, name: "동아리/학회" },
@@ -259,6 +268,12 @@ const workConditition = new WorkConditionInput(
 workConditition.key = "workCondition";
 
 // NOTE: api
+const getApplyStatus = async () => {
+  return await apiService.makeRequest("/superpass/v2/apply-status", {
+    method: "GET",
+  });
+};
+
 const getApplication = async () => {
   return await apiService.makeRequest("/superpass/v2/apply-seeker", {
     method: "GET",
@@ -471,91 +486,107 @@ const fetchApplication = async () => {
   if (!accessToken) {
     return loginWithKakao();
   } else {
-    return getApplication().then((response) => {
-      const applicationDto = response.data;
+    return getApplyStatus()
+      .then((applyStatusDto) => {
+        const applyStatus = applyStatusDto.applyStatus;
+        if (
+          applyStatus === applyStatusTypes.apply ||
+          applyStatus === applyStatusTypes.registeredPool
+        ) {
+          return getApplication();
+        } else {
+          location.href = "/my-application";
+          return;
+        }
+      })
+      .then((response) => {
+        const applicationDto = response.data;
 
-      bindText($nameField, applicationDto.seeker.name);
-      bindText($emailField, applicationDto.seeker.email);
-      bindText($contactField, parsePhoneNumber(applicationDto.seeker.contact));
-
-      // NOTE: academic
-      academic._university.value = applicationDto.academicRecord.university;
-      academic._major.value = applicationDto.academicRecord.major;
-      // TODO: avgScore
-      academic._avgScore.value =
-        applicationDto.academicRecord.avgScore.toString();
-      academic._stdScore.value = academic.stdScores.find(
-        (score) =>
-          parseFloat(score.name) ===
-          parseFloat(applicationDto.academicRecord.stdScore)
-      ).id;
-      academic._graduate.value = applicationDto.academicRecord.graduate;
-      academic._grade.value = applicationDto.academicRecord.grade;
-      academic._semester.value = applicationDto.academicRecord.semester;
-      academic._year.value = parseInt(
-        applicationDto.academicRecord.graduateYearMonth.substring(0, 4)
-      );
-      academic._month.value = parseInt(
-        applicationDto.academicRecord.graduateYearMonth.substring(4, 6)
-      );
-
-      bindChips($repKeywordList, applicationDto.repKeywords);
-
-      bindCredential(
-        $repProjectList,
-        mapper.credentials.repProjects(applicationDto.repProjects)
-      );
-
-      bindResumes($resumeList, applicationDto.documents);
-
-      bindCredential(
-        $awardList,
-        mapper.credentials.awards(applicationDto.awards)
-      );
-      bindCredential(
-        $certificateList,
-        mapper.credentials.certificates(applicationDto.certificates)
-      );
-      bindCredential(
-        $languageTestList,
-        mapper.credentials.languageTests(applicationDto.languageTests)
-      );
-      bindCredential(
-        $languageList,
-        mapper.credentials.languages(applicationDto.languages)
-      );
-      bindCredential(
-        $educationList,
-        mapper.credentials.educations(applicationDto.educations)
-      );
-
-      bindText($jobGroupField, applicationDto.jobSkill.jobGroup);
-      bindChips($positionList, applicationDto.jobSkill.jobs);
-      // NOTE: skill
-      applicationDto.jobSkill.skills.forEach((skill) => {
-        requirementSkills.appendListItem(skill);
-      });
-
-      // TODO: workConditition
-      applicationDto.workCondition.recruitmentTypeGroups.forEach((type) => {
-        const checkbox = new Checkbox(
-          workConditition._type._input.childNodes[type.id - 1]
+        bindText($nameField, applicationDto.seeker.name);
+        bindText($emailField, applicationDto.seeker.email);
+        bindText(
+          $contactField,
+          parsePhoneNumber(applicationDto.seeker.contact)
         );
-        checkbox.value = true;
-      });
-      applicationDto.workCondition.regions.forEach((region) => {
-        const checkbox = new Checkbox(
-          workConditition._region._input.childNodes[region.id - 1]
+
+        // NOTE: academic
+        academic._university.value = applicationDto.academicRecord.university;
+        academic._major.value = applicationDto.academicRecord.major;
+        // TODO: avgScore
+        academic._avgScore.value =
+          applicationDto.academicRecord.avgScore.toString();
+        academic._stdScore.value = academic.stdScores.find(
+          (score) =>
+            parseFloat(score.name) ===
+            parseFloat(applicationDto.academicRecord.stdScore)
+        ).id;
+        academic._graduate.value = applicationDto.academicRecord.graduate;
+        academic._grade.value = applicationDto.academicRecord.grade;
+        academic._semester.value = applicationDto.academicRecord.semester;
+        academic._year.value = parseInt(
+          applicationDto.academicRecord.graduateYearMonth.substring(0, 4)
         );
-        checkbox.value = true;
+        academic._month.value = parseInt(
+          applicationDto.academicRecord.graduateYearMonth.substring(4, 6)
+        );
+
+        bindChips($repKeywordList, applicationDto.repKeywords);
+
+        bindCredential(
+          $repProjectList,
+          mapper.credentials.repProjects(applicationDto.repProjects)
+        );
+
+        bindResumes($resumeList, applicationDto.documents);
+
+        bindCredential(
+          $awardList,
+          mapper.credentials.awards(applicationDto.awards)
+        );
+        bindCredential(
+          $certificateList,
+          mapper.credentials.certificates(applicationDto.certificates)
+        );
+        bindCredential(
+          $languageTestList,
+          mapper.credentials.languageTests(applicationDto.languageTests)
+        );
+        bindCredential(
+          $languageList,
+          mapper.credentials.languages(applicationDto.languages)
+        );
+        bindCredential(
+          $educationList,
+          mapper.credentials.educations(applicationDto.educations)
+        );
+
+        bindText($jobGroupField, applicationDto.jobSkill.jobGroup);
+        bindChips($positionList, applicationDto.jobSkill.jobs);
+        // NOTE: skill
+        applicationDto.jobSkill.skills.forEach((skill) => {
+          requirementSkills.appendListItem(skill);
+        });
+
+        // TODO: workConditition
+        applicationDto.workCondition.recruitmentTypeGroups.forEach((type) => {
+          const checkbox = new Checkbox(
+            workConditition._type._input.childNodes[type.id - 1]
+          );
+          checkbox.value = true;
+        });
+        applicationDto.workCondition.regions.forEach((region) => {
+          const checkbox = new Checkbox(
+            workConditition._region._input.childNodes[region.id - 1]
+          );
+          checkbox.value = true;
+        });
+        workConditition._date.value = parseDate(
+          applicationDto.workCondition.workStart,
+          true
+        );
+        workConditition._additional.value =
+          applicationDto.workCondition.additional;
       });
-      workConditition._date.value = parseDate(
-        applicationDto.workCondition.workStart,
-        true
-      );
-      workConditition._additional.value =
-        applicationDto.workCondition.additional;
-    });
   }
 };
 
