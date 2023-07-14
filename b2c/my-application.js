@@ -406,7 +406,7 @@ const getApplySeeker = () => {
       method: "GET",
     })
     .then((applicationDto) => {
-      application.bind(applicationDto);
+      application.bind(applicationDto.data);
       $applicaionInformation.style.display = "flex";
       $cancelContainer.style.display = "flex";
       $editButton.style.display = "flex";
