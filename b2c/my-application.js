@@ -167,7 +167,7 @@ class MyAppicationView {
       clonedCV.querySelector(".document-item-icon").src = icon;
       clonedCV.querySelector(".document-item-title").textContent = title;
       clonedCV.addEventListener("click", () => {
-        location.href = document.documentUrl;
+        window.open(document.documentUrl);
       });
 
       this._cvList.appendChild(clonedCV);
