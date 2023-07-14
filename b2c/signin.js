@@ -1,23 +1,6 @@
 const params = new URLSearchParams(location.search);
 const code = params.get("code");
 
-const fetchApplication = () => {
-  const loginUrl = localStorage.getItem("loginUrl");
-
-  apiService
-    .makeRequest("/superpass/v2/apply-seeker", {
-      method: "GET",
-    })
-    .then((response) => {
-      if (response.data === null) {
-        location.href = `${loginUrl}?isSigned=true`;
-      } else {
-        location.href = "/matches";
-      }
-    })
-    .catch((error) => console.error(error));
-};
-
 apiService
   .makeRequest(`/auth/b2c/authrization?code=${code}`)
   .then((response) => {
@@ -39,10 +22,23 @@ apiService
           location.href = "/matches";
         })
         .catch(() => {
-          fetchApplication();
+          location.href = `${loginUrl}?isSigned=true`;
         });
     } else {
-      fetchApplication();
+      const loginUrl = localStorage.getItem("loginUrl");
+
+      apiService
+        .makeRequest("/superpass/v2/apply-seeker", {
+          method: "GET",
+        })
+        .then((response) => {
+          if (response.data === null) {
+            location.href = `${loginUrl}?isSigned=true`;
+          } else {
+            location.href = "/matches";
+          }
+        })
+        .catch((error) => console.error(error));
     }
   })
   .catch((error) => console.error(error));
