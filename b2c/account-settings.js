@@ -40,6 +40,13 @@ leaveDoneModal.onCheck = () => {
   location.href = "/";
 };
 
+const $loginButton = document.getElementById("loginButton");
+$loginButton.addEventListener("click", () => {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+  location.href = "/";
+});
+
 Webflow.push(() => {
   document.querySelector("#account").classList.add("current");
 });

@@ -466,6 +466,13 @@ const getApplySeeker = () => {
 // getApplyStatus();
 application.bind(applicationDto);
 
+const $loginButton = document.getElementById("loginButton");
+$loginButton.addEventListener("click", () => {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+  location.href = "/";
+});
+
 Webflow.push(() => {
   document.querySelector("#application").classList.add("current");
 });

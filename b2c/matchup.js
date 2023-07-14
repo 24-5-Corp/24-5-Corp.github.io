@@ -318,6 +318,13 @@ const fetchMatchup = async () => {
     });
 };
 
+const $loginButton = document.getElementById("loginButton");
+$loginButton.addEventListener("click", () => {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+  location.href = "/";
+});
+
 fetchMatchup();
 
 Webflow.push(() => {
