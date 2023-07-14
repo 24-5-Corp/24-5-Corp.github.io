@@ -332,6 +332,7 @@ const $information = document.querySelector(".information");
 const $applicaionInformation = document.querySelector(
   ".application-information"
 );
+const $editButton = document.querySelector(".edit-application-button");
 const $cancelContainer = document.querySelector(".cancel-container");
 const $applyCancelButton = document.querySelector(".apply-cancel-button");
 const applyCancelModal = new ConfirmModal(
@@ -370,6 +371,7 @@ const fetchMyApplicaion = async () => {
           $information.style.display = "flex";
           $cancelContainer.style.display = "none";
           $applicaionInformation.style.display = "none";
+          $editButton.style.display = "none";
           application.handleShow(false);
 
         case applyStatusTypes.apply:
@@ -398,6 +400,7 @@ const getApplySeeker = () => {
       application.bind(applicationDto);
       $applicaionInformation.style.display = "flex";
       $cancelContainer.style.display = "flex";
+      $editButton.style.display = "flex";
     })
     .catch((error) => console.error(error));
 };
