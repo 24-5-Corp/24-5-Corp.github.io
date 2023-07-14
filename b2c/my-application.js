@@ -27,6 +27,10 @@ const parseDate = (dateString, hasDay = false) => {
   }
 };
 
+const parsePhoneNumber = (phoneNumber) => {
+  return phoneNumber.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+};
+
 const mapper = {
   credentials: {
     repProjects: (repProjects) => {
@@ -146,7 +150,7 @@ class MyAppicationView {
     this.reset();
     this._name.textContent = model.seeker.name;
     this._email.textContent = model.seeker.email;
-    this._contact.textContent = model.seeker.contact;
+    this._contact.textContent = parsePhoneNumber(model.seeker.contact);
 
     if (model.repKeywords.length > 0) {
       model.repKeywords.forEach((keyword) => {
