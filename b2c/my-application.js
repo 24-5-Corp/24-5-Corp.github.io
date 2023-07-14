@@ -349,7 +349,6 @@ applyCancelModal.onConfirm = () => {
   apiService
     .makeRequest("/superpass/v2/apply-seeker", {
       method: "DELETE",
-      body: JSON.stringify(data),
     })
     .then(() => {
       applyCancelModal.handleShow(false);
