@@ -136,6 +136,9 @@ const matchupCheckModal = new ConfirmModal(
 const matchupDoneModal = new AlertModal(
   document.querySelector(".match-done-modal")
 );
+matchupDoneModal.onCheck = async () => {
+  await fetchMatchup();
+};
 
 const radioGroup = new RadioGroup(document.querySelector("#cancelRadio"));
 radioGroup.extract = (input, _) => input.reasonId;
@@ -220,7 +223,6 @@ const bindMatchups = (list, item, matchup) => {
     matchupCheckModal.handleShow(true);
     matchupCheckModal.onConfirm = async () => {
       await putMatchupReply(matchup.id, true);
-      await fetchMatchup();
       matchupDoneModal.handleShow(true);
     };
   };

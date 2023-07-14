@@ -16,7 +16,7 @@ class ProfileInput extends Input {
     this._contact.key = "contact";
     this._contact.regex = regex.phoneNumber;
     this._contact.regexMessage = "올바른 전화번호를 입력해주세요.";
-    this._contact.extract = (input, value) => {
+    this._contact.extract = (_, value) => {
       return value.replace(/-/g, "");
     };
     this._contact.replace = (input, value) => {
@@ -1537,7 +1537,7 @@ applyCheckModal.onConfirm = () => {
       method: "POST",
       body: makeData(),
     })
-    .then((response) => {
+    .then(() => {
       fbq("track", "SubmitApplication");
       logScreenView({ screenName: "superpass_apply_popup_submit" });
       applyCheckModal.handleShow(false);
@@ -1550,7 +1550,7 @@ const applyDoneModal = new AlertModal(
   document.querySelector("#applyDoneModal")
 );
 applyDoneModal.onCheck = () => {
-  location.href = "/";
+  location.href = "/matches";
 };
 
 const applyErrorModal = new AlertModal(
