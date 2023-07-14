@@ -373,11 +373,16 @@ const fetchMyApplicaion = async () => {
           $applicaionInformation.style.display = "none";
           $editButton.style.display = "none";
           application.handleShow(false);
+          break;
 
         case applyStatusTypes.apply:
         case applyStatusTypes.registeredPool:
           $information.style.display = "none";
           getApplySeeker();
+          break;
+
+        default:
+          throw new Error("Invalid apply status");
       }
     })
     .catch((error) => {
@@ -393,7 +398,7 @@ const getApplyStatus = async () => {
 
 const getApplySeeker = () => {
   apiService
-    .makeRequest("/apply-seeker", {
+    .makeRequest("/superpass/v2/apply-seeker", {
       method: "GET",
     })
     .then((applicationDto) => {
