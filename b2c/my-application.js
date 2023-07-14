@@ -363,35 +363,41 @@ $applyCancelButton.addEventListener("click", () => {
 });
 
 const fetchMyApplicaion = async () => {
-  return getApplyStatus()
-    .then((applyStatusDto) => {
-      const applyStatus = applyStatusDto.applyStatus;
+  const accessToken = localStorage.getItem("accessToken");
 
-      switch (applyStatus) {
-        case applyStatusTypes.prepare:
-        case applyStatusTypes.complated:
-        case applyStatusTypes.cancelled:
-        case applyStatusTypes.reject:
-          $information.style.display = "flex";
-          $cancelContainer.style.display = "none";
-          $applicaionInformation.style.display = "none";
-          $editButton.style.display = "none";
-          application.handleShow(false);
-          break;
+  if (!accessToken) {
+    return loginWithKakao();
+  } else {
+    return getApplyStatus()
+      .then((applyStatusDto) => {
+        const applyStatus = applyStatusDto.applyStatus;
 
-        case applyStatusTypes.apply:
-        case applyStatusTypes.registeredPool:
-          $information.style.display = "none";
-          getApplySeeker();
-          break;
+        switch (applyStatus) {
+          case applyStatusTypes.prepare:
+          case applyStatusTypes.complated:
+          case applyStatusTypes.cancelled:
+          case applyStatusTypes.reject:
+            $information.style.display = "flex";
+            $cancelContainer.style.display = "none";
+            $applicaionInformation.style.display = "none";
+            $editButton.style.display = "none";
+            application.handleShow(false);
+            break;
 
-        default:
-          throw new Error("Invalid apply status");
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+          case applyStatusTypes.apply:
+          case applyStatusTypes.registeredPool:
+            $information.style.display = "none";
+            getApplySeeker();
+            break;
+
+          default:
+            throw new Error("Invalid apply status");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 };
 
 const getApplyStatus = async () => {
