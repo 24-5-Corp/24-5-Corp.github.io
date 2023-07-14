@@ -357,8 +357,6 @@ const fetchMyApplicaion = async () => {
     .then((applyStatusDto) => {
       const applyStatus = applyStatusDto.applyStatus;
 
-      bindApplyStatus(applyStatus);
-
       if (applyStatus === applyStatusTypes.apply)
         switch (applyStatus) {
           case applyStatusTypes.prepare:
