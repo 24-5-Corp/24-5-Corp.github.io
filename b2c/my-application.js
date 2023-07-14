@@ -311,160 +311,87 @@ class MyAppicationView {
   };
 }
 
-const applicationDto = {
-  id: 0,
-
-  seeker: {
-    name: "피니",
-    email: "moonp@ssgsag.kr",
-    contact: "010-2415-8974",
-  },
-
-  academicRecord: {
-    university: "한국해양대학교",
-    major: "해양공학과",
-    avgScore: 4.0,
-    stdScore: 4.5,
-    graduate: 1,
-    grade: 1,
-    semester: 2,
-    graduateYearMonth: "202302",
-  },
-
-  documents: [
-    {
-      type: 0,
-      name: "피니 마이커리어.pdf",
-      documentUrl:
-        "https://s3.ap-northeast-2.amazonaws.com/project-hs/resumes/00e0c239-f682-45da-bcf9-d85bcc961923.pdf",
-    },
-  ],
-
-  repKeywords: [],
-
-  repProjects: [
-    {
-      category: 1,
-      name: "프로젝트",
-      role: "역할",
-      startDate: "2023.05",
-      endDate: "2023.05",
-      inProgress: false,
-    },
-    {
-      category: 1,
-      name: "프로젝트2",
-      role: "역할",
-      startDate: "2023.05",
-      endDate: "",
-      inProgress: true,
-    },
-  ],
-
-  awards: [
-    {
-      name: "AWS 해커톤",
-      prize: "1등",
-      host: "AWS",
-      awardDate: "2023-02",
-    },
-    {
-      name: "AWS 해커톤 2",
-      prize: "2등",
-      host: "AWS",
-      awardDate: "2023-02",
-    },
-  ],
-  certificates: [
-    {
-      name: "정보처리기사",
-      issuer: "한국산업인력공단",
-      grade: "1급",
-      acquisitionDate: "2023-01",
-    },
-  ],
-  languageTests: [
-    {
-      language: "영어",
-      name: "TOEIC",
-      grade: "150",
-      acquisitionDate: "2023-04",
-    },
-  ],
-  languages: [
-    {
-      name: "영어",
-      proficiency: "",
-    },
-  ],
-  educations: [
-    {
-      courseName: "부트캠프",
-      institutionName: "부트캠프 기관",
-      startDate: "2023-01",
-      endDate: "2023-03",
-    },
-  ],
-
-  jobSkill: {
-    jobGroup: "개발",
-    jobs: ["웹 개발자", "서버 개발자"],
-    skills: [
-      {
-        id: 728,
-        name: "C",
-      },
-    ],
-  },
-
-  workCondition: {
-    recruitmentTypeGroups: [
-      {
-        id: 1,
-        name: "인턴십",
-      },
-    ],
-    regions: [
-      {
-        id: 1,
-        name: "서울",
-      },
-      {
-        id: 2,
-        name: "경기",
-      },
-    ],
-    workStart: "2023-03-07",
-    additional: "Hello, World!",
-  },
-};
-
-const getApplyStatus = () => {
-  // apiService
-  //   .makeRequest("/apply-status")
-  //   .then((response) => {
-  //     // -> 있으면 신청서 조회 get
-  //     // -> 없으면 신청 유도 뷰 노출
-  //   })
-  //   .catch((error) => console.error(error));
+const applyStatusTypes = {
+  prepare: 0,
+  apply: 1,
+  registeredPool: 2,
+  complated: 3,
+  cancelled: 4,
+  reject: 5,
 };
 
 const application = new MyAppicationView(
   document.querySelector(".application-container")
 );
+const $information = document.querySelector(".information");
+const $applicaionInformation = document.querySelector(
+  ".application-information"
+);
+const $cancelContainer = document.querySelector(".cancel-container");
+const $applyCancelButton = document.querySelector(".apply-cancel-button");
+const applyCancelDoneModal = new AlertModal(
+  document.querySelector("#applyCancelDoneModal")
+);
 
-const getApplySeeker = () => {
+$applyCancelButton.addEventListener("click", () => {
   apiService
-    .makeRequest("/apply-seeker")
-    .then((response) => {
-      application.bind(response);
+    .makeRequest("/superpass/v2/apply-seeker", {
+      method: "DELETE",
+      body: JSON.stringify(data),
+    })
+    .then(() => {
+      applyCancelDoneModal.handleShow(true);
     })
     .catch((error) => console.error(error));
+});
+
+const fetchMyApplicaion = async () => {
+  return getApplyStatus()
+    .then((applyStatusDto) => {
+      const applyStatus = applyStatusDto.applyStatus;
+
+      bindApplyStatus(applyStatus);
+
+      if (applyStatus === applyStatusTypes.apply)
+        switch (applyStatus) {
+          case applyStatusTypes.prepare:
+          case applyStatusTypes.complated:
+          case applyStatusTypes.cancelled:
+          case applyStatusTypes.reject:
+            $information.style.display = "flex";
+            $cancelContainer.style.display = "none";
+            $applicaionInformation.style.display = "none";
+            application.style.display = "none";
+
+          case applyStatusTypes.apply:
+          case applyStatusTypes.registeredPool:
+            $information.style.display = "none";
+            return getApplySeeker();
+        }
+    })
+    .then((applicationDto) => {
+      application.bind(applicationDto);
+      $applicaionInformation.style.display = "flex";
+      $cancelContainer.style.display = "flex";
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 };
 
-// 신청 상태 get
-// getApplyStatus();
-application.bind(applicationDto);
+const getApplyStatus = async () => {
+  return await apiService.makeRequest("/superpass/v2/apply-status", {
+    method: "GET",
+  });
+};
+
+const getApplySeeker = async () => {
+  return await apiService.makeRequest("/apply-seeker", {
+    method: "GET",
+  });
+};
+
+fetchMyApplicaion();
 
 const $loginButton = document.getElementById("loginButton");
 $loginButton.addEventListener("click", () => {
