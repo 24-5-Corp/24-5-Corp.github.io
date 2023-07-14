@@ -280,7 +280,7 @@ class MyAppicationView {
       this._workAdditional.textContent = workCondition.additional;
     }
 
-    this._element.style.display = "flex";
+    this.handleShow(true);
   }
 
   reset() {
@@ -289,6 +289,11 @@ class MyAppicationView {
     this._skillList.removeChild(this._skill);
     this._keywordList.removeChild(this._keyword);
   }
+
+  handleShow = (isShow) => {
+    const display = isShow ? "flex" : "none";
+    this._element.style.display = display;
+  };
 
   bindCredential = (credentials) => {
     credentials.forEach((credential) => {
@@ -365,7 +370,7 @@ const fetchMyApplicaion = async () => {
           $information.style.display = "flex";
           $cancelContainer.style.display = "none";
           $applicaionInformation.style.display = "none";
-          application.style.display = "none";
+          application.handleShow(false);
 
         case applyStatusTypes.apply:
         case applyStatusTypes.registeredPool:
