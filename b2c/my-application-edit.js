@@ -594,7 +594,7 @@ $editButton.addEventListener("click", () => {
   const application = {
     educationInfo: academic.data,
     skills: requirementSkills.value,
-    workCondtition: workConditition.data,
+    workCondition: workConditition.data,
   };
 
   putApplication(application);
