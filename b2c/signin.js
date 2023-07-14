@@ -1,6 +1,8 @@
 const params = new URLSearchParams(location.search);
 const code = params.get("code");
 
+const div = document.createElement("div");
+
 apiService
   .makeRequest(`/auth/b2c/authrization?code=${code}`)
   .then((response) => {
@@ -21,7 +23,10 @@ apiService
           localStorage.removeItem(applyData);
           location.href = "/matches";
         })
-        .catch((error) => console.error(error));
+        .catch((error) => {
+          console.error(error);
+          div.textContent += `${error}\n`;
+        });
     } else {
       const loginUrl = localStorage.getItem("loginUrl");
 
@@ -36,7 +41,13 @@ apiService
             location.href = "/matches";
           }
         })
-        .catch((error) => console.error(error));
+        .catch((error) => {
+          console.error(error);
+          div.textContent += `${error}\n`;
+        });
     }
   })
-  .catch((error) => console.error(error));
+  .catch((error) => {
+    console.error(error);
+    div.textContent += `${error}\n`;
+  });
