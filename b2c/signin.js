@@ -18,15 +18,8 @@ apiService
           body: applyData,
         })
         .then(() => {
-<<<<<<< Updated upstream
-          localStorage.removeItem(applyData);
-=======
-          fbq("track", "SubmitApplication");
-          logScreenView({ screenName: "superpass_apply_popup_submit" });
           localStorage.removeItem("applyData");
           localStorage.removeItem("loginUrl");
-
->>>>>>> Stashed changes
           location.href = "/matches";
         })
         .catch(() => {
