@@ -23,8 +23,12 @@ $withdrawalButton.addEventListener("click", () => {
 
 leaveCheckModal.onConfirm = () => {
   apiService
-    .makeRequest("/auth/b2c/withdrawal")
+    .makeRequest("/auth/b2c/withdrawal", {
+      method: "DELETE",
+    })
     .then(() => {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
       leaveDoneModal.handleShow(true);
     })
     .catch((error) => {
