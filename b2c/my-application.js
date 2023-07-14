@@ -329,20 +329,27 @@ const $applicaionInformation = document.querySelector(
 );
 const $cancelContainer = document.querySelector(".cancel-container");
 const $applyCancelButton = document.querySelector(".apply-cancel-button");
-const applyCancelDoneModal = new AlertModal(
-  document.querySelector("#applyCancelDoneModal")
+const applyCancelModal = new ConfirmModal(
+  document.querySelector("#applyCancelModal")
 );
-
-$applyCancelButton.addEventListener("click", () => {
+applyCancelModal.onConfirm = () => {
   apiService
     .makeRequest("/superpass/v2/apply-seeker", {
       method: "DELETE",
       body: JSON.stringify(data),
     })
     .then(() => {
+      applyCancelModal.handleShow(false);
       applyCancelDoneModal.handleShow(true);
     })
     .catch((error) => console.error(error));
+};
+const applyCancelDoneModal = new AlertModal(
+  document.querySelector("#applyCancelDoneModal")
+);
+
+$applyCancelButton.addEventListener("click", () => {
+  applyCancelModal.handleShow(true);
 });
 
 const fetchMyApplicaion = async () => {
