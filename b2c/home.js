@@ -63,6 +63,11 @@ Webflow.push(() => {
   $loginButton.addEventListener("click", () => {
     accessToken ? logout() : loginWithKakao();
   });
+  $dashboardButton.addEventListener("click", () => {
+    if (accessToken) {
+      location.href = "/matches";
+    }
+  });
 
   const getApplication = async () => {
     return await apiService.makeRequest("/superpass/v2/apply-seeker", {
