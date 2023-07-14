@@ -55,8 +55,10 @@ Webflow.push(() => {
   };
 
   const $loginButton = document.getElementById("loginButton");
+  const $dashboardButton = document.getElementById("dashboardButton");
   const accessToken = localStorage.getItem("accessToken");
   $loginButton.textContent = accessToken ? "로그아웃" : "로그인 / 가입";
+  $dashboardButton.style.display = accessToken ? "block" : "none";
 
   $loginButton.addEventListener("click", () => {
     accessToken ? logout() : loginWithKakao();

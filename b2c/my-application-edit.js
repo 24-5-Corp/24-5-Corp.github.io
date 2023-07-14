@@ -458,91 +458,105 @@ const bindResumes = (list, resumes) => {
   });
 };
 
-const fetchApplication = async () => {
-  return getApplication().then((response) => {
-    const applicationDto = response.data;
-
-    bindText($nameField, applicationDto.seeker.name);
-    bindText($emailField, applicationDto.seeker.email);
-    bindText($contactField, parsePhoneNumber(applicationDto.seeker.contact));
-
-    // NOTE: academic
-    academic._university.value = applicationDto.academicRecord.university;
-    academic._major.value = applicationDto.academicRecord.major;
-    // TODO: avgScore
-    academic._avgScore.value =
-      applicationDto.academicRecord.avgScore.toString();
-    academic._stdScore.value = academic.stdScores.find(
-      (score) =>
-        parseFloat(score.name) ===
-        parseFloat(applicationDto.academicRecord.stdScore)
-    ).id;
-    academic._graduate.value = applicationDto.academicRecord.graduate;
-    academic._grade.value = applicationDto.academicRecord.grade;
-    academic._semester.value = applicationDto.academicRecord.semester;
-    academic._year.value = parseInt(
-      applicationDto.academicRecord.graduateYearMonth.substring(0, 4)
-    );
-    academic._month.value = parseInt(
-      applicationDto.academicRecord.graduateYearMonth.substring(4, 6)
-    );
-
-    bindChips($repKeywordList, applicationDto.repKeywords);
-
-    bindCredential(
-      $repProjectList,
-      mapper.credentials.repProjects(applicationDto.repProjects)
-    );
-
-    bindResumes($resumeList, applicationDto.documents);
-
-    bindCredential(
-      $awardList,
-      mapper.credentials.awards(applicationDto.awards)
-    );
-    bindCredential(
-      $certificateList,
-      mapper.credentials.certificates(applicationDto.certificates)
-    );
-    bindCredential(
-      $languageTestList,
-      mapper.credentials.languageTests(applicationDto.languageTests)
-    );
-    bindCredential(
-      $languageList,
-      mapper.credentials.languages(applicationDto.languages)
-    );
-    bindCredential(
-      $educationList,
-      mapper.credentials.educations(applicationDto.educations)
-    );
-
-    bindText($jobGroupField, applicationDto.jobSkill.jobGroup);
-    bindChips($positionList, applicationDto.jobSkill.jobs);
-    // NOTE: skill
-    applicationDto.jobSkill.skills.forEach((skill) => {
-      requirementSkills.appendListItem(skill);
-    });
-
-    // TODO: workConditition
-    applicationDto.workCondition.recruitmentTypeGroups.forEach((type) => {
-      const checkbox = new Checkbox(
-        workConditition._type._input.childNodes[type.id - 1]
-      );
-      checkbox.value = true;
-    });
-    applicationDto.workCondition.regions.forEach((region) => {
-      const checkbox = new Checkbox(
-        workConditition._region._input.childNodes[region.id - 1]
-      );
-      checkbox.value = true;
-    });
-    workConditition._date.value = parseDate(
-      applicationDto.workCondition.workStart,
-      true
-    );
-    workConditition._additional.value = applicationDto.workCondition.additional;
+const loginWithKakao = () => {
+  localStorage.setItem("loginUrl", location.href);
+  Kakao.Auth.authorize({
+    redirectUri: "https://superpass-web-1-0-0.webflow.io/signin",
   });
+};
+
+const fetchApplication = async () => {
+  const accessToken = localStorage.getItem("accessToken");
+
+  if (!accessToken) {
+    return loginWithKakao();
+  } else {
+    return getApplication().then((response) => {
+      const applicationDto = response.data;
+
+      bindText($nameField, applicationDto.seeker.name);
+      bindText($emailField, applicationDto.seeker.email);
+      bindText($contactField, parsePhoneNumber(applicationDto.seeker.contact));
+
+      // NOTE: academic
+      academic._university.value = applicationDto.academicRecord.university;
+      academic._major.value = applicationDto.academicRecord.major;
+      // TODO: avgScore
+      academic._avgScore.value =
+        applicationDto.academicRecord.avgScore.toString();
+      academic._stdScore.value = academic.stdScores.find(
+        (score) =>
+          parseFloat(score.name) ===
+          parseFloat(applicationDto.academicRecord.stdScore)
+      ).id;
+      academic._graduate.value = applicationDto.academicRecord.graduate;
+      academic._grade.value = applicationDto.academicRecord.grade;
+      academic._semester.value = applicationDto.academicRecord.semester;
+      academic._year.value = parseInt(
+        applicationDto.academicRecord.graduateYearMonth.substring(0, 4)
+      );
+      academic._month.value = parseInt(
+        applicationDto.academicRecord.graduateYearMonth.substring(4, 6)
+      );
+
+      bindChips($repKeywordList, applicationDto.repKeywords);
+
+      bindCredential(
+        $repProjectList,
+        mapper.credentials.repProjects(applicationDto.repProjects)
+      );
+
+      bindResumes($resumeList, applicationDto.documents);
+
+      bindCredential(
+        $awardList,
+        mapper.credentials.awards(applicationDto.awards)
+      );
+      bindCredential(
+        $certificateList,
+        mapper.credentials.certificates(applicationDto.certificates)
+      );
+      bindCredential(
+        $languageTestList,
+        mapper.credentials.languageTests(applicationDto.languageTests)
+      );
+      bindCredential(
+        $languageList,
+        mapper.credentials.languages(applicationDto.languages)
+      );
+      bindCredential(
+        $educationList,
+        mapper.credentials.educations(applicationDto.educations)
+      );
+
+      bindText($jobGroupField, applicationDto.jobSkill.jobGroup);
+      bindChips($positionList, applicationDto.jobSkill.jobs);
+      // NOTE: skill
+      applicationDto.jobSkill.skills.forEach((skill) => {
+        requirementSkills.appendListItem(skill);
+      });
+
+      // TODO: workConditition
+      applicationDto.workCondition.recruitmentTypeGroups.forEach((type) => {
+        const checkbox = new Checkbox(
+          workConditition._type._input.childNodes[type.id - 1]
+        );
+        checkbox.value = true;
+      });
+      applicationDto.workCondition.regions.forEach((region) => {
+        const checkbox = new Checkbox(
+          workConditition._region._input.childNodes[region.id - 1]
+        );
+        checkbox.value = true;
+      });
+      workConditition._date.value = parseDate(
+        applicationDto.workCondition.workStart,
+        true
+      );
+      workConditition._additional.value =
+        applicationDto.workCondition.additional;
+    });
+  }
 };
 
 $editButton.addEventListener("click", () => {
