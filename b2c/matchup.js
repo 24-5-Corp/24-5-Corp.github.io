@@ -154,6 +154,9 @@ const bindApplyStatus = (applyStatus) => {
   const $title = $information.querySelector(".information-title");
   const $subtitle = $information.querySelector(".information-subtitle");
   const $button = $information.querySelector(".information-button");
+  $button.addEventListener("click", () => {
+    location.href = "/apply-superpasss";
+  });
 
   switch (applyStatus) {
     case applyStatusTypes.prepare:
