@@ -329,6 +329,10 @@ const application = new MyAppicationView(
   document.querySelector(".application-container")
 );
 const $information = document.querySelector(".information");
+const $button = $information.querySelector(".information-button");
+$button.addEventListener("click", () => {
+  location.href = "/apply-superpasss";
+});
 const $applicaionInformation = document.querySelector(
   ".application-information"
 );
