@@ -357,27 +357,21 @@ const fetchMyApplicaion = async () => {
     .then((applyStatusDto) => {
       const applyStatus = applyStatusDto.applyStatus;
 
-      if (applyStatus === applyStatusTypes.apply)
-        switch (applyStatus) {
-          case applyStatusTypes.prepare:
-          case applyStatusTypes.complated:
-          case applyStatusTypes.cancelled:
-          case applyStatusTypes.reject:
-            $information.style.display = "flex";
-            $cancelContainer.style.display = "none";
-            $applicaionInformation.style.display = "none";
-            application.style.display = "none";
+      switch (applyStatus) {
+        case applyStatusTypes.prepare:
+        case applyStatusTypes.complated:
+        case applyStatusTypes.cancelled:
+        case applyStatusTypes.reject:
+          $information.style.display = "flex";
+          $cancelContainer.style.display = "none";
+          $applicaionInformation.style.display = "none";
+          application.style.display = "none";
 
-          case applyStatusTypes.apply:
-          case applyStatusTypes.registeredPool:
-            $information.style.display = "none";
-            return getApplySeeker();
-        }
-    })
-    .then((applicationDto) => {
-      application.bind(applicationDto);
-      $applicaionInformation.style.display = "flex";
-      $cancelContainer.style.display = "flex";
+        case applyStatusTypes.apply:
+        case applyStatusTypes.registeredPool:
+          $information.style.display = "none";
+          getApplySeeker();
+      }
     })
     .catch((error) => {
       console.error(error);
@@ -390,10 +384,17 @@ const getApplyStatus = async () => {
   });
 };
 
-const getApplySeeker = async () => {
-  return await apiService.makeRequest("/apply-seeker", {
-    method: "GET",
-  });
+const getApplySeeker = () => {
+  apiService
+    .makeRequest("/apply-seeker", {
+      method: "GET",
+    })
+    .then((applicationDto) => {
+      application.bind(applicationDto);
+      $applicaionInformation.style.display = "flex";
+      $cancelContainer.style.display = "flex";
+    })
+    .catch((error) => console.error(error));
 };
 
 fetchMyApplicaion();
