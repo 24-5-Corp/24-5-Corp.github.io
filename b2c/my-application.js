@@ -282,7 +282,7 @@ class MyAppicationView {
     });
     this._workLocation.textContent = workLocationArray;
 
-    this._workStartDate.textContent = workCondition.workStart;
+    this._workStartDate.textContent = parseDate(workCondition.workStart, true);
     if (workCondition.additional != null) {
       this._workAdditional.textContent = workCondition.additional;
     }
