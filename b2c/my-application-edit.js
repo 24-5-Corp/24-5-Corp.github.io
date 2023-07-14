@@ -486,17 +486,15 @@ const fetchApplication = async () => {
   if (!accessToken) {
     return loginWithKakao();
   } else {
-    return getApplyStatus()
-      .then((applyStatusDto) => {
-        const applyStatus = applyStatusDto.applyStatus;
-        if (
-          applyStatus === applyStatusTypes.apply ||
-          applyStatus === applyStatusTypes.registeredPool
-        ) {
-          return getApplication();
-        } else {
+    return apiService
+      .makeRequest("/superpass/v2/apply-seeker", {
+        method: "GET",
+      })
+      .then((response) => {
+        if (response.data === null) {
           location.href = "/my-application";
-          return;
+        } else {
+          return getApplication();
         }
       })
       .then((response) => {
