@@ -228,6 +228,11 @@ const bindMatchups = (list, item, matchup) => {
   const $rejection = item.querySelector(".matchup-rejection");
 
   const showProposal = () => {
+    logMatchItemClick(
+      "superpass_matches_detail",
+      matchup.company,
+      matchup.position
+    );
     window.open(matchup.proposalUrl);
   };
   const accept = async () => {
@@ -238,6 +243,11 @@ const bindMatchups = (list, item, matchup) => {
     );
     matchupCheckModal.handleShow(true);
     matchupCheckModal.onConfirm = async () => {
+      logMatchItemClick(
+        "superpass_matches_accept_done",
+        matchup.company,
+        matchup.position
+      );
       await putMatchupReply(matchup.id, true);
       matchupDoneModal.handleShow(true);
     };
@@ -250,6 +260,11 @@ const bindMatchups = (list, item, matchup) => {
     );
     matchupCancelModal.handleShow(true);
     cancelForm.onSubmit = async () => {
+      logMatchItemClick(
+        "superpass_matches_refuse_done",
+        matchup.company,
+        matchup.position
+      );
       await putMatchupReply(matchup.id, false, radioGroup.value);
       await fetchMatchup();
       matchupCancelModal.handleShow(false);
