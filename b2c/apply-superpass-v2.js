@@ -1595,3 +1595,32 @@ $dashboardButton.addEventListener("click", () => {
     location.href = "/matches";
   }
 });
+
+Webflow.push(() => {
+  const alreadyAppliedModal = new AlertModal(
+    document.querySelector(".already-applied-modal")
+  );
+  alreadyAppliedModal.onCheck = () => {
+    location.href = "/matches";
+  };
+
+  const params = new URLSearchParams(location.search);
+  const isSigned = params.get("isSigned");
+
+  if (isSigned) {
+    alreadyAppliedModal.handleShow(true);
+  }
+
+  if (accessToken) {
+    apiService
+      .makeRequest("/superpass/v2/apply-seeker", {
+        method: "GET",
+      })
+      .then((response) => {
+        if (response.data !== null) {
+          alreadyAppliedModal.handleShow(true);
+        }
+      })
+      .catch((error) => console.error(error));
+  }
+});
