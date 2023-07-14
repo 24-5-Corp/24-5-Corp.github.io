@@ -16,8 +16,6 @@ apiService
           body: applyData,
         })
         .then(() => {
-          fbq("track", "SubmitApplication");
-          logScreenView({ screenName: "superpass_apply_popup_submit" });
           localStorage.removeItem(applyData);
           location.href = "/matches";
         })
