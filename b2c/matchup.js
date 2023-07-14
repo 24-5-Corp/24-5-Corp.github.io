@@ -1,3 +1,6 @@
+logScreenView({ screenName: "superpass_matches" });
+addLogButtonEventListener();
+
 class RadioGroup extends RegexInput {
   constructor(element) {
     super(element);
@@ -204,6 +207,14 @@ const bindTotalCount = (totalCount) => {
   }
 };
 
+const logMatchItemClick = (buttonName, companyName, positionName) => {
+  gtag("event", "button_click", {
+    button_name: buttonName,
+    company_name: companyName,
+    position_name: positionName,
+  });
+};
+
 const bindMatchups = (list, item, matchup) => {
   const $status = item.querySelector(".matchup-status");
   const $thumbnail = item.querySelector(".matchup-thumbnail");
@@ -220,6 +231,11 @@ const bindMatchups = (list, item, matchup) => {
     window.open(matchup.proposalUrl);
   };
   const accept = async () => {
+    logMatchItemClick(
+      "superpass_matches_accept",
+      matchup.company,
+      matchup.position
+    );
     matchupCheckModal.handleShow(true);
     matchupCheckModal.onConfirm = async () => {
       await putMatchupReply(matchup.id, true);
@@ -227,6 +243,11 @@ const bindMatchups = (list, item, matchup) => {
     };
   };
   const reject = async () => {
+    logMatchItemClick(
+      "superpass_matches_refuse",
+      matchup.company,
+      matchup.position
+    );
     matchupCancelModal.handleShow(true);
     cancelForm.onSubmit = async () => {
       await putMatchupReply(matchup.id, false, radioGroup.value);

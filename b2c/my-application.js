@@ -1,3 +1,6 @@
+logScreenView({ screenName: "superpass_my-application" });
+addLogButtonEventListener();
+
 const projectCategories = [
   { id: 1, name: "경력" },
   { id: 2, name: "동아리/학회" },

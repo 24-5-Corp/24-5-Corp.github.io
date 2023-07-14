@@ -1,3 +1,5 @@
+addLogButtonEventListener();
+
 // NOTE: const
 const applyStatusTypes = {
   prepare: 0,

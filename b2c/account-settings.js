@@ -1,3 +1,5 @@
+logScreenView({ screenName: "superpass_account-settings" });
+addLogButtonEventListener();
 const $emailText = document.querySelector(".email-text");
 const $withdrawalButton = document.querySelector(".withdrawal-button");
 
