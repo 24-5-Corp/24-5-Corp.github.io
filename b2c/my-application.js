@@ -353,6 +353,7 @@ applyCancelModal.onConfirm = () => {
     .then(() => {
       applyCancelModal.handleShow(false);
       applyCancelDoneModal.handleShow(true);
+      fetchMyApplicaion();
     })
     .catch((error) => console.error(error));
 };
