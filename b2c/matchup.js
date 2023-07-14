@@ -297,31 +297,44 @@ const bindMatchups = (list, item, matchup) => {
   list.appendChild(item);
 };
 
+const loginWithKakao = () => {
+  localStorage.setItem("loginUrl", location.href);
+  Kakao.Auth.authorize({
+    redirectUri: "https://superpass-web-1-0-0.webflow.io/signin",
+  });
+};
+
 const fetchMatchup = async () => {
-  return getApplyStatus()
-    .then((applyStatusDto) => {
-      const applyStatus = applyStatusDto.applyStatus;
+  const accessToken = localStorage.getItem("accessToken");
 
-      bindApplyStatus(applyStatus);
-      return getMatchups();
-    })
-    .then((matchupDto) => {
-      bindTotalCount(matchupDto.totalCount);
+  if (!accessToken) {
+    return loginWithKakao();
+  } else {
+    return getApplyStatus()
+      .then((applyStatusDto) => {
+        const applyStatus = applyStatusDto.applyStatus;
 
-      $matchupList.style.display =
-        matchupDto.data.length === 0 ? "none" : "flex";
-      removeAllChildren($matchupList);
+        bindApplyStatus(applyStatus);
+        return getMatchups();
+      })
+      .then((matchupDto) => {
+        bindTotalCount(matchupDto.totalCount);
 
-      matchupDto.data.forEach((datum) => {
-        const clonedItem = $matchupItem.cloneNode(true);
-        const matchup = mapToMatchup(datum);
+        $matchupList.style.display =
+          matchupDto.data.length === 0 ? "none" : "flex";
+        removeAllChildren($matchupList);
 
-        bindMatchups($matchupList, clonedItem, matchup);
+        matchupDto.data.forEach((datum) => {
+          const clonedItem = $matchupItem.cloneNode(true);
+          const matchup = mapToMatchup(datum);
+
+          bindMatchups($matchupList, clonedItem, matchup);
+        });
+      })
+      .catch((error) => {
+        console.error(error);
       });
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  }
 };
 
 const $loginButton = document.getElementById("loginButton");
