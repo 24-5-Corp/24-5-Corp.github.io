@@ -166,6 +166,9 @@ class MyAppicationView {
       const title = document.type === 0 ? "이력서" : "포트폴리오";
       clonedCV.querySelector(".document-item-icon").src = icon;
       clonedCV.querySelector(".document-item-title").textContent = title;
+      clonedCV.addEventListener("click", () => {
+        location.href = document.documentUrl;
+      });
 
       this._cvList.appendChild(clonedCV);
     });
