@@ -256,7 +256,7 @@ requirementSkills.key = "requirementSkills";
 const workConditition = new WorkConditionInput(
   document.querySelector(".workcondition-section")
 );
-workConditition.key = "workConditition";
+workConditition.key = "workCondition";
 
 // NOTE: api
 const getApplication = async () => {
