@@ -378,6 +378,13 @@ $applyCancelButton.addEventListener("click", () => {
   applyCancelModal.handleShow(true);
 });
 
+const loginWithKakao = () => {
+  localStorage.setItem("loginUrl", location.href);
+  Kakao.Auth.authorize({
+    redirectUri: "https://superpass-web-1-0-0.webflow.io/signin",
+  });
+};
+
 const fetchMyApplicaion = async () => {
   const accessToken = localStorage.getItem("accessToken");
 
