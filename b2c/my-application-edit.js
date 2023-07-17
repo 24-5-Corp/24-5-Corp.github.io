@@ -597,6 +597,17 @@ $editButton.addEventListener("click", () => {
     workCondition: workConditition.data,
   };
 
+  academic.validate();
+  requirementSkills.validate();
+  workConditition.validate();
+
+  const isValid =
+    academic.isValid && requirementSkills.isValid && workConditition.isValid;
+
+  if (!isValid) {
+    return;
+  }
+
   putApplication(application)
     .then(() => {
       location.href = "/my-application";
