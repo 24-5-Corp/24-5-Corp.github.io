@@ -193,8 +193,8 @@ class AcademicInput extends Input {
 
 class WorkConditionInput extends Input {
   types = [
-    { id: 2, name: "신입" },
     { id: 1, name: "인턴" },
+    { id: 2, name: "신입" },
   ];
   regions = [
     { id: 1, name: "서울" },
