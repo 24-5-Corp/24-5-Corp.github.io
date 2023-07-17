@@ -290,9 +290,9 @@ class MyAppicationView {
     this._workLocation.textContent = workLocationArray.join(", ");
 
     this._workStartDate.textContent = parseDate(workCondition.workStart, true);
-    if (workCondition.additional != null) {
-      this._workAdditional.textContent = workCondition.additional;
-    }
+
+    const additional = !workCondition.additional ?? "없음";
+    this._workAdditional.textContent = additional;
 
     this.handleShow(true);
   }
