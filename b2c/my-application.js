@@ -202,8 +202,9 @@ class MyAppicationView {
       (graduate) => graduate.id === academic.graduate
     ).name;
 
-    let description = `${graduate} (${parseDate(
-      academic.graduateYearMonth
+    let description = `${graduate} (${academic.graduateYearMonth.replace(
+      /(\d{4})(\d{2})/,
+      "$1.$2"
     )} 졸업)`;
 
     if (academic.graduate !== 0) {
