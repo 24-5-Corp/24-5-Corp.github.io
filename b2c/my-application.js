@@ -291,7 +291,9 @@ class MyAppicationView {
 
     this._workStartDate.textContent = parseDate(workCondition.workStart, true);
 
-    const additional = workCondition.additional ?? "없음";
+    const additional = !workCondition.additional
+      ? "없음"
+      : workCondition.additional;
     this._workAdditional.textContent = additional;
 
     this.handleShow(true);
