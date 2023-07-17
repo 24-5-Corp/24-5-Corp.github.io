@@ -131,6 +131,7 @@ class MyAppicationView {
     this._contact = element.querySelector(".application-contact");
     this._cvList = element.querySelector(".application-document-list");
     this._cv = element.querySelector(".application-document");
+    this._position = element.querySelector(".position-name");
 
     this._recordContainer = element.querySelector(".record-contents-container");
     this._recordItem = element.querySelector(".record-item-container");
@@ -164,6 +165,8 @@ class MyAppicationView {
     } else {
       this._introduceContainer.style.display = "none";
     }
+
+    this._position.textContent = model.jobSkill.jobs.join(", ");
 
     model.documents.forEach((document) => {
       const clonedCV = this._cv.cloneNode(true);
@@ -278,13 +281,13 @@ class MyAppicationView {
     workCondition.recruitmentTypeGroups.forEach((type) => {
       workTypeArray.push(type.name);
     });
-    this._workType.textContent = workTypeArray;
+    this._workType.textContent = workTypeArray.join(", ");
 
     const workLocationArray = [];
     workCondition.regions.forEach((region) => {
       workLocationArray.push(region.name);
     });
-    this._workLocation.textContent = workLocationArray;
+    this._workLocation.textContent = workLocationArray.join(", ");
 
     this._workStartDate.textContent = parseDate(workCondition.workStart, true);
     if (workCondition.additional != null) {
