@@ -65,9 +65,9 @@ const makeDate = (dateString, postfix, includesTimes = false) => {
     const hours = formattedNumber(date.getHours(), 2);
     const minutes = formattedNumber(date.getMinutes(), 2);
 
-    return `${year}. ${month}. ${day} ${hours}:${minutes} ${postfix}`;
+    return `${year}.${month}.${day} ${hours}:${minutes}${postfix}`;
   } else {
-    return `${year}. ${month}. ${day} ${postfix}`;
+    return `${year}.${month}.${day} ${postfix}`;
   }
 };
 
