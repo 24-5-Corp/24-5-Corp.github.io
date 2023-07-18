@@ -295,7 +295,7 @@ const mapper = {
       return repProjects.map((repProject) => {
         let date = parseDate(repProject.startDate);
         if (repProject.inProgress) {
-          date += "진행중";
+          date += "진행 중";
         } else if (repProject.endDate) {
           date += `~${parseDate(repProject.endDate)}`;
         }
@@ -359,7 +359,7 @@ const mapper = {
       return educations.map((education) => {
         let date = parseDate(education.startDate);
         if (education.inProgress) {
-          date += "진행중";
+          date += "진행 중";
         } else if (education.endDate) {
           date += `~${parseDate(education.endDate)}`;
         }

@@ -40,7 +40,7 @@ const mapper = {
       return repProjects.map((repProject) => {
         let date = parseDate(repProject.startDate);
         if (repProject.inProgress) {
-          date += "진행중";
+          date += "진행 중";
         } else if (repProject.endDate) {
           date += `~${parseDate(repProject.endDate)}`;
         }
@@ -104,7 +104,7 @@ const mapper = {
       return educations.map((education) => {
         let date = parseDate(education.startDate);
         if (education.inProgress) {
-          date += "진행중";
+          date += "진행 중";
         } else if (education.endDate) {
           date += `~${parseDate(education.endDate)}`;
         }
@@ -244,8 +244,8 @@ class MyAppicationView {
         ).textContent = `${categoryName} | ${project.role}`;
 
         const projectDate = project.inProgress
-          ? `${parseDate(project.startDate)} ~ 진행중`
-          : `${parseDate(project.startDate)} ~ ${parseDate(project.endDate)}`;
+          ? `${parseDate(project.startDate)}~진행 중`
+          : `${parseDate(project.startDate)}~${parseDate(project.endDate)}`;
         clonedProjectRecord.querySelector(".record-description").textContent =
           projectDate;
 
