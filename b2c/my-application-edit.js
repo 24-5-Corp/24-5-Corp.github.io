@@ -590,6 +590,10 @@ const fetchApplication = async () => {
   }
 };
 
+const applyErrorModal = new AlertModal(
+  document.querySelector("#applyErrorModal")
+);
+
 $editButton.addEventListener("click", () => {
   const application = {
     educationInfo: academic.data,
@@ -605,6 +609,7 @@ $editButton.addEventListener("click", () => {
     academic.isValid && requirementSkills.isValid && workConditition.isValid;
 
   if (!isValid) {
+    applyErrorModal.handleShow(true);
     return;
   }
 
