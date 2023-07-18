@@ -9,8 +9,8 @@ apiService
     localStorage.setItem("refreshToken", refreshToken);
 
     const loginUrl = localStorage.getItem("loginUrl");
-
     const applyData = localStorage.getItem("applyData");
+
     if (applyData) {
       apiService
         .makeRequest("/superpass/v2/apply-seeker", {
@@ -24,7 +24,7 @@ apiService
         })
         .catch(() => {
           localStorage.removeItem("loginUrl");
-          location.href = `${loginUrl}?isSigned=true`;
+          location.href = `${loginUrl}?alreadyApplied=true`;
         });
     } else {
       apiService

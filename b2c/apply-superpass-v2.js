@@ -1605,9 +1605,9 @@ Webflow.push(() => {
   };
 
   const params = new URLSearchParams(location.search);
-  const isSigned = params.get("isSigned");
+  const alreadyApplied = params.get("alreadyApplied");
 
-  if (isSigned) {
+  if (alreadyApplied) {
     alreadyAppliedModal.handleShow(true);
   }
 
