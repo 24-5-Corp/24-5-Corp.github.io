@@ -340,6 +340,7 @@ const loginWithKakao = () => {
   });
 };
 
+let applyStatus;
 const fetchMatchup = async () => {
   const accessToken = localStorage.getItem("accessToken");
 
@@ -348,9 +349,7 @@ const fetchMatchup = async () => {
   } else {
     return getApplyStatus()
       .then((applyStatusDto) => {
-        const applyStatus = applyStatusDto.applyStatus;
-
-        bindApplyStatus(applyStatus);
+        applyStatus = applyStatusDto.applyStatus;
         return getMatchups();
       })
       .then((matchupDto) => {
@@ -366,6 +365,8 @@ const fetchMatchup = async () => {
 
           bindMatchups($matchupList, clonedItem, matchup);
         });
+
+        bindApplyStatus(applyStatus);
       })
       .catch((error) => {
         console.error(error);
