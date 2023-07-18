@@ -1558,7 +1558,7 @@ const applyErrorModal = new AlertModal(
 );
 
 const $kakaoSigninModal = document.querySelector(".kakao-signin-modal");
-const kakaoSigninModal = new Modal($kakaoSiginModal);
+const kakaoSigninModal = new Modal($kakaoSigninModal);
 $kakaoSigninModal
   .querySelector(".kakao-modal-close")
   .addEventListener("click", () => {
