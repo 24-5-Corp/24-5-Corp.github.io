@@ -1557,6 +1557,16 @@ const applyErrorModal = new AlertModal(
   document.querySelector("#applyErrorModal")
 );
 
+const kakaoSigninModal = new Modal(
+  document.querySelector(".kakao-signin-modal")
+);
+document.querySelector(".kakao-modal-close").addEventListener("click", () => {
+  kakaoLoginModal.handleShow(false);
+});
+document.querySelector(".kakao-modal-button").addEventListener("click", () => {
+  loginWithKakao();
+});
+
 const kakaoLoginModal = new Modal(document.querySelector(".kakao-login-modal"));
 document.querySelector(".kakao-modal-close").addEventListener("click", () => {
   kakaoLoginModal.handleShow(false);
@@ -1585,7 +1595,7 @@ $loginButton.textContent = accessToken ? "로그아웃" : "로그인 / 가입";
 $dashboardButton.style.display = accessToken ? "block" : "none";
 
 $loginButton.addEventListener("click", () => {
-  accessToken ? logout() : loginWithKakao();
+  accessToken ? logout() : kakaoSigninModal.handleShow(true);
 });
 $dashboardButton.addEventListener("click", () => {
   if (accessToken) {
