@@ -353,6 +353,7 @@ const fetchMatchup = async () => {
         return getMatchups();
       })
       .then((matchupDto) => {
+        bindApplyStatus(applyStatus);
         bindTotalCount(matchupDto.totalCount);
 
         $matchupList.style.display =
@@ -365,8 +366,6 @@ const fetchMatchup = async () => {
 
           bindMatchups($matchupList, clonedItem, matchup);
         });
-
-        bindApplyStatus(applyStatus);
       })
       .catch((error) => {
         console.error(error);
