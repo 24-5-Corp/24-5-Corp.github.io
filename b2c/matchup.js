@@ -336,7 +336,7 @@ const bindMatchups = (list, item, matchup) => {
 const loginWithKakao = () => {
   localStorage.setItem("loginUrl", location.href);
   Kakao.Auth.authorize({
-    redirectUri: "https://superpass-web-1-0-0.webflow.io/signin",
+    redirectUri: `${document.location.origin}/signin`,
   });
 };
 
