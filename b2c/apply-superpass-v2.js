@@ -1557,15 +1557,14 @@ const applyErrorModal = new AlertModal(
   document.querySelector("#applyErrorModal")
 );
 
-const kakaoSigninModal = new Modal(
-  document.querySelector(".kakao-signin-modal")
-);
-kakaoSigninModal
+const $kakaoSiginModal = document.querySelector(".kakao-signin-modal");
+const kakaoSigninModal = new Modal($kakaoSiginModal);
+$kakaoSigninModal
   .querySelector(".kakao-modal-close")
   .addEventListener("click", () => {
     kakaoSigninModal.handleShow(false);
   });
-kakaoSigninModal
+$kakaoSigninModal
   .querySelector(".kakao-modal-button")
   .addEventListener("click", () => {
     loginWithKakao();
