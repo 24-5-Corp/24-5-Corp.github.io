@@ -54,6 +54,19 @@ Webflow.push(() => {
     location.reload();
   };
 
+  const $kakaoSigninModal = document.querySelector(".kakao-signin-modal");
+  const kakaoSigninModal = new Modal($kakaoSigninModal);
+  $kakaoSigninModal
+    .querySelector(".kakao-modal-close")
+    .addEventListener("click", () => {
+      kakaoSigninModal.handleShow(false);
+    });
+  $kakaoSigninModal
+    .querySelector(".kakao-modal-button")
+    .addEventListener("click", () => {
+      loginWithKakao();
+    });
+
   const $loginButton = document.getElementById("loginButton");
   const $dashboardButton = document.getElementById("dashboardButton");
   const accessToken = localStorage.getItem("accessToken");
@@ -61,7 +74,7 @@ Webflow.push(() => {
   $dashboardButton.style.display = accessToken ? "block" : "none";
 
   $loginButton.addEventListener("click", () => {
-    accessToken ? logout() : loginWithKakao();
+    accessToken ? logout() : kakaoSigninModal.handleShow(true);
   });
   $dashboardButton.addEventListener("click", () => {
     if (accessToken) {
