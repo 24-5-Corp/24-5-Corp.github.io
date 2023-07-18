@@ -395,9 +395,9 @@ document.querySelector(".kakao-modal-button").addEventListener("click", () => {
   loginWithKakao();
 });
 
-const fetchMyApplicaion = async () => {
-  const accessToken = localStorage.getItem("accessToken");
+const accessToken = localStorage.getItem("accessToken");
 
+const fetchMyApplicaion = async () => {
   if (!accessToken) {
     kakaoSigninModal.handleShow(true);
     return;
@@ -457,6 +457,7 @@ const getApplySeeker = () => {
 fetchMyApplicaion();
 
 const $loginButton = document.getElementById("loginButton");
+$loginButton.textContent = accessToken ? "로그아웃" : "로그인 / 가입";
 $loginButton.addEventListener("click", () => {
   localStorage.removeItem("accessToken");
   localStorage.removeItem("refreshToken");

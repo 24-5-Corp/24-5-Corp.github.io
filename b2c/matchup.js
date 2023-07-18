@@ -340,10 +340,10 @@ const loginWithKakao = () => {
   });
 };
 
+const accessToken = localStorage.getItem("accessToken");
+
 let applyStatus;
 const fetchMatchup = async () => {
-  const accessToken = localStorage.getItem("accessToken");
-
   if (!accessToken) {
     return loginWithKakao();
   } else {
@@ -374,6 +374,7 @@ const fetchMatchup = async () => {
 };
 
 const $loginButton = document.getElementById("loginButton");
+$loginButton.textContent = accessToken ? "로그아웃" : "로그인 / 가입";
 $loginButton.addEventListener("click", () => {
   localStorage.removeItem("accessToken");
   localStorage.removeItem("refreshToken");
