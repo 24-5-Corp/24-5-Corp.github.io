@@ -388,9 +388,6 @@ const loginWithKakao = () => {
 const kakaoSigninModal = new Modal(
   document.querySelector(".kakao-signin-modal")
 );
-document.querySelector(".kakao-modal-close").addEventListener("click", () => {
-  kakaoLoginModal.handleShow(false);
-});
 document.querySelector(".kakao-modal-button").addEventListener("click", () => {
   loginWithKakao();
 });
