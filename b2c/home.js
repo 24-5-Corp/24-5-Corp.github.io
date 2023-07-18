@@ -117,7 +117,10 @@ Webflow.push(() => {
 
   const $applyButton = document.querySelector(".title-start-button");
   $applyButton.addEventListener("click", () => {
-    if (!accessToken) location.href = "/apply-superpasss";
+    if (!accessToken) {
+      location.href = "/apply-superpasss";
+      return;
+    }
 
     getApplication().then((response) => {
       if (response.data === null) {
