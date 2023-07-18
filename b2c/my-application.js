@@ -59,7 +59,7 @@ const mapper = {
     awards: (awards) => {
       return awards.map((award) => {
         let subtitle = award.prize;
-        if (award.prize) {
+        if (award.host) {
           subtitle += ` | ${award.host}`;
         }
 
