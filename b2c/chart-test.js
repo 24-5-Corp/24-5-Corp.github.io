@@ -47,6 +47,16 @@ new Chart(chartContainer, {
           },
         },
       },
+      annotation: {
+        annotations: {
+          point1: {
+            type: "point",
+            xValue: 2,
+            yValue: 20,
+            backgroundColor: "rgba(255, 99, 132, 0.25)",
+          },
+        },
+      },
     },
     scales: {
       x: {
@@ -59,7 +69,7 @@ new Chart(chartContainer, {
         },
       },
       y: {
-        display: true,
+        display: false,
       },
     },
     elements: {
