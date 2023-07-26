@@ -1,6 +1,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>;
 
-const chartContainer = document.querySelector(".chart-div");
+const chartContainer = document.getElementById("cvChart");
 
 const DATA_COUNT = 10;
 const labels = [];
