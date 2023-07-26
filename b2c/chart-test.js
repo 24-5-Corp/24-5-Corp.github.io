@@ -1,5 +1,3 @@
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>;
-
 const chartContainer = document.getElementById("cvChart");
 
 const DATA_COUNT = 10;
