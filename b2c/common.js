@@ -56,12 +56,19 @@ const formattedNumber = (number, count) => {
   );
 };
 
-const makeDate = (dateString, postfix) => {
+const makeDate = (dateString, postfix, includesTimes = false) => {
   const date = new Date(dateString);
   const year = date.getFullYear();
   const month = formattedNumber(date.getMonth() + 1, 2);
   const day = formattedNumber(date.getDate(), 2);
-  return `${year}. ${month}. ${day} ${postfix}`;
+  if (includesTimes) {
+    const hours = formattedNumber(date.getHours(), 2);
+    const minutes = formattedNumber(date.getMinutes(), 2);
+
+    return `${year}.${month}.${day} ${hours}:${minutes}${postfix}`;
+  } else {
+    return `${year}.${month}.${day} ${postfix}`;
+  }
 };
 
 const sleep = (ms) => {
