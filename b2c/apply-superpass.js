@@ -1557,19 +1557,6 @@ const applyErrorModal = new AlertModal(
   document.querySelector("#applyErrorModal")
 );
 
-const $kakaoSigninModal = document.querySelector(".kakao-signin-modal");
-const kakaoSigninModal = new Modal($kakaoSigninModal);
-$kakaoSigninModal
-  .querySelector(".kakao-modal-close")
-  .addEventListener("click", () => {
-    kakaoSigninModal.handleShow(false);
-  });
-$kakaoSigninModal
-  .querySelector(".kakao-modal-button")
-  .addEventListener("click", () => {
-    loginWithKakao();
-  });
-
 const kakaoLoginModal = new Modal(document.querySelector(".kakao-login-modal"));
 document.querySelector(".kakao-modal-close").addEventListener("click", () => {
   kakaoLoginModal.handleShow(false);
