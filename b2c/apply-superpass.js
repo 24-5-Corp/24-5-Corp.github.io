@@ -16,7 +16,7 @@ class ProfileInput extends Input {
     this._contact.key = "contact";
     this._contact.regex = regex.phoneNumber;
     this._contact.regexMessage = "올바른 전화번호를 입력해주세요.";
-    this._contact.extract = (input, value) => {
+    this._contact.extract = (_, value) => {
       return value.replace(/-/g, "");
     };
     this._contact.replace = (input, value) => {
@@ -1480,12 +1480,42 @@ applyForm.onSubmit = () => {
   checkFormData();
 };
 
+const makeData = () => {
+  const data = {
+    personalInfo: profile.data,
+    document: resume.value,
+    educationInfo: academic.data,
+    preferJob: jobSkill.data.jobData,
+    skills: jobSkill.data.skillData,
+    workCondition: workConditition.data,
+    repKeywordIds: appealKeyword.data,
+    repProjects: project.data,
+    awards: award.data,
+    certificates: certificate.data,
+    languageTests: languageTest.data,
+    languageAbilities: languageAbility.data,
+    extraEducations: extraEducation.data,
+    term: term.value,
+  };
+
+  return JSON.stringify(data);
+};
+
 const checkFormData = () => {
   applyForm.validate();
 
   if (!applyForm.isValid) {
     logScreenView({ screenName: "superpass_apply_popup_error" });
     applyErrorModal.handleShow(true);
+    return;
+  }
+
+  const accessToken = localStorage.getItem("accessToken");
+  if (!accessToken) {
+    localStorage.setItem("applyData", makeData());
+    localStorage.setItem("loginUrl", location.href);
+
+    kakaoLoginModal.handleShow(true);
     return;
   }
 
@@ -1502,31 +1532,12 @@ const applyCheckModal = new ConfirmModal(
 applyCheckModal.onConfirm = () => {
   adjustOverflow();
 
-  const data = {
-    personalInfo: profile.data,
-    document: resume.value,
-    educationInfo: academic.data,
-    preferJob: jobSkill.data.jobData,
-    skills: jobSkill.data.skillData,
-    workCondtition: workConditition.data,
-
-    repKeywordIds: appealKeyword.data,
-    repProjects: project.data,
-    awards: award.data,
-    certificates: certificate.data,
-    languageTests: languageTest.data,
-    languageAbilities: languageAbility.data,
-    extraEducations: extraEducation.data,
-
-    term: term.value,
-  };
-
   apiService
     .makeRequest("/superpass/v2/apply-seeker", {
       method: "POST",
-      body: JSON.stringify(data),
+      body: makeData(),
     })
-    .then((response) => {
+    .then(() => {
       fbq("track", "SubmitApplication");
       logScreenView({ screenName: "superpass_apply_popup_submit" });
       applyCheckModal.handleShow(false);
@@ -1539,9 +1550,92 @@ const applyDoneModal = new AlertModal(
   document.querySelector("#applyDoneModal")
 );
 applyDoneModal.onCheck = () => {
-  location.href = "/";
+  location.href = "/matches";
 };
 
 const applyErrorModal = new AlertModal(
   document.querySelector("#applyErrorModal")
 );
+
+const $kakaoSigninModal = document.querySelector(".kakao-signin-modal");
+const kakaoSigninModal = new Modal($kakaoSigninModal);
+$kakaoSigninModal
+  .querySelector(".kakao-modal-close")
+  .addEventListener("click", () => {
+    kakaoSigninModal.handleShow(false);
+  });
+$kakaoSigninModal
+  .querySelector(".kakao-modal-button")
+  .addEventListener("click", () => {
+    loginWithKakao();
+  });
+
+const kakaoLoginModal = new Modal(document.querySelector(".kakao-login-modal"));
+document.querySelector(".kakao-modal-close").addEventListener("click", () => {
+  kakaoLoginModal.handleShow(false);
+});
+document.querySelector(".kakao-modal-button").addEventListener("click", () => {
+  loginWithKakao();
+});
+
+const loginWithKakao = () => {
+  localStorage.setItem("loginUrl", location.href);
+  Kakao.Auth.authorize({
+    redirectUri: `${document.location.origin}/signin`,
+  });
+};
+
+const login = () => {
+  localStorage.setItem("loginUrl", location.href);
+  location.href = "/signup"
+};
+
+const logout = () => {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+  location.reload();
+};
+
+const $loginButton = document.getElementById("loginButton");
+const $dashboardButton = document.getElementById("dashboardButton");
+const accessToken = localStorage.getItem("accessToken");
+$loginButton.textContent = accessToken ? "로그아웃" : "로그인 / 가입";
+$dashboardButton.style.display = accessToken ? "block" : "none";
+
+$loginButton.addEventListener("click", () => {
+  accessToken ? logout() : login();
+});
+$dashboardButton.addEventListener("click", () => {
+  if (accessToken) {
+    location.href = "/matches";
+  }
+});
+
+Webflow.push(() => {
+  const alreadyAppliedModal = new AlertModal(
+    document.querySelector(".already-applied-modal")
+  );
+  alreadyAppliedModal.onCheck = () => {
+    location.href = "/matches";
+  };
+
+  const params = new URLSearchParams(location.search);
+  const alreadyApplied = params.get("alreadyApplied");
+
+  if (alreadyApplied) {
+    alreadyAppliedModal.handleShow(true);
+  }
+
+  if (accessToken) {
+    apiService
+      .makeRequest("/superpass/v2/apply-seeker", {
+        method: "GET",
+      })
+      .then((response) => {
+        if (response.data !== null) {
+          alreadyAppliedModal.handleShow(true);
+        }
+      })
+      .catch((error) => console.error(error));
+  }
+});
