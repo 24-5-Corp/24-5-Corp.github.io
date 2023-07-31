@@ -41,19 +41,10 @@ new Chart(chartContainer, {
         annotations: {
           point1: {
             type: "point",
-            xValue: 4,
-            yValue: 60,
-            backgroundColor: "rgba(255, 99, 132, 0.25)",
-          },
-        },
-      },
-      annotation: {
-        annotations: {
-          point1: {
-            type: "point",
             xValue: 2,
             yValue: 20,
-            backgroundColor: "rgba(255, 99, 132, 0.25)",
+            backgroundColor: "rgba(115, 124, 250, 0.25)",
+            borderColor: "rgb(115, 124, 250)",
           },
         },
       },
