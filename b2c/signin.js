@@ -1,6 +1,11 @@
 const params = new URLSearchParams(location.search);
 const code = params.get("code");
 
+const accessToken = localStorage.getItem("accessToken");
+if (accessToken) {
+  location.href = "/matches";
+}
+
 apiService
   .makeRequest(`/auth/b2c/authrization?code=${code}`)
   .then((response) => {
