@@ -1,6 +1,6 @@
 const accessToken = localStorage.getItem("accessToken");
 if (accessToken) {
-  location.href = "/";
+  location.href = "/matches";
 }
 
 const $kakaoModalButton = document.querySelector(".kakao-modal-button");
