@@ -254,12 +254,11 @@ const positionForm = new Form(positionModal.querySelector("form"), [
 
 const accessToken = localStorage.getItem("accessToken");
 
-positionForm.onSubmit = async () => {
+positionForm.onSubmit = () => {
   if (!positionForm.isValid) return;
 
   reviewModel.jobGroupId = jobGroup.value;
   reviewModel.jobId = job.value;
-  positionModal.hide();
   if (accessToken) {
     apiService
       .makeRequest("/superpass/v2/document-review", {
@@ -267,12 +266,15 @@ positionForm.onSubmit = async () => {
         body: JSON.stringify(reviewModel),
       })
       .then(() => {
+        positionModal.hide();
         location.href = "/score-result";
       })
       .catch(() => {
+        positionModal.hide();
         alreadyAppliedModal.handleShow(true);
       });
   } else {
+    positionModal.hide();
     kakaoSigninModal.handleShow(true);
   }
 };
