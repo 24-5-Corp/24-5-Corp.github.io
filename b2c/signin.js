@@ -15,6 +15,11 @@ apiService
 
     const loginUrl = localStorage.getItem("loginUrl");
     const applyData = localStorage.getItem("applyData");
+    const reviewData = localStorage.getItem("reviewData");
+
+    localStorage.removeItem("applyData");
+    localStorage.removeItem("reviewData");
+    localStorage.removeItem("loginUrl");
 
     if (applyData) {
       apiService
@@ -23,22 +28,30 @@ apiService
           body: applyData,
         })
         .then(() => {
-          localStorage.removeItem("applyData");
-          localStorage.removeItem("loginUrl");
           location.href = "/matches";
         })
         .catch(() => {
-          localStorage.removeItem("loginUrl");
           location.href = `${loginUrl}?alreadyApplied=true`;
         });
-    } else {
+    } else if (reviewData) {
+      apiService
+        .makeRequest("/superpass/v2/document-review", {
+          method: "POST",
+          body: reviewData,
+        })
+        .then(() => {
+          location.href = "/score-result";
+        })
+        .catch(() => {
+          location.href = `${loginUrl}?alreadyApplied=true`;
+        });
+    }else {
       apiService
         .makeRequest("/superpass/v2/apply-seeker", {
           method: "GET",
         })
         .then((response) => {
           if (response.data === null) {
-            localStorage.removeItem("loginUrl");
             location.href = `${loginUrl}?isSigned=true`;
           } else {
             location.href = "/matches";
