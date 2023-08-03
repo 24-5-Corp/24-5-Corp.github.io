@@ -252,13 +252,29 @@ const positionForm = new Form(positionModal.querySelector("form"), [
   job,
 ]);
 
-positionForm.onSubmit = () => {
+const accessToken = localStorage.getItem("accessToken");
+
+positionForm.onSubmit = async () => {
   if (!positionForm.isValid) return;
 
   reviewModel.jobGroupId = jobGroup.value;
   reviewModel.jobId = job.value;
   positionModal.hide();
-  kakaoSigninModal.handleShow(true);
+  if (accessToken) {
+    apiService
+      .makeRequest("/superpass/v2/document-review", {
+        method: "POST",
+        body: JSON.stringify(reviewModel),
+      })
+      .then(() => {
+        location.href = "/score-result";
+      })
+      .catch(() => {
+        alreadyAppliedModal.handleShow(true);
+      });
+  } else {
+    kakaoSigninModal.handleShow(true);
+  }
 };
 
 // MARK: Kakao
@@ -269,6 +285,7 @@ const loginWithKakao = () => {
     redirectUri: `${document.location.origin}/signin`,
   });
 };
+
 const $kakaoSigninModal = document.querySelector(".kakao-signin-modal");
 const kakaoSigninModal = new Modal($kakaoSigninModal);
 $kakaoSigninModal
@@ -297,7 +314,6 @@ const logout = () => {
 
 const $loginButton = document.getElementById("loginButton");
 const $dashboardButton = document.getElementById("dashboardButton");
-const accessToken = localStorage.getItem("accessToken");
 $loginButton.textContent = accessToken ? "로그아웃" : "로그인 / 가입";
 $dashboardButton.style.display = accessToken ? "block" : "none";
 
