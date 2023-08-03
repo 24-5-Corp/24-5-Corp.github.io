@@ -284,6 +284,46 @@ $kakaoSigninModal
 
 
 // MARK: View
+const login = () => {
+  localStorage.setItem("loginUrl", location.href);
+  location.href = "/signup"
+};
+
+const logout = () => {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+  location.reload();
+};
+
+const $loginButton = document.getElementById("loginButton");
+const $dashboardButton = document.getElementById("dashboardButton");
+const accessToken = localStorage.getItem("accessToken");
+$loginButton.textContent = accessToken ? "로그아웃" : "로그인 / 가입";
+$dashboardButton.style.display = accessToken ? "block" : "none";
+
+$loginButton.addEventListener("click", () => {
+  accessToken ? logout() : login();
+});
+$dashboardButton.addEventListener("click", () => {
+  if (accessToken) {
+    location.href = "/matches";
+  }
+});
+
+const alreadyAppliedModal = new AlertModal(
+  document.querySelector(".already-applied-modal")
+);
+alreadyAppliedModal.onCheck = () => {
+  location.href = "/score-result";
+};
+
+const params = new URLSearchParams(location.search);
+const alreadyApplied = params.get("alreadyApplied");
+
+if (alreadyApplied) {
+  alreadyAppliedModal.handleShow(true);
+}
+
 const uploadButton = document.querySelector(".information-button-copy");
 uploadButton.addEventListener("click", () => {
   reviewModel = {};
