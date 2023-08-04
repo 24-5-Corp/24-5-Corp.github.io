@@ -33,15 +33,15 @@ class ScoreResultView {
 
     this._competenceScore = element.querySelector(".competence-score");
     this._competenceScoreText = element.querySelector(".competence-score-text");
-    this._competenceDetail1 = element.querySelector("._competence-detail-1");
-    this._competenceDetail2 = element.querySelector("._competence-detail-2");
-    this._competenceDetail3 = element.querySelector("._competence-detail-3");
+    this._competenceDetail1 = element.querySelector(".competence-detail-1");
+    this._competenceDetail2 = element.querySelector(".competence-detail-2");
+    this._competenceDetail3 = element.querySelector(".competence-detail-3");
 
     this._humanismScore = element.querySelector(".humanism-score");
     this._humanismScoreText = element.querySelector(".humanism-score-text");
-    this._humanismDetail1 = element.querySelector("._humanism-detail-1");
-    this._humanismDetail2 = element.querySelector("._humanism-detail-2");
-    this._humanismDetail3 = element.querySelector("._humanism-detail-3");
+    this._humanismDetail1 = element.querySelector(".humanism-detail-1");
+    this._humanismDetail2 = element.querySelector(".humanism-detail-2");
+    this._humanismDetail3 = element.querySelector(".humanism-detail-3");
   }
 
   bind(model) {
