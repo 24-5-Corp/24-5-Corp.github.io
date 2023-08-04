@@ -582,7 +582,10 @@ const handleNext = (from) => {
   switch (from) {
     case "profile":
       profile.validate();
-      if (!profile.isValid) return;
+      if (!profile.isValid) {
+        applyErrorModal.handleShow(true);
+        return;
+      }
 
       $profile.style.display = "none";
       $academic.style.display = "block";
@@ -590,11 +593,14 @@ const handleNext = (from) => {
 
       $percentage.textContent = "40%";
       $inprogress.style.flex = "2 auto";
-      $progress.style.flex = "3 auto";
+      $progress.style.flex = "2 auto";
       break;
     case "academic":
       academic.validate();
-      if (!academic.isValid) return;
+      if (!academic.isValid) {
+        applyErrorModal.handleShow(true);
+        return;
+      }
 
       $academic.style.display = "none";
       $information.style.display = "block";
@@ -602,7 +608,7 @@ const handleNext = (from) => {
 
       $percentage.textContent = "60%";
       $inprogress.style.flex = "3 auto";
-      $progress.style.flex = "2 auto";
+      $progress.style.flex = "1 auto";
       break;
     case "information":
       appealKeyword.validate();
@@ -612,7 +618,10 @@ const handleNext = (from) => {
       const isValid = appealKeyword.isValid &&
         requirementSkills.isValid &&
         project.isValid;
-      if (!isValid) return;
+      if (!isValid) {
+        applyErrorModal.handleShow(true);
+        return;
+      }
 
       $information.style.display = "none";
       $condition.style.display = "block";
@@ -620,13 +629,18 @@ const handleNext = (from) => {
 
       $percentage.textContent = "80%";
       $inprogress.style.flex = "4 auto";
-      $progress.style.flex = "1 auto";
+      $progress.style.flex = "0 auto";
       break;
     case "condition":
       workConditition.validate();
       term.validate();
-      if (!workConditition.isValid || !term.isValid) return;
+      if (!workConditition.isValid || !term.isValid) {
+        applyErrorModal.handleShow(true);
+        return;
+      }
 
+      $submitButton.textContent = "제출하기";
+      applyCheckModal.handleShow(true);
       // API
       break;
   }
@@ -634,12 +648,56 @@ const handleNext = (from) => {
   document.documentElement.scrollTo(0, 0);
 }
 
-// NOTE: API
-const makeData = () => {
+// NOTE: View
+const applyCheckModal = new ConfirmModal(
+  document.querySelector("#applyCheckModal")
+);
+applyCheckModal.onConfirm = () => {
+  adjustOverflow();
+
+  // TODO: API
+  applyCheckModal.handleShow(false);
+  applyDoneModal.handleShow(true);
 };
 
-const postAppleySeeker = () => {
+const applyDoneModal = new AlertModal(
+  document.querySelector("#applyDoneModal")
+);
+applyDoneModal.onCheck = () => {
+  location.href = "/matches";
 };
+
+const applyErrorModal = new AlertModal(
+  document.querySelector("#applyErrorModal")
+);
+
+const applyInvalidModal = new AlertModal(
+  document.querySelector("#applyInvalidModal")
+);
+
+const accessToken = localStorage.getItem("accessToken");
+if (!accessToken) {
+  applyInvalidModal.onCheck = () => {
+    location.href = "/signup";
+  };
+  applyInvalidModal.handleShow(true);
+} else {
+  apiService
+    .makeRequest("/superpass/v2/apply-seeker", {
+      method: "GET",
+    })
+    .then((response) => {
+      if (response.data === null) {
+        // TODO: 등급 확인
+      } else {
+        applyInvalidModal.onCheck = () => {
+          location.href = "/matches";
+        };
+        applyInvalidModal.handleShow(true);
+      }
+    })
+    .catch((error) => console.error(error));
+}
 
 $submitButton.addEventListener("click", () => {
   handleNext(current);
