@@ -23,6 +23,37 @@ const bindDocument = (documents) => {
 };
 
 class ScoreResultView {
+  scoreColor = [
+    {
+      score: "S",
+      scoreLabel: "최상",
+      color: "#F3B81E",
+      subColor: "#F5D04C",
+      backgroundColor: "#FFFCF1",
+    },
+    {
+      score: "A",
+      scoreLabel: "상",
+      color: "#656EF0",
+      subColor: "#B2B6F7",
+      backgroundColor: "#F3F3FE",
+    },
+    {
+      score: "B",
+      scoreLabel: "중",
+      color: "#189E58",
+      subColor: "#96DEBC",
+      backgroundColor: "#EEFAF4",
+    },
+    {
+      score: "C",
+      scoreLabel: "하",
+      color: "#E14E4E",
+      subColor: "#F09E9E",
+      backgroundColor: "#FFEFEF",
+    },
+  ];
+
   constructor(element) {
     this._element = element;
 
@@ -31,12 +62,18 @@ class ScoreResultView {
     this._totalPercentage = element.querySelector(".total-percentage");
     this._opinionSummary = element.querySelector(".opnion-summary");
 
+    this._competenceScoreCotainer = element.querySelector(
+      ".competence-score-container"
+    );
     this._competenceScore = element.querySelector(".competence-score");
     this._competenceScoreText = element.querySelector(".competence-score-text");
     this._competenceDetail1 = element.querySelector(".competence-detail-1");
     this._competenceDetail2 = element.querySelector(".competence-detail-2");
     this._competenceDetail3 = element.querySelector(".competence-detail-3");
 
+    this._humanismScoreContainer = element.querySelector(
+      ".humanism-score-container"
+    );
     this._humanismScore = element.querySelector(".humanism-score");
     this._humanismScoreText = element.querySelector(".humanism-score-text");
     this._humanismDetail1 = element.querySelector(".humanism-detail-1");
@@ -50,18 +87,48 @@ class ScoreResultView {
     this._totalPercentage.textContent = `상위 ${model.totalScore.percentage}%`;
     this._opinionSummary = model.opinionSummary ?? "";
 
+    const competenceColor = this.scoreColor.find(
+      (score) => score.score === model.competenceScore.grade
+    );
+    this._competenceScoreCotainer.style.backgroundColor =
+      competenceColor.backgroundColor;
+    this._competenceScore.style.color = competenceColor.color;
+    this._competenceScoreText.style.color = competenceColor.subColor;
     this._competenceScore.textContent = model.competenceScore.grade;
     this._competenceScoreText.textContent = model.competenceScore.label;
     this._competenceDetail1.textContent = model.competenceDetail1Rating;
     this._competenceDetail2.textContent = model.competenceDetail2Rating;
     this._competenceDetail3.textContent = model.competenceDetail3Rating;
 
+    const humanismColor = this.scoreColor.find(
+      (score) => score.score === model.humanismScore.grade
+    );
+    this._humanismScoreContainer.style.backgroundColor =
+      humanismColor.backgroundColor;
+    this._humanismScore.style.color = humanismColor.color;
+    this._humanismScoreText.style.color = humanismColor.subColor;
     this._humanismScore.textContent = model.humanismScore.grade;
     this._humanismScoreText.textContent = model.humanismScore.label;
     this._humanismDetail1.textContent = model.humanismDetail1Rating;
     this._humanismDetail2.textContent = model.humanismDetail2Rating;
     this._humanismDetail3.textContent = model.humanismDetail3Rating;
+
+    this.setScoreChip(this._competenceDetail1, model.competenceDetail1Rating);
+    this.setScoreChip(this._competenceDetail2, model.competenceDetail2Rating);
+    this.setScoreChip(this._competenceDetail3, model.competenceDetail3Rating);
+    this.setScoreChip(this._humanismDetail1, model.humanismDetail1Rating);
+    this.setScoreChip(this._humanismDetail2, model.humanismDetail2Rating);
+    this.setScoreChip(this._humanismDetail3, model.humanismDetail3Rating);
   }
+
+  setScoreChip = (chipView, score) => {
+    const chipColor = this.scoreColor.find(
+      (color) => color.scoreLabel === score
+    );
+
+    chipView.style.backgroundColor = chipColor.backgroundColor;
+    chipView.style.color = chipColor.color;
+  };
 }
 
 const data = {
