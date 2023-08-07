@@ -172,6 +172,10 @@ const pendingView = document.querySelector(".result-pending");
 apiService
   .makeRequest("/superpass/v2/document-review")
   .then((response) => {
+    if (response.data === null) {
+      redirectMain();
+    }
+
     if (response.data.status === 1) {
       scoreResultView.bind(response.data);
       pendingView.style.display = "none";
