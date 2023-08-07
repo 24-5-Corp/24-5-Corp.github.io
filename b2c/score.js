@@ -206,6 +206,10 @@ initDocumentModal(portfolioModal, "portfolio");
 const positionModal = document.querySelector(".position-select-modal");
 Object.assign(positionModal, modalMixin);
 
+const name = new RegexInput(element.querySelector("#name"));
+name.regexMessage = "* 2~30자 이내로 입력해주세요.";
+name.regex = /^.{2,30}$/;
+
 const jobGroup = new Dropdown(positionModal.querySelector("#jobGroup"));
 jobGroup.isConditioned = true;
 const job = new ConditionedDropdown(positionModal.querySelector("#job"), jobGroup);
@@ -248,6 +252,7 @@ job.onInput = () => {
 }
 
 const positionForm = new Form(positionModal.querySelector("form"), [
+  name,
   jobGroup,
   job,
 ]);
@@ -257,6 +262,7 @@ const accessToken = localStorage.getItem("accessToken");
 positionForm.onSubmit = () => {
   if (!positionForm.isValid) return;
 
+  reviewModel.name = name.value;
   reviewModel.jobGroupId = jobGroup.value;
   reviewModel.jobId = job.value;
   if (accessToken) {
