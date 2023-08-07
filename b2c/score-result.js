@@ -168,7 +168,7 @@ class ScoreResultView {
     this._scoreGraphImage.style.display = "block";
 
     const applyInformation =
-      addInformationSection[this.getAddInformation(model)];
+      this.addInformationSection[this.getAddInformation(model)];
 
     this._addInformationSection.style.backgroundColor =
       applyInformation.background;
