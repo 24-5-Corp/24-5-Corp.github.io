@@ -206,7 +206,7 @@ initDocumentModal(portfolioModal, "portfolio");
 const positionModal = document.querySelector(".position-select-modal");
 Object.assign(positionModal, modalMixin);
 
-const name = new RegexInput(element.querySelector("#name"));
+const name = new RegexInput(document.querySelector("#name"));
 name.regexMessage = "* 2~30자 이내로 입력해주세요.";
 name.regex = /^.{2,30}$/;
 
