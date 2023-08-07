@@ -630,6 +630,7 @@ const handleNext = (from) => {
       $percentage.textContent = "80%";
       $inprogress.style.flex = "4 auto";
       $progress.style.flex = "0 auto";
+      $submitButton.textContent = "제출하기";
       break;
     case "condition":
       workConditition.validate();
@@ -639,9 +640,7 @@ const handleNext = (from) => {
         return;
       }
 
-      $submitButton.textContent = "제출하기";
       applyCheckModal.handleShow(true);
-      // API
       break;
   }
 
@@ -649,15 +648,40 @@ const handleNext = (from) => {
 }
 
 // NOTE: View
+const params = new URLSearchParams(location.search);
+const id = params.get("id");
+
+const makeData = (id) => {
+  const data = {
+    documentReviewId: id,
+    personalInfo: profile.data,
+    educationInfo: academic.data,
+    repKeywordIds: appealKeyword.data,
+    repProjects: project.data,
+    skills: requirementSkills.value,
+    workCondition: workConditition.data,
+    term: term.value,
+  };
+
+  return JSON.stringify(data);
+};
+
 const applyCheckModal = new ConfirmModal(
   document.querySelector("#applyCheckModal")
 );
 applyCheckModal.onConfirm = () => {
   adjustOverflow();
 
-  // TODO: API
-  applyCheckModal.handleShow(false);
-  applyDoneModal.handleShow(true);
+  apiService
+    .makeRequest("/superpass/v2/apply-seeker-from-review", {
+      method: "POST",
+      body: makeData(id),
+    })
+    .then(() => {
+      applyCheckModal.handleShow(false);
+      applyDoneModal.handleShow(true);
+    })
+    .catch((error) => console.error(error));
 };
 
 const applyDoneModal = new AlertModal(
@@ -675,12 +699,36 @@ const applyInvalidModal = new AlertModal(
   document.querySelector("#applyInvalidModal")
 );
 
+$submitButton.addEventListener("click", () => {
+  handleNext(current);
+});
+
 const accessToken = localStorage.getItem("accessToken");
+
+const loginWithKakao = () => {
+  localStorage.setItem("loginUrl", location.href);
+  Kakao.Auth.authorize({
+    redirectUri: `${document.location.origin}/signin`,
+  });
+};
+
+const kakaoSigninModal = new Modal(
+  document.querySelector(".kakao-signin-modal")
+);
+document.querySelector(".kakao-modal-button").addEventListener("click", () => {
+  loginWithKakao();
+});
+
+const $loginButton = document.getElementById("loginButton");
+$loginButton.textContent = accessToken ? "로그아웃" : "로그인 / 가입";
+$loginButton.addEventListener("click", () => {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+  location.href = "/";
+});
+
 if (!accessToken) {
-  applyInvalidModal.onCheck = () => {
-    location.href = "/signup";
-  };
-  applyInvalidModal.handleShow(true);
+  kakaoSigninModal.handleShow(true);
 } else {
   apiService
     .makeRequest("/superpass/v2/apply-seeker", {
@@ -711,7 +759,3 @@ if (!accessToken) {
       applyInvalidModal.handleShow(true);
     });
 }
-
-$submitButton.addEventListener("click", () => {
-  handleNext(current);
-});

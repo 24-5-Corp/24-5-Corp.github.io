@@ -211,7 +211,7 @@ jobGroup.isConditioned = true;
 const job = new ConditionedDropdown(positionModal.querySelector("#job"), jobGroup);
 
 const positionClose = positionModal.querySelector(".modal-cancel-button");
-const positionSubmit = positionModal.querySelector(".submit-button-small");
+const positionSubmit = positionModal.querySelector(".submit-button-small-copy");
 
 positionModal.reset = () => {
   jobGroup.value = null;
