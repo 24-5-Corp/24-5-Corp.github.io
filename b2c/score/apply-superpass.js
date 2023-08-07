@@ -688,7 +688,7 @@ if (!accessToken) {
     })
     .then((response) => {
       if (response.data === null) {
-        // TODO: 등급 확인
+        return apiService.makeRequest("/superpass/v2/document-review");
       } else {
         applyInvalidModal.onCheck = () => {
           location.href = "/matches";
@@ -696,7 +696,20 @@ if (!accessToken) {
         applyInvalidModal.handleShow(true);
       }
     })
-    .catch((error) => console.error(error));
+    .then((response) => {
+      if (response.data.totalScore.percentage > 40) {
+        applyInvalidModal.onCheck = () => {
+          location.href = "/score";
+        };
+        applyInvalidModal.handleShow(true);
+      }
+    })
+    .catch(() => {
+      applyInvalidModal.onCheck = () => {
+        location.href = "/score";
+      };
+      applyInvalidModal.handleShow(true);
+    });
 }
 
 $submitButton.addEventListener("click", () => {
