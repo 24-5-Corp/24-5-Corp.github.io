@@ -61,6 +61,7 @@ class ScoreResultView {
     this._totalScore = element.querySelector(".total-score");
     this._totalPercentage = element.querySelector(".total-percentage");
     this._opinionSummary = element.querySelector(".opnion-summary");
+    this._scoreGraphImage = element.querySelector(".score-graph-image");
 
     this._competenceScoreCotainer = element.querySelector(
       ".competence-score-container"
@@ -119,7 +120,31 @@ class ScoreResultView {
     this.setScoreChip(this._humanismDetail1, model.humanismDetail1Rating);
     this.setScoreChip(this._humanismDetail2, model.humanismDetail2Rating);
     this.setScoreChip(this._humanismDetail3, model.humanismDetail3Rating);
+
+    this._scoreGraphImage.src = this.getGraphImage(model.totalScore.percentage);
+    this._scoreGraphImage.style.display = "block";
   }
+
+  getGraphImage = (percentage) => {
+    switch (percentage) {
+      case 1:
+        return "https://uploads-ssl.webflow.com/641969d09672c909169b6d7e/64d04c968416a474a550331b_img_graph_20.png";
+      case 2:
+        return "https://uploads-ssl.webflow.com/641969d09672c909169b6d7e/64d04c966b645b27d693f1c9_img_graph_19.png";
+      case 5:
+        return "https://uploads-ssl.webflow.com/641969d09672c909169b6d7e/64d04c96347c14534e8c5f16_img_graph_18.png";
+      case 15:
+        return "https://uploads-ssl.webflow.com/641969d09672c909169b6d7e/64d04c9baea07df5b0341d2a_img_graph_17.png";
+      case 30:
+        return "https://uploads-ssl.webflow.com/641969d09672c909169b6d7e/64d04c9633771b6a552ce64b_img_graph_16.png";
+      case 40:
+        return "https://uploads-ssl.webflow.com/641969d09672c909169b6d7e/64d04c95b6c6593d1610b7b2_img_graph_15.png";
+      case (50, 60):
+        return "https://uploads-ssl.webflow.com/641969d09672c909169b6d7e/64d048906ff6fe47702e0fd8_img_graph_low.png";
+      default:
+        return "";
+    }
+  };
 
   setScoreChip = (chipView, score) => {
     const chipColor = this.scoreColor.find(
