@@ -125,7 +125,7 @@ class ScoreResultView {
     );
   }
 
-  bind = (model, applyStatus) => {
+  bind = (model) => {
     this._applyDate.textContent = `${model.createdAt} 제출`;
     this._totalScore.textContent = model.totalScore.grade;
     this._totalPercentage.textContent = `상위 ${model.totalScore.percentage}%`;
@@ -168,9 +168,7 @@ class ScoreResultView {
     this._scoreGraphImage.style.display = "block";
 
     const applyInformation =
-      addInformationSection[
-        this.getAddInformation(applyStatus, model.competenceScore.grade)
-      ];
+      addInformationSection[this.getAddInformation(model)];
 
     this._addInformationSection.style.backgroundColor =
       applyInformation.background;
@@ -184,7 +182,9 @@ class ScoreResultView {
     this.handleShow(true);
   };
 
-  getAddInformation = (applyStatus, grade) => {
+  getAddInformation = (model) => {
+    const applyStatus = model.superpassApplyStatus;
+    const grade = model.totalScore.grade;
     if (applyStatus === 1 || applyStatus === 2) {
       return 0;
     } else if (grade === "C") {
