@@ -54,6 +54,35 @@ class ScoreResultView {
     },
   ];
 
+  addInformationSection = [
+    {
+      title: "내 이력서에 딱 맞는",
+      spanTitle: "기업, 포지션이 궁금하다면?",
+      subTitle: "슈퍼패스 매칭 매니저와 바로 상담해보세요!",
+      buttonLabel: "상담 신청하기",
+      color: "#FF5247",
+      background: "#FEFAF6",
+    },
+    {
+      title: "이력서, 포트폴리오",
+      spanTitle: "지금 보완해야 하는 이유?",
+      subTitle:
+        "잘 만든 이력서 하나면\n급성장 중인 스타트업 면접 제안이 도착해요.",
+      buttonLabel: "더 알아보기",
+      color: "#189E58",
+      background: "#F7FEF6",
+    },
+    {
+      title: "제출한 이력서로",
+      spanTitle: "면접 제안 받아볼래요?",
+      subTitle:
+        "몇 가지 정보만 더 입력하면\n급성장 중인 스타트업에서 면접 제안이 도착해요.",
+      buttonLabel: "면접 제안 받기",
+      color: "#656EF0",
+      background: "#F6F6FE",
+    },
+  ];
+
   constructor(element) {
     this._element = element;
 
@@ -80,9 +109,23 @@ class ScoreResultView {
     this._humanismDetail1 = element.querySelector(".humanism-detail-1");
     this._humanismDetail2 = element.querySelector(".humanism-detail-2");
     this._humanismDetail3 = element.querySelector(".humanism-detail-3");
+
+    this._addInformationSection = element.querySelector(
+      ".add-information-section"
+    );
+    this._addInformationTitle = element.querySelector(".add-information-title");
+    this._addInformationTitleSpan = element.querySelector(
+      ".add-information-title-span"
+    );
+    this._addInformationSubTitle = element.querySelector(
+      ".add-information-sub-title "
+    );
+    this._addInformationButton = element.querySelector(
+      ".add-information-button"
+    );
   }
 
-  bind(model) {
+  bind = (model, applyStatus) => {
     this._applyDate.textContent = `${model.createdAt} 제출`;
     this._totalScore.textContent = model.totalScore.grade;
     this._totalPercentage.textContent = `상위 ${model.totalScore.percentage}%`;
@@ -124,8 +167,32 @@ class ScoreResultView {
     this._scoreGraphImage.src = this.getGraphImage(model.totalScore.percentage);
     this._scoreGraphImage.style.display = "block";
 
+    const applyInformation =
+      addInformationSection[
+        this.getAddInformation(applyStatus, model.competenceScore.grade)
+      ];
+
+    this._addInformationSection.style.backgroundColor =
+      applyInformation.background;
+    this._addInformationTitle.textContent = applyInformation.title;
+    this._addInformationTitleSpan.textContent = applyInformation.spanTitle;
+    this._addInformationTitleSpan.style.color = applyInformation.color;
+    this._addInformationSubTitle.textContent = applyInformation.subTitle;
+    this._addInformationButton.textContent = applyInformation.buttonLabel;
+    this._addInformationButton.style.backgroundColor = applyInformation.color;
+
     this.handleShow(true);
-  }
+  };
+
+  getAddInformation = (applyStatus, grade) => {
+    if (applyStatus === 1 || applyStatus === 2) {
+      return 0;
+    } else if (grade === "C") {
+      return 1;
+    } else {
+      return 2;
+    }
+  };
 
   getGraphImage = (percentage) => {
     switch (percentage) {
