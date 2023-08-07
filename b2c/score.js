@@ -233,22 +233,31 @@ apiService
   .then((response) => jobGroup.bind(response.data))
   .catch((error) => console.error(error));
 
+const handleSubmitButton = () => {
+  if (!!name.value && !!jobGroup.value && !!job.value) {
+    positionSubmit.classList.replace("disabled", "enabled");
+  } else {
+    positionSubmit.classList.replace("enabled", "disabled");
+  }
+};
+
+name.onInput = () => {
+  handleSubmitButton();
+};
+
 jobGroup.onInput = () => {
   apiService
     .makeRequest(`/common/v2/job?jobGroupId=${jobGroup.value}`)
     .then((response) => {
       job.reset();
       job.bind(response.data);
+      handleSubmitButton();
     })
     .catch((error) => console.error(error));
 };
 
 job.onInput = () => {
-  if (!!job.value) {
-    positionSubmit.classList.replace("disabled", "enabled");
-  } else {
-    positionSubmit.classList.replace("enabled", "disabled");
-  }
+  handleSubmitButton();
 }
 
 const positionForm = new Form(positionModal.querySelector("form"), [
@@ -260,7 +269,10 @@ const positionForm = new Form(positionModal.querySelector("form"), [
 const accessToken = localStorage.getItem("accessToken");
 
 positionForm.onSubmit = () => {
-  if (!positionForm.isValid) return;
+  positionForm.validate();
+  if (!positionForm.isValid) {
+    return;
+  }
 
   reviewModel.name = name.value;
   reviewModel.jobGroupId = jobGroup.value;
