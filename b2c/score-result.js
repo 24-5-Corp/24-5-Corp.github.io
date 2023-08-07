@@ -129,7 +129,7 @@ class ScoreResultView {
     this._applyDate.textContent = `${model.createdAt} 제출`;
     this._totalScore.textContent = model.totalScore.grade;
     this._totalPercentage.textContent = `상위 ${model.totalScore.percentage}%`;
-    this._opinionSummary = model.opinionSummary ? model.opinionSummary : "";
+    this._opinionSummary.textContent = model.opinionSummary ?? "";
 
     const competenceColor = this.scoreColor.find(
       (score) => score.score === model.competenceScore.grade
