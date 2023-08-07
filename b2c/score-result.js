@@ -89,7 +89,7 @@ class ScoreResultView {
     this._applyDate = element.querySelector(".score-apply-date");
     this._totalScore = element.querySelector(".total-score");
     this._totalPercentage = element.querySelector(".total-percentage");
-    this._opinionSummary = element.querySelector(".opnion-summary");
+    this._opinionSummary = element.querySelector(".opinion-summary");
     this._scoreGraphImage = element.querySelector(".score-graph-image");
 
     this._competenceScoreCotainer = element.querySelector(
