@@ -272,43 +272,42 @@ if (accessToken) {
     .makeRequest("/superpass/v2/document-review", {
       method: "GET",
     })
-    .then(() => {
+    .then((response) => {
       if (response.data !== null) {
         alreadyAppliedModal.handleShow(true)
       }
     })
     .catch((error) => console.error(error));
-} else {
-  positionForm.onSubmit = () => {
-    positionForm.validate();
-    if (!positionForm.isValid) {
-      positionSubmit.classList.replace("enabled", "disabled");
-      return;
-    }
-
-    reviewModel.name = name.value;
-    reviewModel.jobGroupId = jobGroup.value;
-    reviewModel.jobId = job.value;
-    if (accessToken) {
-      apiService
-        .makeRequest("/superpass/v2/document-review", {
-          method: "POST",
-          body: JSON.stringify(reviewModel),
-        })
-        .then(() => {
-          positionModal.hide();
-          location.href = "/score-result";
-        })
-        .catch(() => {
-          positionModal.hide();
-          alreadyAppliedModal.handleShow(true);
-        });
-    } else {
-      positionModal.hide();
-      kakaoSigninModal.handleShow(true);
-    }
-  };
 }
+positionForm.onSubmit = () => {
+  positionForm.validate();
+  if (!positionForm.isValid) {
+    positionSubmit.classList.replace("enabled", "disabled");
+    return;
+  }
+
+  reviewModel.name = name.value;
+  reviewModel.jobGroupId = jobGroup.value;
+  reviewModel.jobId = job.value;
+  if (accessToken) {
+    apiService
+      .makeRequest("/superpass/v2/document-review", {
+        method: "POST",
+        body: JSON.stringify(reviewModel),
+      })
+      .then(() => {
+        positionModal.hide();
+        location.href = "/score-result";
+      })
+      .catch(() => {
+        positionModal.hide();
+        alreadyAppliedModal.handleShow(true);
+      });
+  } else {
+    positionModal.hide();
+    kakaoSigninModal.handleShow(true);
+  }
+};
 
 // MARK: Kakao
 const loginWithKakao = () => {
