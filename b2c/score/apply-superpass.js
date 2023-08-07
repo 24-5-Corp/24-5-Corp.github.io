@@ -649,11 +649,13 @@ const handleNext = (from) => {
 
 // NOTE: View
 const params = new URLSearchParams(location.search);
-const id = params.get("id");
+const documentReviewId = params.get("documentReviewId");
 
-const makeData = (id) => {
+if (!documentReviewId) return;
+
+const makeData = (documentReviewId) => {
   const data = {
-    documentReviewId: id,
+    documentReviewId: documentReviewId,
     personalInfo: profile.data,
     educationInfo: academic.data,
     repKeywordIds: appealKeyword.data,
@@ -675,7 +677,7 @@ applyCheckModal.onConfirm = () => {
   apiService
     .makeRequest("/superpass/v2/apply-seeker-from-review", {
       method: "POST",
-      body: makeData(id),
+      body: makeData(documentReviewId),
     })
     .then(() => {
       applyCheckModal.handleShow(false);

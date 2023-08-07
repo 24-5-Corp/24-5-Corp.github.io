@@ -45,7 +45,7 @@ apiService
         .catch(() => {
           location.href = `${loginUrl}?alreadyApplied=true`;
         });
-    }else {
+    } else {
       apiService
         .makeRequest("/superpass/v2/apply-seeker", {
           method: "GET",
