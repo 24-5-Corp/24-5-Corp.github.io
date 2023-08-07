@@ -271,6 +271,7 @@ const accessToken = localStorage.getItem("accessToken");
 positionForm.onSubmit = () => {
   positionForm.validate();
   if (!positionForm.isValid) {
+    positionSubmit.classList.replace("enabled", "disabled");
     return;
   }
 
