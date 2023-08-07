@@ -272,7 +272,11 @@ if (accessToken) {
     .makeRequest("/superpass/v2/document-review", {
       method: "GET",
     })
-    .then(() => alreadyAppliedModal.handleShow(true))
+    .then(() => {
+      if (response.data !== null) {
+        alreadyAppliedModal.handleShow(true)
+      }
+    })
     .catch((error) => console.error(error));
 } else {
   positionForm.onSubmit = () => {
