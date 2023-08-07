@@ -123,6 +123,8 @@ class ScoreResultView {
 
     this._scoreGraphImage.src = this.getGraphImage(model.totalScore.percentage);
     this._scoreGraphImage.style.display = "block";
+
+    this.handleShow(true);
   }
 
   getGraphImage = (percentage) => {
@@ -154,44 +156,28 @@ class ScoreResultView {
     chipView.style.backgroundColor = chipColor.backgroundColor;
     chipView.style.color = chipColor.color;
   };
-}
 
-const data = {
-  createdAt: "2023.08.04",
-  status: 0,
-  resumeUrl: "https://naver.com",
-  portfolioUrl: "https://ssgsag.kr",
-  jobGroup: {
-    id: 2,
-    name: "개발",
-  },
-  job: {
-    id: 11,
-    name: "프론트엔드 개발자",
-  },
-  competenceScore: {
-    grade: "C",
-    label: "보완 필요해요",
-  },
-  competenceDetail1Rating: "하",
-  competenceDetail2Rating: "하",
-  competenceDetail3Rating: "하",
-  humanismScore: {
-    grade: "C",
-    label: "보완 필요해요",
-  },
-  humanismDetail1Rating: "하",
-  humanismDetail2Rating: "하",
-  humanismDetail3Rating: "하",
-  totalScore: {
-    grade: "C",
-    percentage: 60,
-  },
-  opinionSummary: null,
-};
+  handleShow = (isShow) => {
+    const display = isShow ? "flex" : "none";
+    this._element.style.display = display;
+  };
+}
 
 const scoreResultView = new ScoreResultView(
   document.querySelector(".score-result-container")
 );
 
-scoreResultView.bind(data);
+const pendingView = document.querySelector(".result-pending");
+
+apiService
+  .makeRequest("/superpass/v2/document-review")
+  .then((response) => {
+    if (response.data.status === 1) {
+      scoreResultView.bind(response.data);
+      pendingView.style.display = "none";
+    } else {
+      scoreResultView.handleShow(false);
+      pendingView.style.display = "flex";
+    }
+  })
+  .catch((error) => console.error(error));
