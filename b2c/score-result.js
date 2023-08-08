@@ -18,7 +18,7 @@ const bindDocument = (documents) => {
       window.open(document.url);
     });
 
-    list.appendChild(clonedCV);
+    list.appendChild(clonedItem);
   });
 };
 
