@@ -182,6 +182,9 @@ class ScoreResultView {
     this._addInformationSubTitle.textContent = applyInformation.subTitle;
     this._addInformationButton.textContent = applyInformation.buttonLabel;
     this._addInformationButton.style.backgroundColor = applyInformation.color;
+    this._addInformationButton.addEventListener("click", () => {
+      location.href = `/score/apply-superpasss?documentReviewId=${model.id}`;
+    });
 
     this.handleShow(true);
   };
@@ -248,7 +251,7 @@ const resendModal = new ConfirmModal(
 );
 
 resendModal.onConfirm = () => {
-  location.href = "/scroe?isReset=true";
+  location.href = "/score?isReset=true";
 };
 
 resendButton.addEventListener("click", () => {
