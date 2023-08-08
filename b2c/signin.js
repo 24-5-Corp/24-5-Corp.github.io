@@ -49,18 +49,22 @@ apiService
         })
         .catch((error) => console.error(error));
     } else {
-      apiService
-        .makeRequest("/superpass/v2/apply-seeker", {
-          method: "GET",
-        })
-        .then((response) => {
-          if (response.data === null || loginUrl.startsWith("/score")) {
-            location.href = `${loginUrl}?isSigned=true`;
-          } else {
-            location.href = "/matches";
-          }
-        })
-        .catch((error) => console.error(error));
+      if (loginUrl.startsWith("/score")) {
+        location.href = `${loginUrl}?isSigned=true`;
+      } else {
+        apiService
+          .makeRequest("/superpass/v2/apply-seeker", {
+            method: "GET",
+          })
+          .then((response) => {
+            if (response.data === null) {
+              location.href = `${loginUrl}?isSigned=true`;
+            } else {
+              location.href = "/matches";
+            }
+          })
+          .catch((error) => console.error(error));
+      }
     }
   })
   .catch((error) => console.error(error));
