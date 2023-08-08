@@ -183,7 +183,7 @@ class ScoreResultView {
     this._addInformationButton.textContent = applyInformation.buttonLabel;
     this._addInformationButton.style.backgroundColor = applyInformation.color;
     this._addInformationButton.addEventListener("click", () => {
-      location.href = `/score/apply-superpasss?documentReviewId=${model.id}`;
+      location.href = `/score/apply-superpass?documentReviewId=${model.id}`;
     });
 
     this.handleShow(true);

@@ -10,12 +10,12 @@ class ProfileInput extends Input {
     this._email = new RegexInput(element.querySelector("#email"));
     this._email.key = "email";
     this._email.regex = regex.email;
-    this._email.regexMessage = "올바른 이메일을 입력해주세요.";
+    this._email.regexMessage = "* 올바른 이메일을 입력해주세요.";
 
     this._contact = new RegexInput(element.querySelector("#contact"));
     this._contact.key = "contact";
     this._contact.regex = regex.phoneNumber;
-    this._contact.regexMessage = "올바른 전화번호를 입력해주세요.";
+    this._contact.regexMessage = "* 올바른 전화번호를 입력해주세요.";
     this._contact.extract = (_, value) => {
       return value.replace(/-/g, "");
     };
