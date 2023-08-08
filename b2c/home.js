@@ -48,33 +48,56 @@ Webflow.push(() => {
     });
   };
 
+  const login = () => {
+    localStorage.setItem("loginUrl", location.href);
+    location.href = "/signup"
+  };
+
   const logout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     location.reload();
   };
 
-  const $kakaoSigninModal = document.querySelector(".kakao-signin-modal");
-  const kakaoSigninModal = new Modal($kakaoSigninModal);
-  $kakaoSigninModal
-    .querySelector(".kakao-modal-close")
-    .addEventListener("click", () => {
-      kakaoSigninModal.handleShow(false);
-    });
-  $kakaoSigninModal
-    .querySelector(".kakao-modal-button")
-    .addEventListener("click", () => {
-      loginWithKakao();
-    });
-
   const $loginButton = document.getElementById("loginButton");
   const $dashboardButton = document.getElementById("dashboardButton");
   const accessToken = localStorage.getItem("accessToken");
-  $loginButton.textContent = accessToken ? "로그아웃" : "로그인 / 가입";
+  $loginButton.textContent = accessToken ? "로그아웃" : "로그인";
   $dashboardButton.style.display = accessToken ? "block" : "none";
 
+  const $profileImage = document.querySelector(".profile-image");
+  const $mobileMenu = document.querySelector(".navigation-mobile-menu");
+
+  const adaptMedia = (isMobile) => {
+    $loginButton.style.display = isMobile || !accessToken ? "block" : "none";
+    $dashboardButton.style.display = isMobile && accessToken ? "block" : "none";
+    $profileImage.style.display = !isMobile && accessToken ? "block" : "none";
+    if (isMobile) {
+      $mobileMenu.style.display = "none";
+    }
+  };
+
+  const media = matchMedia("screen and (min-width: 768px)");
+
+  adaptMedia(media.matches);
+
+  media.addListener((event) => {
+    adaptMedia(event.matches);
+  });
+
+  document.querySelector(".dashboard-menu").addEventListener("click", () => {
+    if (accessToken) {
+      location.href = "/matches";
+    }
+  });
+  document.querySelector(".logout-menu").addEventListener("click", () => {
+    if (accessToken) {
+      logout();
+    }
+  });
+
   $loginButton.addEventListener("click", () => {
-    accessToken ? logout() : kakaoSigninModal.handleShow(true);
+    accessToken ? logout() : login();
   });
   $dashboardButton.addEventListener("click", () => {
     if (accessToken) {

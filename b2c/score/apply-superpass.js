@@ -651,8 +651,6 @@ const handleNext = (from) => {
 const params = new URLSearchParams(location.search);
 const documentReviewId = params.get("documentReviewId");
 
-if (!documentReviewId) return;
-
 const makeData = (documentReviewId) => {
   const data = {
     documentReviewId: documentReviewId,
@@ -729,7 +727,12 @@ $loginButton.addEventListener("click", () => {
   location.href = "/";
 });
 
-if (!accessToken) {
+if (!documentReviewId) {
+  applyInvalidModal.onCheck = () => {
+    location.href = "/score";
+  };
+  applyInvalidModal.handleShow(true);
+} else if (!accessToken) {
   kakaoSigninModal.handleShow(true);
 } else {
   apiService
