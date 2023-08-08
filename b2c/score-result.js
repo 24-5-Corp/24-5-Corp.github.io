@@ -189,7 +189,12 @@ class ScoreResultView {
       `/score/apply-superpass?documentReviewId=${model.id}`
     ];
     this._addInformationButton.addEventListener("click", () => {
-      location.href = urls[this.getAddInformation(model)]
+      const infomationUrl = urls[this.getAddInformation(model)];
+      if (infomationUrl.startsWith("/")) {
+        location.href = infomationUrl;
+      } else {
+        window.open(infomationUrl);
+      }
     });
 
     this.handleShow(true);
