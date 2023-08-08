@@ -266,14 +266,78 @@ const positionForm = new Form(positionModal.querySelector("form"), [
   job,
 ]);
 
+const login = () => {
+  localStorage.setItem("loginUrl", location.href);
+  location.href = "/signup"
+};
+
+const logout = () => {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+  location.reload();
+};
+
+const $loginButton = document.getElementById("loginButton");
+const $dashboardButton = document.getElementById("dashboardButton");
 const accessToken = localStorage.getItem("accessToken");
+$loginButton.textContent = accessToken ? "로그아웃" : "로그인";
+$dashboardButton.style.display = accessToken ? "block" : "none";
+
+$loginButton.addEventListener("click", () => {
+  accessToken ? logout() : login();
+});
+$dashboardButton.addEventListener("click", () => {
+  if (accessToken) {
+    location.href = "/matches";
+  }
+});
+
+const $profileImage = document.querySelector(".profile-image");
+const $mobileMenu = document.querySelector(".navigation-mobile-menu");
+const $dashboardMenu = document.querySelector(".dashboard-menu");
+const $logoutMenu = document.querySelector(".logout-menu");
+
+const adaptMedia = (isMobile) => {
+  $loginButton.style.display = isMobile || !accessToken ? "block" : "none";
+  $dashboardButton.style.display = isMobile && accessToken ? "block" : "none";
+  $profileImage.style.display = !isMobile && accessToken ? "block" : "none";
+  if (isMobile) {
+    $mobileMenu.style.display = "none";
+  }
+};
+
+const media = matchMedia("screen and (min-width: 768px)");
+
+adaptMedia(media.matches);
+
+media.addListener((event) => {
+  adaptMedia(event.matches);
+});
+
+$dashboardMenu.addEventListener("click", () => {
+  if (accessToken) {
+    location.href = "/matches";
+  }
+});
+$logoutMenu.addEventListener("click", () => {
+  if (accessToken) {
+    logout();
+  }
+});
+
+const params = new URLSearchParams(location.search);
+const isReset = params.get("isReset");
+const alreadyApplied = params.get("alreadyApplied");
+
 if (accessToken) {
   apiService
     .makeRequest("/superpass/v2/document-review", {
       method: "GET",
     })
     .then((response) => {
-      if (response.data !== null) {
+      if (isReset) {
+        return;
+      } else if (response.data !== null) {
         alreadyAppliedModal.handleShow(true)
       }
     })
@@ -331,42 +395,13 @@ $kakaoSigninModal
     loginWithKakao();
   });
 
-
 // MARK: View
-const login = () => {
-  localStorage.setItem("loginUrl", location.href);
-  location.href = "/signup"
-};
-
-const logout = () => {
-  localStorage.removeItem("accessToken");
-  localStorage.removeItem("refreshToken");
-  location.reload();
-};
-
-const $loginButton = document.getElementById("loginButton");
-const $dashboardButton = document.getElementById("dashboardButton");
-$loginButton.textContent = accessToken ? "로그아웃" : "로그인 / 가입";
-$dashboardButton.style.display = accessToken ? "block" : "none";
-
-$loginButton.addEventListener("click", () => {
-  accessToken ? logout() : login();
-});
-$dashboardButton.addEventListener("click", () => {
-  if (accessToken) {
-    location.href = "/matches";
-  }
-});
-
 const alreadyAppliedModal = new AlertModal(
   document.querySelector(".already-applied-modal")
 );
 alreadyAppliedModal.onCheck = () => {
   location.href = "/score-result";
 };
-
-const params = new URLSearchParams(location.search);
-const alreadyApplied = params.get("alreadyApplied");
 
 if (alreadyApplied) {
   alreadyAppliedModal.handleShow(true);

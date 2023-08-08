@@ -41,13 +41,6 @@ Webflow.push(() => {
   popup.onLeftClick = () => popup.handleShow(false);
   popup.onRightClick = () => (location.href = "/apply-superpasss");
 
-  const loginWithKakao = () => {
-    localStorage.setItem("loginUrl", location.href);
-    Kakao.Auth.authorize({
-      redirectUri: `${document.location.origin}/signin`,
-    });
-  };
-
   const login = () => {
     localStorage.setItem("loginUrl", location.href);
     location.href = "/signup"
@@ -65,8 +58,19 @@ Webflow.push(() => {
   $loginButton.textContent = accessToken ? "로그아웃" : "로그인";
   $dashboardButton.style.display = accessToken ? "block" : "none";
 
+  $loginButton.addEventListener("click", () => {
+    accessToken ? logout() : login();
+  });
+  $dashboardButton.addEventListener("click", () => {
+    if (accessToken) {
+      location.href = "/matches";
+    }
+  });
+
   const $profileImage = document.querySelector(".profile-image");
   const $mobileMenu = document.querySelector(".navigation-mobile-menu");
+  const $dashboardMenu = document.querySelector(".dashboard-menu");
+  const $logoutMenu = document.querySelector(".logout-menu");
 
   const adaptMedia = (isMobile) => {
     $loginButton.style.display = isMobile || !accessToken ? "block" : "none";
@@ -85,23 +89,14 @@ Webflow.push(() => {
     adaptMedia(event.matches);
   });
 
-  document.querySelector(".dashboard-menu").addEventListener("click", () => {
+  $dashboardMenu.addEventListener("click", () => {
     if (accessToken) {
       location.href = "/matches";
     }
   });
-  document.querySelector(".logout-menu").addEventListener("click", () => {
+  $logoutMenu.addEventListener("click", () => {
     if (accessToken) {
       logout();
-    }
-  });
-
-  $loginButton.addEventListener("click", () => {
-    accessToken ? logout() : login();
-  });
-  $dashboardButton.addEventListener("click", () => {
-    if (accessToken) {
-      location.href = "/matches";
     }
   });
 
