@@ -54,7 +54,7 @@ apiService
           method: "GET",
         })
         .then((response) => {
-          if (response.data === null) {
+          if (response.data === null || loginUrl.startsWith("/score")) {
             location.href = `${loginUrl}?isSigned=true`;
           } else {
             location.href = "/matches";
