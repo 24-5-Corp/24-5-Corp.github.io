@@ -35,16 +35,19 @@ apiService
         });
     } else if (reviewData) {
       apiService
-        .makeRequest("/superpass/v2/document-review", {
-          method: "POST",
-          body: reviewData,
+        .makeRequest("/superpass/v2/document-review")
+        .then((response) => {
+          if (response.data === null) {
+            return apiService
+              .makeRequest("/superpass/v2/document-review", {
+                method: "POST",
+                body: reviewData,
+              })
+          } else {
+            location.href = `${loginUrl}?alreadyApplied=true`;
+          }
         })
-        .then(() => {
-          location.href = "/score-result";
-        })
-        .catch(() => {
-          location.href = `${loginUrl}?alreadyApplied=true`;
-        });
+        .catch((error) => console.error(error));
     } else {
       apiService
         .makeRequest("/superpass/v2/apply-seeker", {

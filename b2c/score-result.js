@@ -183,8 +183,11 @@ class ScoreResultView {
     this._addInformationButton.textContent = applyInformation.buttonLabel;
     this._addInformationButton.style.backgroundColor = applyInformation.color;
 
-    // TODO: 되는시간 링크
-    const urls = ["/", "/", `/score/apply-superpass?documentReviewId=${model.id}`]
+    const urls = [
+      "https://whattime.co.kr/superpassmento/30min",
+      "/",
+      `/score/apply-superpass?documentReviewId=${model.id}`
+    ];
     this._addInformationButton.addEventListener("click", () => {
       location.href = urls[this.getAddInformation(model)]
     });
