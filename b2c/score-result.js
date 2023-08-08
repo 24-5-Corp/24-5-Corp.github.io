@@ -86,6 +86,7 @@ class ScoreResultView {
   constructor(element) {
     this._element = element;
 
+    this._scoreResultTitle = element.querySelector(".score-result-title");
     this._applyDate = element.querySelector(".score-apply-date");
     this._totalScore = element.querySelector(".total-score");
     this._totalPercentage = element.querySelector(".total-percentage");
@@ -126,6 +127,7 @@ class ScoreResultView {
   }
 
   bind = (model) => {
+    this._scoreResultTitle.textContent = `${model.name}의 이력 등급은`;
     this._applyDate.textContent = `${model.createdAt} 제출`;
     this._totalScore.textContent = model.totalScore.grade;
     this._totalPercentage.textContent = `상위 ${model.totalScore.percentage}%`;
@@ -234,6 +236,8 @@ const scoreResultView = new ScoreResultView(
   document.querySelector(".score-result-container")
 );
 
+const userName = document.querySelector(".application-name");
+const userEmail = document.querySelector(".email-text");
 const pendingView = document.querySelector(".result-pending");
 
 apiService
@@ -242,6 +246,10 @@ apiService
     if (response.data === null) {
       redirectMain();
     }
+
+    userName.textContent = response.data.name;
+    userEmail.textContent = response.data.email;
+    bindDocument(response.data.documents);
 
     if (response.data.status === 1) {
       scoreResultView.bind(response.data);
