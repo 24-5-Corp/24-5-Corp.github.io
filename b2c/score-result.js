@@ -5,7 +5,7 @@ const bindDocument = (documents) => {
   const item = document.querySelector(".application-document-item");
 
   documents.forEach((document) => {
-    const icon = document.documentUrl.endsWith(".pdf")
+    const icon = document.url.endsWith(".pdf")
       ? `${upload}/64abb259c07028189d10bcd6_ic_resume.svg`
       : `${upload}/64abb259c07028189d10bcd5_ic_link.svg`;
     const title = document.type === 0 ? "이력서" : "포트폴리오";
@@ -15,7 +15,7 @@ const bindDocument = (documents) => {
     clonedItem.querySelector(".document-item-icon").src = icon;
     clonedItem.querySelector(".document-item-title").textContent = title;
     clonedItem.addEventListener("click", () => {
-      window.open(document.documentUrl);
+      window.open(document.url);
     });
 
     list.appendChild(clonedCV);
