@@ -239,6 +239,19 @@ const scoreResultView = new ScoreResultView(
 const userName = document.querySelector(".application-name");
 const userEmail = document.querySelector(".email-text");
 const pendingView = document.querySelector(".result-pending");
+const resendButton = document.querySelector(".resend-button");
+
+const resendModal = new ConfirmModal(
+  document.querySelector("#resendScoreModal")
+);
+
+resendModal.onConfirm = () => {
+  location.href = "/scroe?isReset=true";
+};
+
+resendButton.addEventListener("click", () => {
+  resendModal.handleShow(true);
+});
 
 apiService
   .makeRequest("/superpass/v2/document-review")
