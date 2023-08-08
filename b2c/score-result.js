@@ -182,8 +182,11 @@ class ScoreResultView {
     this._addInformationSubTitle.textContent = applyInformation.subTitle;
     this._addInformationButton.textContent = applyInformation.buttonLabel;
     this._addInformationButton.style.backgroundColor = applyInformation.color;
+
+    // TODO: 되는시간 링크
+    const urls = ["/", "/", `/score/apply-superpass?documentReviewId=${model.id}`]
     this._addInformationButton.addEventListener("click", () => {
-      location.href = `/score/apply-superpass?documentReviewId=${model.id}`;
+      location.href = urls[this.getAddInformation(model)]
     });
 
     this.handleShow(true);
@@ -258,23 +261,100 @@ resendButton.addEventListener("click", () => {
   resendModal.handleShow(true);
 });
 
-apiService
-  .makeRequest("/superpass/v2/document-review")
-  .then((response) => {
-    if (response.data === null) {
-      redirectMain();
-    }
+const login = () => {
+  localStorage.setItem("loginUrl", location.href);
+  location.href = "/signup"
+};
 
-    userName.textContent = response.data.name;
-    userEmail.textContent = response.data.email;
-    bindDocument(response.data.documents);
+const logout = () => {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+  location.reload();
+};
 
-    if (response.data.status === 1) {
-      scoreResultView.bind(response.data);
-      pendingView.style.display = "none";
-    } else {
-      scoreResultView.handleShow(false);
-      pendingView.style.display = "flex";
-    }
-  })
-  .catch((error) => console.error(error));
+const $loginButton = document.getElementById("loginButton");
+const $dashboardButton = document.getElementById("dashboardButton");
+const accessToken = localStorage.getItem("accessToken");
+$loginButton.textContent = accessToken ? "로그아웃" : "로그인";
+$dashboardButton.style.display = accessToken ? "block" : "none";
+
+$loginButton.addEventListener("click", () => {
+  accessToken ? logout() : login();
+});
+$dashboardButton.addEventListener("click", () => {
+  if (accessToken) {
+    location.href = "/matches";
+  }
+});
+
+const $profileImage = document.querySelector(".profile-image");
+const $mobileMenu = document.querySelector(".navigation-mobile-menu");
+const $dashboardMenu = document.querySelector(".dashboard-menu");
+const $logoutMenu = document.querySelector(".logout-menu");
+
+const adaptMedia = (isMobile) => {
+  $loginButton.style.display = isMobile || !accessToken ? "block" : "none";
+  $dashboardButton.style.display = isMobile && accessToken ? "block" : "none";
+  $profileImage.style.display = !isMobile && accessToken ? "block" : "none";
+  if (isMobile) {
+    $mobileMenu.style.display = "none";
+  }
+};
+
+const media = matchMedia("screen and (min-width: 768px)");
+
+adaptMedia(media.matches);
+
+media.addListener((event) => {
+  adaptMedia(event.matches);
+});
+
+$dashboardMenu.addEventListener("click", () => {
+  if (accessToken) {
+    location.href = "/matches";
+  }
+});
+$logoutMenu.addEventListener("click", () => {
+  if (accessToken) {
+    logout();
+  }
+});
+
+const loginWithKakao = () => {
+  localStorage.setItem("loginUrl", location.href);
+  Kakao.Auth.authorize({
+    redirectUri: `${document.location.origin}/signin`,
+  });
+};
+
+const kakaoSigninModal = new Modal(
+  document.querySelector(".kakao-signin-modal")
+);
+document.querySelector(".kakao-modal-button").addEventListener("click", () => {
+  loginWithKakao();
+});
+
+if (!accessToken) {
+  kakaoSigninModal.handleShow(true);
+} else {
+  apiService
+    .makeRequest("/superpass/v2/document-review")
+    .then((response) => {
+      if (response.data === null) {
+        redirectMain();
+      }
+
+      userName.textContent = response.data.name;
+      userEmail.textContent = response.data.email;
+      bindDocument(response.data.documents);
+
+      if (response.data.status === 1) {
+        scoreResultView.bind(response.data);
+        pendingView.style.display = "none";
+      } else {
+        scoreResultView.handleShow(false);
+        pendingView.style.display = "flex";
+      }
+    })
+    .catch((error) => console.error(error));
+}
