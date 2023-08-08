@@ -801,7 +801,7 @@ if (!accessToken) {
     .then((response) => {
       if (response.data.totalScore.percentage > 40) {
         applyInvalidModal.onCheck = () => {
-          location.href = "/score";
+          location.href = "/score-result";
         };
         applyInvalidModal.handleShow(true);
       }
