@@ -335,6 +335,8 @@ document.querySelector(".kakao-modal-button").addEventListener("click", () => {
 });
 
 if (!accessToken) {
+  document.querySelector(".lnb-contents-container").style.minHeight = "1000px";
+  document.querySelector(".document-review-container").style.display = "none";
   kakaoSigninModal.handleShow(true);
 } else {
   apiService
