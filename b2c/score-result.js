@@ -4,6 +4,8 @@ const bindDocument = (documents) => {
   const list = document.querySelector(".application-document-list");
   const item = document.querySelector(".application-document-item");
 
+  list.removeChild(item);
+
   documents.forEach((document) => {
     const icon = document.url.endsWith(".pdf")
       ? `${upload}/64abb259c07028189d10bcd6_ic_resume.svg`
