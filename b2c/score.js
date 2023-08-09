@@ -218,6 +218,7 @@ const positionClose = positionModal.querySelector(".modal-cancel-button");
 const positionSubmit = positionModal.querySelector(".submit-button-small-copy");
 
 positionModal.reset = () => {
+  name.reset();
   jobGroup.value = null;
   job.reset();
 }
