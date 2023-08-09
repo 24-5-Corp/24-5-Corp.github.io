@@ -137,8 +137,6 @@ class ScoreResultView {
     this._addInformationButton = element.querySelector(
       ".add-information-button"
     );
-
-    this._mentoringTitle = element.querySelector(".mentoring-title");
   }
 
   bind = (model) => {
@@ -210,9 +208,6 @@ class ScoreResultView {
       }
     });
 
-    this._mentoringTitle.textContent =
-      `${model.name}님에게 추천하는 3명의 ${model.jobGroup.name} 멘토`;
-
     this.handleShow(true);
   };
 
@@ -271,6 +266,7 @@ const scoreResultView = new ScoreResultView(
 const userName = document.querySelector(".application-name");
 const userEmail = document.querySelector(".email-text");
 const pendingView = document.querySelector(".result-pending");
+const mentoringTitle = document.querySelector(".mentoring-title");
 const resendButton = document.querySelector(".resend-button");
 const enhanceButton = document.querySelector(".enhance-button");
 
@@ -376,6 +372,9 @@ if (!accessToken) {
 
       userName.textContent = response.data.name;
       userEmail.textContent = response.data.email;
+      mentoringTitle.textContent =
+        `${response.data.name}님에게 추천하는 3명의 ${response.data.jobGroup.name} 멘토`;
+
       bindDocument(response.data.documents);
 
       if (response.data.status === 1) {
