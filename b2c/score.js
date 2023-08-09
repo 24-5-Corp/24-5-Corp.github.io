@@ -345,7 +345,7 @@ if (accessToken) {
     .catch((error) => console.error(error));
 }
 positionForm.onSubmit = () => {
-  if (!documentSubmit.classList.contains("enabled")) return;
+  if (!positionSubmit.classList.contains("enabled")) return;
 
   positionForm.validate();
   if (!positionForm.isValid) {
