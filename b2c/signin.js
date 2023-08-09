@@ -47,6 +47,9 @@ apiService
             location.href = `${loginUrl}?alreadyApplied=true`;
           }
         })
+        .then(() => {
+          location.href = "/score-result";
+        })
         .catch((error) => console.error(error));
     } else {
       if (loginUrl.includes("/score")) {
