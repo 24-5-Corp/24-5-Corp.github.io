@@ -219,7 +219,8 @@ const positionSubmit = positionModal.querySelector(".submit-button-small-copy");
 
 positionModal.reset = () => {
   name.reset();
-  jobGroup.reset();
+  jobGroup.value = null;
+  jobGroup.updateValidity(true);
   job.reset();
 }
 
