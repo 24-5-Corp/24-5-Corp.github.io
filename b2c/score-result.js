@@ -137,6 +137,8 @@ class ScoreResultView {
     this._addInformationButton = element.querySelector(
       ".add-information-button"
     );
+
+    this._mentoringTitle = element.querySelector(".mentoring-title");
   }
 
   bind = (model) => {
@@ -208,6 +210,9 @@ class ScoreResultView {
       }
     });
 
+    this._mentoringTitle.textContent =
+      `${model.name}님에게 추천하는 3명의 ${model.jobGroup.name} 멘토`;
+
     this.handleShow(true);
   };
 
@@ -267,6 +272,7 @@ const userName = document.querySelector(".application-name");
 const userEmail = document.querySelector(".email-text");
 const pendingView = document.querySelector(".result-pending");
 const resendButton = document.querySelector(".resend-button");
+const enhanceButton = document.querySelector(".enhance-button");
 
 const resendModal = new ConfirmModal(
   document.querySelector("#resendScoreModal")
@@ -276,6 +282,9 @@ resendModal.onConfirm = () => {
   location.href = "/score?isReset=true";
 };
 
+enhanceButton.addEventListener("click", () => {
+  window.open("https://ssgsag.notion.site/5795b201a5c042f5bfc384efe081a67a?pvs=4");
+});
 resendButton.addEventListener("click", () => {
   resendModal.handleShow(true);
 });
