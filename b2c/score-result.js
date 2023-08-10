@@ -358,6 +358,16 @@ document.querySelector(".kakao-modal-button").addEventListener("click", () => {
   loginWithKakao();
 });
 
+const categories = document.querySelectorAll('.w-dyn-item .filter-category');
+categories.forEach((category) => {
+  const categoryId = category.innerText || category.innerContent;
+  category.parentElement.parentElement.classList.add(categoryId);
+});
+
+const wrapper = document.querySelector('.collection-list-wrapper');
+
+const mixer = mixitup(wrapper, { animation: { enable: false } });
+
 if (!accessToken) {
   document.querySelector(".lnb-contents-container").style.minHeight = "1000px";
   document.querySelector(".document-review-container").style.display = "none";
@@ -374,6 +384,7 @@ if (!accessToken) {
       userEmail.textContent = response.data.email;
       mentoringTitle.textContent =
         `${response.data.name}님에게 추천하는 3명의 ${response.data.jobGroup.name} 멘토`;
+      mixer.filter(`.${response.data.jobGroup.name}`);
 
       bindDocument(response.data.documents);
 
