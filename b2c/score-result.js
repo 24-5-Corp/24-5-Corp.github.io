@@ -397,7 +397,7 @@ if (!accessToken) {
       userEmail.textContent = response.data.email;
       mentoringTitle.textContent =
         `${response.data.name}님에게 추천하는 3명의 ${response.data.jobGroup.name} 멘토`;
-      mixer.filter(`.${response.data.jobGroup.name}`);
+      mixer.filter(`.${parseJobGroup(response.data.jobGroup.name)}`);
 
       bindDocument(response.data.documents);
 
