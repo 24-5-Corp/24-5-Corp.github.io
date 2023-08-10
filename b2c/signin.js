@@ -42,13 +42,12 @@ apiService
               .makeRequest("/superpass/v2/document-review", {
                 method: "POST",
                 body: reviewData,
-              })
+              }).then(() => {
+                location.href = "/score-result";
+              });
           } else {
             location.href = `${loginUrl}?alreadyApplied=true`;
           }
-        })
-        .then(() => {
-          location.href = "/score-result";
         })
         .catch((error) => console.error(error));
     } else {
