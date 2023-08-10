@@ -490,7 +490,7 @@ if (!accessToken) {
         item.querySelector(".mentor-image").src = mentor.profileUrl;
         item.querySelector(".mentor-name").textContent = mentor.name;
         item.querySelector(".mentor-career").textContent = mentor.career;
-        item.querySelector(".mentor-site").textContent = mentor.mentorUrl;
+        item.querySelector(".mentor-site").href = mentor.mentorUrl;
       });
 
       bindDocument(response.data.documents);
