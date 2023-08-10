@@ -358,10 +358,23 @@ document.querySelector(".kakao-modal-button").addEventListener("click", () => {
   loginWithKakao();
 });
 
+const parseJobGroup = (jobGroup) => {
+  if (!jobGroup) {
+    jobGroup = 'empty';
+  }
+
+  return jobGroup 
+    .replace(/[!\"#$%&'\(\)\*\+,\.\/:;<=>\?\@\[\\\]\^`\{\|\}~]/g, '')
+    .replace(/ /g, "-")
+    .toLowerCase()
+    .trim();
+};
+
 const categories = document.querySelectorAll('.w-dyn-item .filter-category');
 categories.forEach((category) => {
-  const categoryId = category.innerText || category.innerContent;
-  category.parentElement.parentElement.classList.add(categoryId);
+  const categoryName = category.innerText || category.innerContent;
+  const className = parseJobGroup(categoryName);
+  category.parentElement.parentElement.classList.add(className);
 });
 
 const wrapper = document.querySelector('.collection-list-wrapper');
