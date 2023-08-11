@@ -78,6 +78,7 @@ class ScoreResultView {
       buttonLabel: "상담 신청하기",
       color: "#FF5247",
       background: "#FEFAF6",
+      buttonName: "superpass_score-result_consulting",
     },
     {
       title: "이력서, 포트폴리오",
@@ -87,6 +88,7 @@ class ScoreResultView {
       buttonLabel: "더 알아보기",
       color: "#189E58",
       background: "#F7FEF6",
+      buttonName: "superpass_score-result_superpass-more",
     },
     {
       title: "제출한 이력서로",
@@ -96,6 +98,7 @@ class ScoreResultView {
       buttonLabel: "면접 제안 받기",
       color: "#656EF0",
       background: "#F6F6FE",
+      buttonName: "superpass_score-result_superpass-apply",
     },
   ];
 
@@ -209,6 +212,8 @@ class ScoreResultView {
       } else {
         window.open(infomationUrl);
       }
+
+      logButtonClick({ buttonName: applyInformation.buttonName });
     });
 
     this.handleShow(true);
@@ -526,6 +531,12 @@ if (!accessToken) {
         item.querySelector(".mentor-name").textContent = mentor.name;
         item.querySelector(".mentor-career").textContent = mentor.career;
         item.querySelector(".mentor-site").href = mentor.mentorUrl;
+        item.querySelector(".mentor-site").addEventListener("click", () => {
+          gtag("event", "button_click", {
+            button_name: `superpass_score-result_mentor${index + 1}`,
+            job_group: response.data.jobGroup.name,
+          });
+        });
       });
 
       bindDocument(response.data.documents);
