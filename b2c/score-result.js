@@ -246,7 +246,7 @@ class ScoreResultView {
       case 40:
         return `${upload}/64d5cbff6426fddf8d8615a4_img_graph_15.png`;
       case (50, 60):
-        return `${upload}/64d5cbff845e9f1b528efb6d_img_graph_14.png`;
+        return `${upload}/64d5dfb7cbd8989df0d69997_img_graph_14.png`;
       default:
         return "";
     }
