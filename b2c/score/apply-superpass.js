@@ -594,6 +594,10 @@ const handleNext = (from) => {
       $percentage.textContent = "40%";
       $inprogress.style.flex = "2 auto";
       $progress.style.flex = "2 auto";
+
+      logButtonClick({
+        buttonName: "superpass_score-result_apply_privacy-info",
+      });
       break;
     case "academic":
       academic.validate();
@@ -609,15 +613,16 @@ const handleNext = (from) => {
       $percentage.textContent = "60%";
       $inprogress.style.flex = "3 auto";
       $progress.style.flex = "1 auto";
+
+      logButtonClick({ buttonName: "superpass_score-result_apply_education" });
       break;
     case "information":
       appealKeyword.validate();
       requirementSkills.validate();
       project.validate();
 
-      const isValid = appealKeyword.isValid &&
-        requirementSkills.isValid &&
-        project.isValid;
+      const isValid =
+        appealKeyword.isValid && requirementSkills.isValid && project.isValid;
       if (!isValid) {
         applyErrorModal.handleShow(true);
         return;
@@ -631,6 +636,8 @@ const handleNext = (from) => {
       $inprogress.style.flex = "4 auto";
       $progress.style.flex = "0 auto";
       $submitButton.textContent = "제출하기";
+
+      logButtonClick({ buttonName: "superpass_score-result_apply_experience" });
       break;
     case "condition":
       workConditition.validate();
@@ -640,12 +647,13 @@ const handleNext = (from) => {
         return;
       }
 
+      logButtonClick({ buttonName: "superpass_score-result_apply_submit" });
       applyCheckModal.handleShow(true);
       break;
   }
 
   document.documentElement.scrollTo(0, 0);
-}
+};
 
 // NOTE: View
 const params = new URLSearchParams(location.search);
@@ -705,7 +713,7 @@ $submitButton.addEventListener("click", () => {
 
 const login = () => {
   localStorage.setItem("loginUrl", location.href);
-  location.href = "/signup"
+  location.href = "/signup";
 };
 
 const logout = () => {
