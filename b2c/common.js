@@ -11,7 +11,7 @@ const removeAllChildren = (node) => {
   }
 };
 
-const logButtonClick = (element) => {
+const logButtonClick = (value) => {
   gtag("event", "button_click", {
     button_name: value.buttonName,
   });
