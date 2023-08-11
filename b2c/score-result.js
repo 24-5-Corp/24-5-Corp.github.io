@@ -1,3 +1,6 @@
+logScreenView({ screenName: "superpass_score-result" });
+addLogButtonEventListener();
+
 const upload = "https://uploads-ssl.webflow.com/64abb259c07028189d10bc82";
 
 function endsWithAny(str, suffixes) {
@@ -197,7 +200,7 @@ class ScoreResultView {
     const urls = [
       "https://whattime.co.kr/superpassmento/30min",
       "/",
-      `/score/apply-superpass?documentReviewId=${model.id}`
+      `/score/apply-superpass?documentReviewId=${model.id}`,
     ];
     this._addInformationButton.addEventListener("click", () => {
       const infomationUrl = urls[this.getAddInformation(model)];
@@ -279,7 +282,9 @@ resendModal.onConfirm = () => {
 };
 
 enhanceButton.addEventListener("click", () => {
-  window.open("https://ssgsag.notion.site/5795b201a5c042f5bfc384efe081a67a?pvs=4");
+  window.open(
+    "https://ssgsag.notion.site/5795b201a5c042f5bfc384efe081a67a?pvs=4"
+  );
 });
 resendButton.addEventListener("click", () => {
   resendModal.handleShow(true);
@@ -287,7 +292,7 @@ resendButton.addEventListener("click", () => {
 
 const login = () => {
   localStorage.setItem("loginUrl", location.href);
-  location.href = "/signup"
+  location.href = "/signup";
 };
 
 const logout = () => {
@@ -361,110 +366,140 @@ document.querySelector(".kakao-modal-button").addEventListener("click", () => {
 const mentors = [
   {
     jobGroupId: 1,
-    profileUrl: "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl:
+      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
     name: "제시카",
     career: "마케팅 N년차",
-    mentorUrl: "https://ssgsag.notion.site/1-N-a1308c8602894073b97abb00d3db8f58?pvs=4",
+    mentorUrl:
+      "https://ssgsag.notion.site/1-N-a1308c8602894073b97abb00d3db8f58?pvs=4",
   },
   {
     jobGroupId: 1,
-    profileUrl: "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl:
+      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
     name: "피오",
     career: "마케팅 N년차",
-    mentorUrl: "https://ssgsag.notion.site/2-N-2ffdc45aef4440299966c0faf8cad0d3?pvs=4",
+    mentorUrl:
+      "https://ssgsag.notion.site/2-N-2ffdc45aef4440299966c0faf8cad0d3?pvs=4",
   },
   {
     jobGroupId: 1,
-    profileUrl: "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl:
+      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
     name: "캐리",
     career: "마케팅 N년차",
-    mentorUrl: "https://ssgsag.notion.site/3-N-28c20e95fde547049697a127adcc196f?pvs=4",
+    mentorUrl:
+      "https://ssgsag.notion.site/3-N-28c20e95fde547049697a127adcc196f?pvs=4",
   },
   {
     jobGroupId: 2,
-    profileUrl: "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl:
+      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
     name: "에블린",
     career: "개발 N년차",
-    mentorUrl: "https://ssgsag.notion.site/N-56fb3a927d0148f1b6fc9619fa92d5f8?pvs=4",
+    mentorUrl:
+      "https://ssgsag.notion.site/N-56fb3a927d0148f1b6fc9619fa92d5f8?pvs=4",
   },
   {
     jobGroupId: 2,
-    profileUrl: "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl:
+      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
     name: "라이언",
     career: "개발 N년차",
-    mentorUrl: "https://ssgsag.notion.site/2-N-205c21d3c39f4926b059e442818632a1?pvs=4",
+    mentorUrl:
+      "https://ssgsag.notion.site/2-N-205c21d3c39f4926b059e442818632a1?pvs=4",
   },
   {
     jobGroupId: 2,
-    profileUrl: "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl:
+      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
     name: "프레드",
     career: "개발 N년차",
-    mentorUrl: "https://ssgsag.notion.site/3-N-4887225d27f44976af1718b6e6e1e592?pvs=4",
+    mentorUrl:
+      "https://ssgsag.notion.site/3-N-4887225d27f44976af1718b6e6e1e592?pvs=4",
   },
   {
     jobGroupId: 3,
-    profileUrl: "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl:
+      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
     name: "제니",
     career: "경영/운영 N년차",
-    mentorUrl: "https://ssgsag.notion.site/N-03007d33247043f5a7e30d0dea8c64c4?pvs=4",
+    mentorUrl:
+      "https://ssgsag.notion.site/N-03007d33247043f5a7e30d0dea8c64c4?pvs=4",
   },
   {
     jobGroupId: 3,
-    profileUrl: "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl:
+      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
     name: "만수르",
     career: "경영/운영 N년차",
-    mentorUrl: "https://ssgsag.notion.site/2-N-e3792815f6444e55892c63cfda152d42?pvs=4",
+    mentorUrl:
+      "https://ssgsag.notion.site/2-N-e3792815f6444e55892c63cfda152d42?pvs=4",
   },
   {
     jobGroupId: 3,
-    profileUrl: "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl:
+      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
     name: "휴",
     career: "경영/운영 N년차",
-    mentorUrl: "https://ssgsag.notion.site/3-N-c92bbfce95cb4a3c9abaa8b43c56986e?pvs=4",
+    mentorUrl:
+      "https://ssgsag.notion.site/3-N-c92bbfce95cb4a3c9abaa8b43c56986e?pvs=4",
   },
   {
     jobGroupId: 4,
-    profileUrl: "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl:
+      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
     name: "테리",
     career: "디자인 N년차",
-    mentorUrl: "https://ssgsag.notion.site/1-N-7cf4a97b479743a1920c14526c65c84e?pvs=4",
+    mentorUrl:
+      "https://ssgsag.notion.site/1-N-7cf4a97b479743a1920c14526c65c84e?pvs=4",
   },
   {
     jobGroupId: 4,
-    profileUrl: "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl:
+      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
     name: "빌리",
     career: "디자인 N년차",
-    mentorUrl: "https://ssgsag.notion.site/2-N-261fc4e2d8fa4934842856ce4a91a3ec?pvs=4",
+    mentorUrl:
+      "https://ssgsag.notion.site/2-N-261fc4e2d8fa4934842856ce4a91a3ec?pvs=4",
   },
   {
     jobGroupId: 4,
-    profileUrl: "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl:
+      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
     name: "썸머",
     career: "디자인 N년차",
-    mentorUrl: "https://ssgsag.notion.site/3-N-5cbcd03468a542ea8d2a171ae6eda493?pvs=4",
+    mentorUrl:
+      "https://ssgsag.notion.site/3-N-5cbcd03468a542ea8d2a171ae6eda493?pvs=4",
   },
   {
     jobGroupId: 5,
-    profileUrl: "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl:
+      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
     name: "레버",
     career: "기획 N년차",
-    mentorUrl: "https://ssgsag.notion.site/1-CEO-4-e86d3fb2066f483384e9255ca301b86e?pvs=4",
+    mentorUrl:
+      "https://ssgsag.notion.site/1-CEO-4-e86d3fb2066f483384e9255ca301b86e?pvs=4",
   },
   {
     jobGroupId: 5,
-    profileUrl: "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl:
+      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
     name: "디오",
     career: "기획 N년차",
-    mentorUrl: "https://ssgsag.notion.site/2-CEO-4-7821c5977f9a4d858cea8fa7bc178e5b?pvs=4",
+    mentorUrl:
+      "https://ssgsag.notion.site/2-CEO-4-7821c5977f9a4d858cea8fa7bc178e5b?pvs=4",
   },
   {
-    profileUrl: "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl:
+      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
     jobGroupId: 5,
     name: "지니",
     career: "기획 N년차",
-    mentorUrl: "https://ssgsag.notion.site/3-CEO-4-d671f46390394011876ff66f7f2e4443?pvs=4",
+    mentorUrl:
+      "https://ssgsag.notion.site/3-CEO-4-d671f46390394011876ff66f7f2e4443?pvs=4",
   },
-]
+];
 
 if (!accessToken) {
   document.querySelector(".lnb-contents-container").style.minHeight = "1000px";
@@ -480,12 +515,12 @@ if (!accessToken) {
 
       userName.textContent = response.data.name;
       userEmail.textContent = response.data.email;
-      mentoringTitle.textContent =
-        `${response.data.name}님에게 추천하는 3명의 ${response.data.jobGroup.name} 멘토`;
+      mentoringTitle.textContent = `${response.data.name}님에게 추천하는 3명의 ${response.data.jobGroup.name} 멘토`;
 
       document.querySelectorAll(".mentor-item").forEach((item, index) => {
-        const mentor = 
-          mentors.filter((mentor) => mentor.jobGroupId === response.data.jobGroup.id)[index];
+        const mentor = mentors.filter(
+          (mentor) => mentor.jobGroupId === response.data.jobGroup.id
+        )[index];
 
         item.querySelector(".mentor-image").src = mentor.profileUrl;
         item.querySelector(".mentor-name").textContent = mentor.name;

@@ -1,32 +1,34 @@
+logScreenView({ screenName: "superpass_score" });
+addLogButtonEventListener();
+
 // MARK: API
 const fileUpload = async (file) => {
   const formData = new FormData();
   formData.append("file", file);
 
-  return await apiService
-    .makeRequest("/util/file-upload", {
-      method: "POST",
-      headers: { "Content-Type": "undefined" },
-      body: formData,
-    });
+  return await apiService.makeRequest("/util/file-upload", {
+    method: "POST",
+    headers: { "Content-Type": "undefined" },
+    body: formData,
+  });
 };
 
 // MARK: Mixin
 const modalMixin = {
   show() {
-    document.body.style.height = "100%"
+    document.body.style.height = "100%";
     document.body.style.overflow = "hidden";
 
-    this.style.display = 'flex';
+    this.style.display = "flex";
     this.scrollTo(0, 0);
   },
   hide() {
     document.body.style.height = undefined;
     document.body.style.overflow = "auto";
 
-    this.style.display = 'none';
+    this.style.display = "none";
     this.scrollTo(0, 0);
-  }
+  },
 };
 
 let reviewModel = {};
@@ -37,10 +39,14 @@ const initDocumentModal = (modal, type) => {
   const documentForm = modal.querySelector(".document-form");
 
   const fileRadio = documentForm.querySelector("input[id=file]");
-  const fileButton = documentForm.querySelector("#file-field .w-form-formradioinput");
+  const fileButton = documentForm.querySelector(
+    "#file-field .w-form-formradioinput"
+  );
 
   const urlRadio = documentForm.querySelector("input[id=url]");
-  const urlButton = documentForm.querySelector("#url-field .w-form-formradioinput");
+  const urlButton = documentForm.querySelector(
+    "#url-field .w-form-formradioinput"
+  );
 
   const fileContainer = documentForm.querySelector(".file-container");
   const fileInput = fileContainer.querySelector(".file-input");
@@ -80,7 +86,7 @@ const initDocumentModal = (modal, type) => {
 
   const validateUrl = async (url) => {
     const regex =
-        /^((http(s?))\:\/\/)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/;
+      /^((http(s?))\:\/\/)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/;
     const isValid = regex.test(urlInput.value);
 
     if (!isValid) {
@@ -94,7 +100,7 @@ const initDocumentModal = (modal, type) => {
       urlError.style.display = "none";
 
       return true;
-    } catch(error) {
+    } catch (error) {
       urlError.textContent = `* ${error.message}`;
       urlError.style.display = "block";
 
@@ -125,7 +131,7 @@ const initDocumentModal = (modal, type) => {
   });
 
   urlInput.addEventListener("input", () => {
-    urlInput.style.borderColor = style.getPropertyValue("--disabled")
+    urlInput.style.borderColor = style.getPropertyValue("--disabled");
     urlError.style.display = "none";
 
     if (urlInput.value.length === 0) {
@@ -146,7 +152,7 @@ const initDocumentModal = (modal, type) => {
     urlInput.value = "";
     if (type === "resume") {
       documentSubmit.classList.replace("enabled", "disabled");
-    } 
+    }
   });
 
   urlRadio.addEventListener("input", () => {
@@ -156,7 +162,7 @@ const initDocumentModal = (modal, type) => {
     fileInput.value = "";
     fileInput.dispatchEvent(new Event("change"));
 
-    urlInput.style.borderColor = style.getPropertyValue("--disabled")
+    urlInput.style.borderColor = style.getPropertyValue("--disabled");
     urlError.style.display = "none";
     if (type === "resume") {
       documentSubmit.classList.replace("enabled", "disabled");
@@ -167,7 +173,8 @@ const initDocumentModal = (modal, type) => {
     event.preventDefault();
     event.stopPropagation();
 
-    if (type === "resume" && !documentSubmit.classList.contains("enabled")) return;
+    if (type === "resume" && !documentSubmit.classList.contains("enabled"))
+      return;
 
     const radio = documentForm.querySelector("input[name=resume]:checked");
     let documentUrl;
@@ -193,7 +200,7 @@ const initDocumentModal = (modal, type) => {
       positionModal.show();
     }
   });
-}
+};
 
 // MARK: Resume
 const resumeModal = document.querySelector(".resume-modal");
@@ -213,7 +220,10 @@ name.regex = /^.{2,30}$/;
 
 const jobGroup = new Dropdown(positionModal.querySelector("#jobGroup"));
 jobGroup.isConditioned = true;
-const job = new ConditionedDropdown(positionModal.querySelector("#job"), jobGroup);
+const job = new ConditionedDropdown(
+  positionModal.querySelector("#job"),
+  jobGroup
+);
 
 const positionClose = positionModal.querySelector(".modal-cancel-button");
 const positionSubmit = positionModal.querySelector(".submit-button-small-copy");
@@ -223,7 +233,7 @@ positionModal.reset = () => {
   jobGroup.value = null;
   jobGroup.updateValidity(true);
   job.reset();
-}
+};
 
 positionClose.addEventListener("click", () => {
   reviewModel = {};
@@ -261,7 +271,7 @@ jobGroup.onInput = () => {
 
 job.onInput = () => {
   handleSubmitButton();
-}
+};
 
 const positionForm = new Form(positionModal.querySelector("form"), [
   name,
@@ -271,7 +281,7 @@ const positionForm = new Form(positionModal.querySelector("form"), [
 
 const login = () => {
   localStorage.setItem("loginUrl", location.href);
-  location.href = "/signup"
+  location.href = "/signup";
 };
 
 const logout = () => {
@@ -341,7 +351,7 @@ if (accessToken) {
       if (isReset) {
         return;
       } else if (response.data !== null) {
-        alreadyAppliedModal.handleShow(true)
+        alreadyAppliedModal.handleShow(true);
       }
     })
     .catch((error) => console.error(error));
