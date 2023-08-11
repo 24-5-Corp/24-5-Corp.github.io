@@ -1,3 +1,6 @@
+logScreenView({ screenName: "superpass_score-result_apply" });
+addLogButtonEventListener();
+
 class ProfileInput extends Input {
   constructor(element) {
     super(element);
