@@ -789,7 +789,7 @@ if (!accessToken) {
       method: "GET",
     })
     .then((response) => {
-      if (response.data) {
+      if (!response.data) {
         return apiService.makeRequest("/superpass/v2/document-review");
       } else {
         applyInvalidModal.onCheck = () => {
