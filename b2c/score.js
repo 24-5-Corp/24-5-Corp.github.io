@@ -126,6 +126,7 @@ const initDocumentModal = (modal, type) => {
 
   urlInput.addEventListener("input", () => {
     urlInput.style.borderColor = style.getPropertyValue("--disabled")
+    urlError.style.display = "none";
 
     if (urlInput.value.length === 0) {
       if (type === "resume") {
