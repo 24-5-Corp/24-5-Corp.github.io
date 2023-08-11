@@ -789,33 +789,30 @@ if (!accessToken) {
       method: "GET",
     })
     .then((response) => {
-      if (!response.data) {
-        return apiService.makeRequest("/superpass/v2/document-review");
+      if (response.data === null) {
+        apiService
+          .makeRequest("/superpass/v2/document-review")
+          .then((response) => {
+            if (response.data === null) {
+              applyInvalidModal.onCheck = () => {
+                location.href = "/score";
+              };
+              applyInvalidModal.handleShow(true);
+            } else if (response.data.totalScore.percentage > 40) {
+              applyInvalidModal.onCheck = () => {
+                location.href = "/score-result";
+              };
+              applyInvalidModal.handleShow(true);
+            } else {
+              return;
+            }
+          })
+          .catch((error) => console.error(error));
       } else {
         applyInvalidModal.onCheck = () => {
           location.href = "/matches";
         };
         applyInvalidModal.handleShow(true);
-      }
-    })
-    .then((response) => {
-      if (!response.data) {
-        applyInvalidModal.onCheck = () => {
-          location.href = "/score";
-        };
-        applyInvalidModal.handleShow(true);
-      } else {
-        if (response.data.totalScore.percentage > 40) {
-          applyInvalidModal.onCheck = () => {
-            location.href = "/score-result";
-          };
-          applyInvalidModal.handleShow(true);
-        } else {
-          applyInvalidModal.onCheck = () => {
-            location.href = "/score";
-          };
-          applyInvalidModal.handleShow(true);
-        }
       }
     })
     .catch((error) => console.error(error));
