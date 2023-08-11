@@ -234,17 +234,17 @@ class ScoreResultView {
   getGraphImage = (percentage) => {
     switch (percentage) {
       case 1:
-        return `${upload}/64d5cbff9b93b6988681674d_img_graph_20.png`;
+        return `${upload}/64d5e2ea43d1cdd34f856493_img_graph_20.png`;
       case 2:
-        return `${upload}/64d5cbffbf0d6ee699a74a58_img_graph_19.png`;
+        return `${upload}/64d5e2eac3394846757ee40a_img_graph_19.png`;
       case 5:
-        return `${upload}/64d5cbff43fc419f2bae4e60_img_graph_18.png`;
+        return `${upload}/64d5e2eae5f9ee8943a0d3c6_img_graph_18.png`;
       case 15:
-        return `${upload}/64d5cbffbf0d6ee699a749f7_img_graph_17.png`;
+        return `${upload}/64d5e2eadaf1ecf528c06747_img_graph_17.png`;
       case 30:
-        return `${upload}/64d5cbff24e8de96771ba324_img_graph_16.png`;
+        return `${upload}/64d5e2e95e66f55a73c702bc_img_graph_16.png`;
       case 40:
-        return `${upload}/64d5cbff6426fddf8d8615a4_img_graph_15.png`;
+        return `${upload}/64d5e2ea12b94ec4c88ef54d_img_graph_15.png`;
       case (50, 60):
         return `${upload}/64d5dfb7cbd8989df0d69997_img_graph_14.png`;
       default:
