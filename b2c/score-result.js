@@ -368,6 +368,10 @@ document.querySelector(".kakao-modal-button").addEventListener("click", () => {
   loginWithKakao();
 });
 
+const applyInvalidModal = new AlertModal(
+  document.querySelector("#applyInvalidModal")
+);
+
 const mentors = [
   {
     jobGroupId: 1,
@@ -500,7 +504,10 @@ if (!accessToken) {
     .makeRequest("/superpass/v2/document-review")
     .then((response) => {
       if (response.data === null) {
-        redirectMain();
+        applyInvalidModal.onCheck = () => {
+          location.href = "/score";
+        };
+        applyInvalidModal.handleShow(true);
       }
 
       userName.textContent = response.data.name;
