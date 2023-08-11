@@ -1,7 +1,7 @@
 logScreenView({ screenName: "superpass_score-result" });
 addLogButtonEventListener();
 
-const upload = "https://uploads-ssl.webflow.com/64abb259c07028189d10bc82";
+const upload = "https://uploads-ssl.webflow.com/641969d09672c909169b6d7e";
 
 function endsWithAny(str, suffixes) {
   for (const suffix of suffixes) {
@@ -22,8 +22,8 @@ const bindDocument = (documents) => {
 
   documents.forEach((document) => {
     const icon = endsWithAny(document.url, fileExtensions)
-      ? `${upload}/64abb259c07028189d10bcd6_ic_resume.svg`
-      : `${upload}/64abb259c07028189d10bcd5_ic_link.svg`;
+      ? `${upload}/64a7bfe4e0cfaf4d349fd850_ic_resume.svg`
+      : `${upload}/64a7bfe47ba13bc4c3cf6e7c_ic_link.svg`;
     const title = document.type === 0 ? "이력서" : "포트폴리오";
 
     const clonedItem = item.cloneNode(true);
@@ -234,19 +234,19 @@ class ScoreResultView {
   getGraphImage = (percentage) => {
     switch (percentage) {
       case 1:
-        return "https://uploads-ssl.webflow.com/641969d09672c909169b6d7e/64d04c968416a474a550331b_img_graph_20.png";
+        return `${upload}/64d5cbff9b93b6988681674d_img_graph_20.png`;
       case 2:
-        return "https://uploads-ssl.webflow.com/641969d09672c909169b6d7e/64d04c966b645b27d693f1c9_img_graph_19.png";
+        return `${upload}/64d5cbffbf0d6ee699a74a58_img_graph_19.png`;
       case 5:
-        return "https://uploads-ssl.webflow.com/641969d09672c909169b6d7e/64d04c96347c14534e8c5f16_img_graph_18.png";
+        return `${upload}/64d5cbff43fc419f2bae4e60_img_graph_18.png`;
       case 15:
-        return "https://uploads-ssl.webflow.com/641969d09672c909169b6d7e/64d04c9baea07df5b0341d2a_img_graph_17.png";
+        return `${upload}/64d5cbffbf0d6ee699a749f7_img_graph_17.png`;
       case 30:
-        return "https://uploads-ssl.webflow.com/641969d09672c909169b6d7e/64d04c9633771b6a552ce64b_img_graph_16.png";
+        return `${upload}/64d5cbff24e8de96771ba324_img_graph_16.png`;
       case 40:
-        return "https://uploads-ssl.webflow.com/641969d09672c909169b6d7e/64d04c95b6c6593d1610b7b2_img_graph_15.png";
+        return `${upload}/64d5cbff6426fddf8d8615a4_img_graph_15.png`;
       case (50, 60):
-        return "https://uploads-ssl.webflow.com/641969d09672c909169b6d7e/64d048906ff6fe47702e0fd8_img_graph_low.png";
+        return `${upload}/64d5cbff845e9f1b528efb6d_img_graph_14.png`;
       default:
         return "";
     }
@@ -371,8 +371,7 @@ document.querySelector(".kakao-modal-button").addEventListener("click", () => {
 const mentors = [
   {
     jobGroupId: 1,
-    profileUrl:
-      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
     name: "제시카",
     career: "마케팅 N년차",
     mentorUrl:
@@ -380,8 +379,7 @@ const mentors = [
   },
   {
     jobGroupId: 1,
-    profileUrl:
-      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
     name: "피오",
     career: "마케팅 N년차",
     mentorUrl:
@@ -389,8 +387,7 @@ const mentors = [
   },
   {
     jobGroupId: 1,
-    profileUrl:
-      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
     name: "캐리",
     career: "마케팅 N년차",
     mentorUrl:
@@ -398,8 +395,7 @@ const mentors = [
   },
   {
     jobGroupId: 2,
-    profileUrl:
-      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
     name: "에블린",
     career: "개발 N년차",
     mentorUrl:
@@ -407,8 +403,7 @@ const mentors = [
   },
   {
     jobGroupId: 2,
-    profileUrl:
-      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
     name: "라이언",
     career: "개발 N년차",
     mentorUrl:
@@ -416,8 +411,7 @@ const mentors = [
   },
   {
     jobGroupId: 2,
-    profileUrl:
-      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
     name: "프레드",
     career: "개발 N년차",
     mentorUrl:
@@ -425,8 +419,7 @@ const mentors = [
   },
   {
     jobGroupId: 3,
-    profileUrl:
-      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
     name: "제니",
     career: "경영/운영 N년차",
     mentorUrl:
@@ -434,8 +427,7 @@ const mentors = [
   },
   {
     jobGroupId: 3,
-    profileUrl:
-      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
     name: "만수르",
     career: "경영/운영 N년차",
     mentorUrl:
@@ -443,8 +435,7 @@ const mentors = [
   },
   {
     jobGroupId: 3,
-    profileUrl:
-      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
     name: "휴",
     career: "경영/운영 N년차",
     mentorUrl:
@@ -452,8 +443,7 @@ const mentors = [
   },
   {
     jobGroupId: 4,
-    profileUrl:
-      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
     name: "테리",
     career: "디자인 N년차",
     mentorUrl:
@@ -461,8 +451,7 @@ const mentors = [
   },
   {
     jobGroupId: 4,
-    profileUrl:
-      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
     name: "빌리",
     career: "디자인 N년차",
     mentorUrl:
@@ -470,8 +459,7 @@ const mentors = [
   },
   {
     jobGroupId: 4,
-    profileUrl:
-      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
     name: "썸머",
     career: "디자인 N년차",
     mentorUrl:
@@ -479,8 +467,7 @@ const mentors = [
   },
   {
     jobGroupId: 5,
-    profileUrl:
-      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
     name: "레버",
     career: "기획 N년차",
     mentorUrl:
@@ -488,16 +475,14 @@ const mentors = [
   },
   {
     jobGroupId: 5,
-    profileUrl:
-      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
     name: "디오",
     career: "기획 N년차",
     mentorUrl:
       "https://ssgsag.notion.site/2-CEO-4-7821c5977f9a4d858cea8fa7bc178e5b?pvs=4",
   },
   {
-    profileUrl:
-      "https://uploads-ssl.webflow.com/64d451ebaed374e1f7cd7510/64d4780ea5aa881ed6a51412_laptop_pini.png",
+    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
     jobGroupId: 5,
     name: "지니",
     career: "기획 N년차",
