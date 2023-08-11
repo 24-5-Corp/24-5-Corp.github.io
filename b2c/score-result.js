@@ -143,7 +143,7 @@ class ScoreResultView {
   }
 
   bind = (model) => {
-    this._scoreResultTitle.textContent = `${model.name}의 이력 등급은`;
+    this._scoreResultTitle.textContent = `${model.name}님의 이력 등급은`;
     this._applyDate.textContent = `${model.createdAt} 제출`;
     this._totalScore.textContent = model.totalScore.grade;
     this._totalPercentage.textContent = `상위 ${model.totalScore.percentage}%`;
