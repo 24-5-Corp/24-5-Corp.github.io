@@ -293,7 +293,7 @@ const login = () => {
 const logout = () => {
   localStorage.removeItem("accessToken");
   localStorage.removeItem("refreshToken");
-  location.reload();
+  location.href = "/score";
 };
 
 const $loginButton = document.getElementById("loginButton");

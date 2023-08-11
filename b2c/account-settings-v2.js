@@ -3,15 +3,6 @@ addLogButtonEventListener();
 const $emailText = document.querySelector(".email-text");
 const $withdrawalButton = document.querySelector(".withdrawal-button");
 
-apiService
-  .makeRequest("/auth/b2c/me")
-  .then((response) => {
-    $emailText.textContent = response.data.email;
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-
 const leaveCheckModal = new ConfirmModal(
   document.querySelector(".leave-check-modal")
 );
@@ -50,7 +41,7 @@ const login = () => {
 const logout = () => {
   localStorage.removeItem("accessToken");
   localStorage.removeItem("refreshToken");
-  location.reload();
+  location.href = "/";
 };
 
 const $loginButton = document.getElementById("loginButton");
@@ -86,6 +77,26 @@ $logoutMenu.addEventListener("click", () => {
     logout();
   }
 });
+
+const kakaoSigninModal = new Modal(
+  document.querySelector(".kakao-signin-modal")
+);
+document.querySelector(".kakao-modal-button").addEventListener("click", () => {
+  loginWithKakao();
+});
+
+if (!accessToken) {
+  kakaoSigninModal.handleShow(true);
+} else {
+  apiService
+    .makeRequest("/auth/b2c/me")
+    .then((response) => {
+      $emailText.textContent = response.data.email;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
 
 Webflow.push(() => {
   document.querySelector("#account").classList.add("current");
