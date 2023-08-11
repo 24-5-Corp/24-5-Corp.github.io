@@ -13,8 +13,7 @@ const removeAllChildren = (node) => {
 
 const logButtonClick = (element) => {
   gtag("event", "button_click", {
-    button_name: element.getAttribute("event-button-name"),
-    where: element.getAttribute("event-where"),
+    button_name: value.buttonName,
   });
 };
 
@@ -22,7 +21,10 @@ const addLogButtonEventListener = () => {
   const buttonElements = document.getElementsByClassName("ga-event");
   for (const element of buttonElements) {
     element.addEventListener("click", () => {
-      logButtonClick(element);
+      gtag("event", "button_click", {
+        button_name: element.getAttribute("event-button-name"),
+        where: element.getAttribute("event-where"),
+      });
     });
   }
 };

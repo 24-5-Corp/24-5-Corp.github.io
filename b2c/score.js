@@ -176,6 +176,12 @@ const initDocumentModal = (modal, type) => {
     if (type === "resume" && !documentSubmit.classList.contains("enabled"))
       return;
 
+    if (type === "resume") {
+      logButtonClick({ buttonName: "superpass_score_upload_resume" });
+    } else if (type === "portfolio") {
+      logButtonClick({ buttonName: "superpass_score_upload_portfolio" });
+    }
+
     const radio = documentForm.querySelector("input[name=resume]:checked");
     let documentUrl;
     if (radio.value === "file" && fileInput.files.length !== 0) {
@@ -359,6 +365,7 @@ if (accessToken) {
 positionForm.onSubmit = () => {
   if (!positionSubmit.classList.contains("enabled")) return;
 
+  logButtonClick({ buttonName: "superpass_score_upload_information" });
   positionForm.validate();
   if (!positionForm.isValid) {
     positionSubmit.classList.replace("enabled", "disabled");
