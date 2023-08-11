@@ -799,17 +799,24 @@ if (!accessToken) {
       }
     })
     .then((response) => {
-      if (response.data.totalScore.percentage > 40) {
+      if (response.data === null) {
         applyInvalidModal.onCheck = () => {
-          location.href = "/score-result";
+          location.href = "/score";
         };
         applyInvalidModal.handleShow(true);
+      } else {
+        if (response.data.totalScore.percentage > 40) {
+          applyInvalidModal.onCheck = () => {
+            location.href = "/score-result";
+          };
+          applyInvalidModal.handleShow(true);
+        } else {
+          applyInvalidModal.onCheck = () => {
+            location.href = "/score";
+          };
+          applyInvalidModal.handleShow(true);
+        }
       }
     })
-    .catch(() => {
-      applyInvalidModal.onCheck = () => {
-        location.href = "/score";
-      };
-      applyInvalidModal.handleShow(true);
-    });
+    .catch((error) => console.error(error));
 }
