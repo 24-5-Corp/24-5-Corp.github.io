@@ -24,7 +24,7 @@ class Input {
   }
 
   get value() {
-    return this._input.value;
+    return this._input.value.trim();
   }
 
   set value(value) {
