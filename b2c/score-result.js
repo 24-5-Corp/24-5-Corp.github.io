@@ -275,7 +275,7 @@ const scoreResultView = new ScoreResultView(
 const userName = document.querySelector(".application-name");
 const userEmail = document.querySelector(".email-text");
 const pendingView = document.querySelector(".result-pending");
-const mentoringTitle = document.querySelector(".mentoring-title");
+const mentoringTitles = document.querySelectorAll(".mentoring-title");
 const resendButton = document.querySelector(".resend-button");
 const enhanceButton = document.querySelector(".enhance-button");
 
@@ -511,7 +511,8 @@ if (!accessToken) {
 
       userName.textContent = response.data.name;
       userEmail.textContent = response.data.email;
-      mentoringTitle.textContent = `${response.data.name}님에게 추천하는 3명의 ${response.data.jobGroup.name} 멘토`;
+      mentoringTitles[0].textContent = `${response.data.name}님에게 추천하는`;
+      mentoringTitles[1].textContent = `3명의 ${response.data.jobGroup.name} 멘토`;
 
       document.querySelectorAll(".mentor-item").forEach((item, index) => {
         const mentor = mentors.filter(
