@@ -376,121 +376,119 @@ const applyInvalidModal = new AlertModal(
 const mentors = [
   {
     jobGroupId: 1,
-    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
-    name: "제시카",
-    career: "마케팅 N년차",
+    profileUrl: `${upload}/64dc9c89fec90a680e304947_img_mento_mrk_1.png`,
+    name: "유니 멘토",
+    career: "카카오 / 디지털 마케터 / 8년차",
     mentorUrl:
       "https://ssgsag.notion.site/1-N-a1308c8602894073b97abb00d3db8f58?pvs=4",
   },
   {
     jobGroupId: 1,
-    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
-    name: "피오",
-    career: "마케팅 N년차",
+    profileUrl: `${upload}/64dc9c89d12c1cc492fe4ee7_img_mento_mrk_2.png`,
+    name: "브라이언 멘토",
+    career: "오늘의집 / CRM 마케터 / 9년차",
     mentorUrl:
       "https://ssgsag.notion.site/2-N-2ffdc45aef4440299966c0faf8cad0d3?pvs=4",
   },
   {
     jobGroupId: 1,
-    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
-    name: "캐리",
-    career: "마케팅 N년차",
-    mentorUrl:
-      "https://ssgsag.notion.site/3-N-28c20e95fde547049697a127adcc196f?pvs=4",
+    profileUrl: `${upload}/64dc9c8ae3175bfdb7c7e088_img_mento_mrk_2-1.png`,
+    name: "준비 중",
+    career: "-",
+    mentorUrl: "",
   },
   {
     jobGroupId: 2,
-    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
-    name: "에블린",
-    career: "개발 N년차",
+    profileUrl: `${upload}/64dc9c892e6652286208b737_img_mento_dev_1.png`,
+    name: "P페이커 멘토",
+    career: "직방 / 백엔드 개발자 / 3년차",
     mentorUrl:
       "https://ssgsag.notion.site/N-56fb3a927d0148f1b6fc9619fa92d5f8?pvs=4",
   },
   {
     jobGroupId: 2,
-    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
-    name: "라이언",
-    career: "개발 N년차",
+    profileUrl: `${upload}/64dc9c89e79a172c36bb1b53_img_mento_dev_2.png`,
+    name: "람다 멘토",
+    career: "네이버 / 백엔드 엔지니어 / 10년차",
     mentorUrl:
       "https://ssgsag.notion.site/2-N-205c21d3c39f4926b059e442818632a1?pvs=4",
   },
   {
     jobGroupId: 2,
-    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
-    name: "프레드",
-    career: "개발 N년차",
+    profileUrl: `${upload}/64dc9c89eae0994a77fb11bf_img_mento_dev_3.png`,
+    name: "카이 멘토",
+    career: "카카오Ent / 프론트엔드 개발자 / 6년차",
     mentorUrl:
       "https://ssgsag.notion.site/3-N-4887225d27f44976af1718b6e6e1e592?pvs=4",
   },
   {
     jobGroupId: 3,
-    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
-    name: "제니",
-    career: "경영/운영 N년차",
+    profileUrl: `${upload}/64dc9c89baa006e0f3b97a4a_img_mento_management_1.png`,
+    name: "쿠쿠 멘토",
+    career: "쿠팡 / 인사 기획 / 3년차",
     mentorUrl:
       "https://ssgsag.notion.site/N-03007d33247043f5a7e30d0dea8c64c4?pvs=4",
   },
   {
     jobGroupId: 3,
-    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
-    name: "만수르",
-    career: "경영/운영 N년차",
+    profileUrl: `${upload}/64dc9c880f3656291fbd799f_img_mento_management_2.png`,
+    name: "우와 멘토",
+    career: "네이버I&S / 경영 지원 / 4년차",
     mentorUrl:
       "https://ssgsag.notion.site/2-N-e3792815f6444e55892c63cfda152d42?pvs=4",
   },
   {
     jobGroupId: 3,
-    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
-    name: "휴",
-    career: "경영/운영 N년차",
+    profileUrl: `${upload}/64dc9c89c6a3c935c9a1f97a_img_mento_management_3.png`,
+    name: "알로 멘토",
+    career: "카카오 / 경영 지원 / 9년차",
     mentorUrl:
       "https://ssgsag.notion.site/3-N-c92bbfce95cb4a3c9abaa8b43c56986e?pvs=4",
   },
   {
     jobGroupId: 4,
-    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
-    name: "테리",
-    career: "디자인 N년차",
+    profileUrl: `${upload}/64dc9c896eeab31cf44766d1_img_mento_design_1.png`,
+    name: "미리미터 멘토",
+    career: "배달의민족 / 브랜드 디자이너 / 6년차",
     mentorUrl:
       "https://ssgsag.notion.site/1-N-7cf4a97b479743a1920c14526c65c84e?pvs=4",
   },
   {
     jobGroupId: 4,
-    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
-    name: "빌리",
-    career: "디자인 N년차",
+    profileUrl: `${upload}/64dc9c890156e8d54c9da2f0_img_mento_design_2.png`,
+    name: "리지 멘토",
+    career: "카카오페이 / 콘텐츠 디자이너 / 10년차",
     mentorUrl:
       "https://ssgsag.notion.site/2-N-261fc4e2d8fa4934842856ce4a91a3ec?pvs=4",
   },
   {
     jobGroupId: 4,
-    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
-    name: "썸머",
-    career: "디자인 N년차",
-    mentorUrl:
-      "https://ssgsag.notion.site/3-N-5cbcd03468a542ea8d2a171ae6eda493?pvs=4",
+    profileUrl: `${upload}/64dc9c8ae3175bfdb7c7e088_img_mento_mrk_2-1.png`,
+    name: "준비 중",
+    career: "-",
+    mentorUrl: "",
   },
   {
     jobGroupId: 5,
-    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
-    name: "레버",
-    career: "기획 N년차",
+    profileUrl: `${upload}/64dc9c89afbf93965fc28616_img_mento_pm_1.png`,
+    name: "단 멘토",
+    career: "라인플러스 / PM / 12년차",
     mentorUrl:
       "https://ssgsag.notion.site/1-CEO-4-e86d3fb2066f483384e9255ca301b86e?pvs=4",
   },
   {
     jobGroupId: 5,
-    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
-    name: "디오",
-    career: "기획 N년차",
+    profileUrl: `${upload}/64dc9c893ec6291b9033088e_img_mento_pm_2.png`,
+    name: "아이린 멘토",
+    career: "카카오 / UX, 서비스 기획 / 10년차",
     mentorUrl:
       "https://ssgsag.notion.site/2-CEO-4-7821c5977f9a4d858cea8fa7bc178e5b?pvs=4",
   },
   {
-    profileUrl: `${upload}/64cb5039a1ba8a68d7574f29_img_teacher.svg`,
+    profileUrl: `${upload}/64dc9c89dc475efb34cd7791_img_mento_pm_3.png`,
     jobGroupId: 5,
-    name: "지니",
-    career: "기획 N년차",
+    name: "슈듀슈 멘토",
+    career: "네이버클라우드 / PM / 10년차",
     mentorUrl:
       "https://ssgsag.notion.site/3-CEO-4-d671f46390394011876ff66f7f2e4443?pvs=4",
   },
@@ -523,7 +521,10 @@ if (!accessToken) {
         item.querySelector(".mentor-image").src = mentor.profileUrl;
         item.querySelector(".mentor-name").textContent = mentor.name;
         item.querySelector(".mentor-career").textContent = mentor.career;
-        item.querySelector(".mentor-site").href = mentor.mentorUrl;
+        const mentorSite = item.querySelector(".mentor-site");
+        mentorSite.href = !mentor.mentorUrl ? "#" : mentor.mentorUrl;
+        mentorSite.style.cursor = !mentor.mentorUrl ? "not-allowed" : "pointer";
+
         item.querySelector(".mentor-site").addEventListener("click", () => {
           gtag("event", "button_click", {
             button_name: `superpass_score-result_mentor${index + 1}`,
