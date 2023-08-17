@@ -392,19 +392,18 @@ const mentors = [
   },
   {
     jobGroupId: 1,
-    profileUrl: `${upload}/64dd89531d2b57f920b7e760_img_mento_mrk_3.png`,
-    name: "이수산 멘토",
-    career: "카카오페이 / 마케터 / 9년차",
-    mentorUrl:
-      "https://ssgsag.notion.site/9-99ad67299d264faf8445f33fcd0c626c?pvs=4",
+    profileUrl: `${upload}/64dc9c8ae3175bfdb7c7e088_img_mento_mrk_2-1.png`,
+    name: "준비중",
+    career: "-",
+    mentorUrl: "",
   },
   {
     jobGroupId: 2,
-    profileUrl: `${upload}/64dc9c892e6652286208b737_img_mento_dev_1.png`,
-    name: "P페이커 멘토",
-    career: "직방 / 백엔드 개발자 / 3년차",
+    profileUrl: `${upload}/64ddd8478a19854ed3fceea5_img_mento_dev_1.png`,
+    name: "제이든 멘토",
+    career: "마켓컬리 / Android 개발자 / 4년차",
     mentorUrl:
-      "https://ssgsag.notion.site/N-56fb3a927d0148f1b6fc9619fa92d5f8?pvs=4",
+      "https://ssgsag.notion.site/e367f1eb27fe42399c97af53b3800685?pvs=4",
   },
   {
     jobGroupId: 2,
@@ -416,11 +415,11 @@ const mentors = [
   },
   {
     jobGroupId: 2,
-    profileUrl: `${upload}/64dc9c89eae0994a77fb11bf_img_mento_dev_3.png`,
-    name: "카이 멘토",
-    career: "카카오Ent / 프론트엔드 개발자 / 6년차",
+    profileUrl: `${upload}/64ddd847634a1b4e1a95652e_img_mento_dev_3.png`,
+    name: "TU 멘토",
+    career: "라인플러스 / 소프트웨어 엔지니어 / 5년차",
     mentorUrl:
-      "https://ssgsag.notion.site/3-N-4887225d27f44976af1718b6e6e1e592?pvs=4",
+      "https://ssgsag.notion.site/TU-18a12de9e06c4d22986b28191f1c6e0d?pvs=4",
   },
   {
     jobGroupId: 3,
@@ -448,7 +447,7 @@ const mentors = [
   },
   {
     jobGroupId: 4,
-    profileUrl: `${upload}/64dc9c896eeab31cf44766d1_img_mento_design_1.png`,
+    profileUrl: `${upload}/64ddd84930ef3bf0335ce8ee_img_mento_design_1.png`,
     name: "미리미터 멘토",
     career: "배달의민족 / 브랜드 디자이너 / 6년차",
     mentorUrl:
