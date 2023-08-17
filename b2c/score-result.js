@@ -386,7 +386,7 @@ const mentors = [
     jobGroupId: 1,
     profileUrl: `${upload}/64dc9c89d12c1cc492fe4ee7_img_mento_mrk_2.png`,
     name: "브라이언 멘토",
-    career: "오늘의집 / CRM 마케터 / 9년차",
+    career: "(전) 오늘의집 / CRM 마케터 / 9년차",
     mentorUrl:
       "https://ssgsag.notion.site/2-N-2ffdc45aef4440299966c0faf8cad0d3?pvs=4",
   },
