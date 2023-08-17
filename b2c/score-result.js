@@ -392,10 +392,11 @@ const mentors = [
   },
   {
     jobGroupId: 1,
-    profileUrl: `${upload}/64dc9c8ae3175bfdb7c7e088_img_mento_mrk_2-1.png`,
-    name: "준비 중",
-    career: "-",
-    mentorUrl: "",
+    profileUrl: `${upload}/64dd89531d2b57f920b7e760_img_mento_mrk_3.png`,
+    name: "이수산 멘토",
+    career: "카카오페이 / 마케터 / 9년차",
+    mentorUrl:
+      "https://ssgsag.notion.site/9-99ad67299d264faf8445f33fcd0c626c?pvs=4",
   },
   {
     jobGroupId: 2,
@@ -463,10 +464,11 @@ const mentors = [
   },
   {
     jobGroupId: 4,
-    profileUrl: `${upload}/64dc9c8ae3175bfdb7c7e088_img_mento_mrk_2-1.png`,
-    name: "준비 중",
-    career: "-",
-    mentorUrl: "",
+    profileUrl: `${upload}/64dd89531a903a3f7647e374_img_mento_design_3.png`,
+    name: "해치 멘토",
+    career: "야놀자 / 프로덕트 디자이너 / 11년차",
+    mentorUrl:
+      "https://ssgsag.notion.site/11-84be9e3cd4b64c0ab4e711bb7f74a88e?pvs=4",
   },
   {
     jobGroupId: 5,
