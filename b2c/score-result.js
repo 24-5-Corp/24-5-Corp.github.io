@@ -441,7 +441,7 @@ const mentors = [
     jobGroupId: 3,
     profileUrl: `${upload}/64dc9c89c6a3c935c9a1f97a_img_mento_management_3.png`,
     name: "알로 멘토",
-    career: "카카오 / 경영 지원 / 9년차",
+    career: "카카오 / 경영 지원 / 10년차",
     mentorUrl:
       "https://ssgsag.notion.site/3-N-c92bbfce95cb4a3c9abaa8b43c56986e?pvs=4",
   },
