@@ -392,10 +392,11 @@ const mentors = [
   },
   {
     jobGroupId: 1,
-    profileUrl: `${upload}/64dc9c8ae3175bfdb7c7e088_img_mento_mrk_2-1.png`,
-    name: "준비중",
-    career: "-",
-    mentorUrl: "",
+    profileUrl: `${upload}/64e45f23c7ac8cf02380cc8d_img_mento_mrk_3.png`,
+    name: "모티 멘토",
+    career: "외국계 B2B / B2B 마케터 / 7년차",
+    mentorUrl:
+      "https://ssgsag.notion.site/5fedd394559b471eb8cc94154cc3e8a1?pvs=4",
   },
   {
     jobGroupId: 2,
