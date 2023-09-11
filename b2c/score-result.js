@@ -480,11 +480,11 @@ const mentors = [
   },
   {
     jobGroupId: 5,
-    profileUrl: `${upload}/64dc9c893ec6291b9033088e_img_mento_pm_2.png`,
-    name: "아이린 멘토",
-    career: "카카오 / UX, 서비스 기획 / 10년차",
+    profileUrl: `${upload}/64fe87f4789e623c0291a6a2_img_mento_pm_2.png`,
+    name: "위그 멘토",
+    career: "카카오 / 서비스 기획자 / 6년차",
     mentorUrl:
-      "https://ssgsag.notion.site/2-CEO-4-7821c5977f9a4d858cea8fa7bc178e5b?pvs=4",
+      "https://ssgsag.notion.site/bf5946ea381e47e2996764c64ea612be?pvs=4",
   },
   {
     profileUrl: `${upload}/64dc9c89dc475efb34cd7791_img_mento_pm_3.png`,
