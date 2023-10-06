@@ -46,29 +46,6 @@ class RadioGroup extends RegexInput {
   }
 }
 
-class Popup {
-  onLeftClick = () => {};
-  onRightClick = () => {};
-
-  constructor(element) {
-    this._popup = element;
-
-    this._left = this._popup.querySelector(".left");
-    this._left.addEventListener("click", () => this.onLeftClick());
-
-    this._right = this._popup.querySelector(".right");
-    this._right.addEventListener("click", () => this.onRightClick());
-  }
-
-  handleShow(isShow) {
-    document.body.style.height = isShow ? "100%" : "";
-    document.body.style.overflow = isShow ? "hidden" : "auto";
-
-    this._popup.style.display = isShow ? "flex" : "none";
-    this._popup.scrollTo(0, 0);
-  }
-}
-
 const accessToken = localStorage.getItem("accessToken");
 if (!accessToken) redirectMain();
 
@@ -435,10 +412,6 @@ if (isApply) {
 }
 
 Webflow.push(() => {
-  const popup = new Popup(document.querySelector(".popup"));
-  popup.onLeftClick = () => popup.handleShow(false);
-  popup.onRightClick = () => (location.href = "/sign-up");
-
   const param = params.get("tab");
   if (param) {
     if (param === "inprogress") {
