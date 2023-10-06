@@ -43,7 +43,7 @@ Webflow.push(() => {
 
   const login = () => {
     localStorage.setItem("loginUrl", location.href);
-    location.href = "/signup"
+    location.href = "/signup";
   };
 
   const logout = () => {
