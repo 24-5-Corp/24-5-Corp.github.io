@@ -1,4 +1,3 @@
-
 const login = () => {
   localStorage.setItem("loginUrl", location.href);
   location.href = "/signup";

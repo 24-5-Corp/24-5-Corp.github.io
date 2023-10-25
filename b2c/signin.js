@@ -51,7 +51,7 @@ apiService
         })
         .catch((error) => console.error(error));
     } else {
-      if (loginUrl.includes("/score")) {
+      if (loginUrl.includes("/score") || loginUrl.includes("/sushirecruitment")) {
         location.href = `${loginUrl}?isSigned=true`;
       } else {
         apiService
