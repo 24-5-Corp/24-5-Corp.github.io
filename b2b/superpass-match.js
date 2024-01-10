@@ -674,11 +674,11 @@ interviewCheckModal.onConfirm = () => {
     .makeRequest(`${basePath}/matchup/${matchupId}/document-pass`, {
       method: "PUT",
     })
-    .then((data) => {
+    .then(() => {
+      await Promise.all([fetchMatch(), selectMatchup(matchupId)]);
+      
       interviewDoneModal.title = replaceTitle(interviewDoneModal);
       interviewDoneModal.handleShow(true);
-      fetchMatch();
-      selectMatchup(matchupId);
     })
     .catch((error) => console.error(error));
 };
@@ -697,11 +697,11 @@ passCheckModal.onConfirm = () => {
     .makeRequest(`${basePath}/matchup/${matchupId}/interview-pass`, {
       method: "PUT",
     })
-    .then((data) => {
+    .then(() => {
+      await Promise.all([fetchMatch(), selectMatchup(matchupId)]);
+
       passDoneModal.title = replaceTitle(passDoneModal);
       passDoneModal.handleShow(true);
-      fetchMatch();
-      selectMatchup(matchupId);
     })
     .catch((error) => console.error(error));
 };
@@ -713,7 +713,7 @@ passDoneModal.onCheck = () => {
 };
 
 const selectMatchup = (matchupId) => {
-  apiService
+  return apiService
     .makeRequest(`${basePath}/matchup/${matchupId}`, { method: "GET" })
     .then((response) => {
       selectedUser = response.data.applicantName;
@@ -796,7 +796,7 @@ const $jobGroup = document.querySelector(".text-block-27");
 const $status = document.querySelector("#currentStatus");
 
 const fetchMatch = () => {
-  apiService
+  return apiService
     .makeRequest(basePath)
     .then((response) => {
       const application = response.data.application;
