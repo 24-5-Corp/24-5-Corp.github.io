@@ -675,8 +675,9 @@ interviewCheckModal.onConfirm = () => {
       method: "PUT",
     })
     .then(() => {
-      await Promise.all([fetchMatch(), selectMatchup(matchupId)]);
-      
+      return Promise.all([fetchMatch(), selectMatchup(matchupId)]);
+    })
+    .then(() => { 
       interviewDoneModal.title = replaceTitle(interviewDoneModal);
       interviewDoneModal.handleShow(true);
     })
@@ -698,8 +699,9 @@ passCheckModal.onConfirm = () => {
       method: "PUT",
     })
     .then(() => {
-      await Promise.all([fetchMatch(), selectMatchup(matchupId)]);
-
+      return Promise.all([fetchMatch(), selectMatchup(matchupId)]);
+    })
+    .then(() => {
       passDoneModal.title = replaceTitle(passDoneModal);
       passDoneModal.handleShow(true);
     })
