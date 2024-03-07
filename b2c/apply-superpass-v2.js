@@ -1484,7 +1484,11 @@ const makeData = () => {
   const data = {
     personalInfo: profile.data,
     document: resume.value,
-    educationInfo: academic.data,
+    educationInfo: {
+      ...academic.data,
+      grade: academic.data.grade === "" ? null : academic.data.grade,
+      semester: academic.data.semester === "" ? null : academic.data.semester,
+    },
     preferJob: jobSkill.data.jobData,
     skills: jobSkill.data.skillData,
     workCondition: workConditition.data,
