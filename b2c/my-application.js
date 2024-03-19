@@ -332,6 +332,39 @@ class MyAppicationView {
   };
 }
 
+class RadioGroup extends RegexInput {
+  constructor(element) {
+    super(element);
+
+    this._input.disabled = true;
+
+    this._buttons = element.querySelectorAll("label div");
+    this._radios = element.querySelectorAll("label input");
+
+    for (const radio of this._radios) {
+      radio.addEventListener("input", (event) => {
+        const reasonId = parseInt(event.target.id);
+        this._input.reasonId = reasonId;
+
+        this._input.dispatchEvent(this.inputEvent);
+      });
+    }
+  }
+
+  get isValid() {
+    return !!this._input.reasonId;
+  }
+
+  reset() {
+    for (const button of this._buttons) {
+      button.classList.remove("w--redirected-checked");
+    }
+    for (const radio of this._radios) {
+      radio.checked = false;
+    }
+  }
+}
+
 const applyStatusTypes = {
   prepare: 0,
   apply: 1,
@@ -353,6 +386,7 @@ const $applicaionInformation = document.querySelector(
   ".application-information"
 );
 const $editButton = document.querySelector(".edit-application-button");
+const $editStatusButton = document.querySelector(".edit-application-status-button");
 const $cancelContainer = document.querySelector(".cancel-container");
 const $applyCancelButton = document.querySelector(".apply-cancel-button");
 const applyCancelModal = new ConfirmModal(
@@ -378,6 +412,22 @@ $applyCancelButton.addEventListener("click", () => {
   applyCancelModal.handleShow(true);
 });
 
+const radioGroup = new RadioGroup(document.querySelector("#statusRadio"));
+radioGroup.extract = (input, _) => input.reasonId;
+
+const statusForm = new Form(document.querySelector("#statusForm"), [
+  radioGroup,
+]);
+
+radioGroup.onInput = () => {
+  statusForm.isEnabled = radioGroup.isValid;
+};
+
+const statusChangeModal = new PromptModal(
+  document.querySelector(".status-change-modal"),
+  statusForm
+);
+
 const loginWithKakao = () => {
   localStorage.setItem("loginUrl", location.href);
   Kakao.Auth.authorize({
@@ -392,7 +442,50 @@ document.querySelector(".kakao-modal-button").addEventListener("click", () => {
   loginWithKakao();
 });
 
+const login = () => {
+  localStorage.setItem("loginUrl", location.href);
+  location.href = "/signup"
+};
+
+const logout = () => {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+  location.href = "/";
+};
+
+const $loginButton = document.getElementById("loginButton");
 const accessToken = localStorage.getItem("accessToken");
+$loginButton.textContent = accessToken ? "로그아웃" : "로그인";
+
+$loginButton.addEventListener("click", () => {
+  accessToken ? logout() : login();
+});
+
+const $profileImage = document.querySelector(".profile-image");
+const $mobileMenu = document.querySelector(".navigation-mobile-menu");
+const $logoutMenu = document.querySelector(".logout-menu");
+
+const adaptMedia = (isMobile) => {
+  $loginButton.style.display = isMobile || !accessToken ? "block" : "none";
+  $profileImage.style.display = !isMobile && accessToken ? "block" : "none";
+  if (isMobile) {
+    $mobileMenu.style.display = "none";
+  }
+};
+
+const media = matchMedia("screen and (min-width: 768px)");
+
+adaptMedia(media.matches);
+
+media.addListener((event) => {
+  adaptMedia(event.matches);
+});
+
+$logoutMenu.addEventListener("click", () => {
+  if (accessToken) {
+    logout();
+  }
+});
 
 const fetchMyApplicaion = async () => {
   if (!accessToken) {
@@ -411,6 +504,7 @@ const fetchMyApplicaion = async () => {
             $information.style.display = "flex";
             $cancelContainer.style.display = "none";
             $applicaionInformation.style.display = "none";
+            $editStatusButton.style.display = "none";
             $editButton.style.display = "none";
             application.handleShow(false);
             break;
@@ -437,6 +531,22 @@ const getApplyStatus = async () => {
   });
 };
 
+const $applyStatus = document.querySelector(".apply-status");
+
+$applyStatus.textContent = "ON";
+$applyStatus.style.color = style.getPropertyValue("--ssgsag-blue");
+
+$applyStatus.textContent = "OFF";
+$applyStatus.style.color = style.getPropertyValue("--red");
+
+const statusDoneModal = new AlertModal(
+  document.querySelector("#statusDoneModal")
+);
+statusDoneModal.onCheck = async () => {
+  location.reload();
+};
+
+
 const getApplySeeker = () => {
   apiService
     .makeRequest("/superpass/v2/apply-seeker", {
@@ -446,20 +556,21 @@ const getApplySeeker = () => {
       application.bind(applicationDto.data);
       $applicaionInformation.style.display = "flex";
       $cancelContainer.style.display = "flex";
+      $editStatusButton.style.display = "flex";
+      $editStatusButton.addEventListener("click", () => {
+        statusChangeModal.handleShow(true);
+        statusForm.onSubmit = async () => {
+          console.log("구직 상태 설정");
+          statusChangeModal.handleShow(false);
+          statusDoneModal.handleShow(true);
+        };
+      });
       $editButton.style.display = "flex";
     })
     .catch((error) => console.error(error));
 };
 
 fetchMyApplicaion();
-
-const $loginButton = document.getElementById("loginButton");
-$loginButton.textContent = accessToken ? "로그아웃" : "로그인 / 가입";
-$loginButton.addEventListener("click", () => {
-  localStorage.removeItem("accessToken");
-  localStorage.removeItem("refreshToken");
-  location.href = "/";
-});
 
 Webflow.push(() => {
   document.querySelector("#application").classList.add("current");
