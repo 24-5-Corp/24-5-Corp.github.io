@@ -154,6 +154,7 @@ class MyAppicationView {
     this.reset();
     this._name.textContent = model.seeker.name;
     this._email.textContent = model.seeker.email;
+    updateApplyStatus(model.isOpenToWork);
     this._contact.textContent = parsePhoneNumber(model.seeker.contact);
 
     if (model.repKeywords.length > 0) {
@@ -533,19 +534,16 @@ const getApplyStatus = async () => {
 
 const $applyStatus = document.querySelector(".apply-status");
 
-$applyStatus.textContent = "ON";
-$applyStatus.style.color = style.getPropertyValue("--ssgsag-blue");
-
-$applyStatus.textContent = "OFF";
-$applyStatus.style.color = style.getPropertyValue("--red");
+const updateApplyStatus = (isOpenToWork) => {
+  $applyStatus.textContent = isOpenToWork ? "ON" : "OFF";
+  $applyStatus.style.color = style.getPropertyValue(isOpenToWork ? "--ssgsag-blue" : "--red");
+}
 
 const statusDoneModal = new AlertModal(
   document.querySelector("#statusDoneModal")
 );
 statusDoneModal.onCheck = async () => {
-  location.reload();
 };
-
 
 const getApplySeeker = () => {
   apiService
@@ -556,13 +554,20 @@ const getApplySeeker = () => {
       application.bind(applicationDto.data);
       $applicaionInformation.style.display = "flex";
       $cancelContainer.style.display = "flex";
-      $editStatusButton.style.display = "flex";
+
       $editStatusButton.addEventListener("click", () => {
         statusChangeModal.handleShow(true);
         statusForm.onSubmit = async () => {
-          console.log("구직 상태 설정");
-          statusChangeModal.handleShow(false);
-          statusDoneModal.handleShow(true);
+          const isOpenToWork = radioGroup._input.reasonId === 1;
+          apiService.makeRequest("/superpass/v2/update-seeker", {
+            method: "PUT",
+            body: JSON.stringify({ isOpenToWork }),
+          }).then((isOpenToWorkDto) => {
+            updateApplyStatus(isOpenToWorkDto.isOpenToWork)
+            statusChangeModal.handleShow(false);
+            statusDoneModal.handleShow(true);
+          })
+          .catch((error) => console.error(error));
         };
       });
       $editButton.style.display = "flex";
