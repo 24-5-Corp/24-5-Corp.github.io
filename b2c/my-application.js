@@ -512,6 +512,10 @@ const fetchMyApplicaion = async () => {
 
           case applyStatusTypes.apply:
           case applyStatusTypes.registeredPool:
+            if (applyStatus === applyStatusTypes.registeredPool) {
+              $editStatusButton.style.display = "flex";
+            }
+
             $information.style.display = "none";
             getApplySeeker();
             break;
