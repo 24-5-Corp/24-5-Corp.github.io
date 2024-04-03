@@ -154,7 +154,7 @@ class MyAppicationView {
     this.reset();
     this._name.textContent = model.seeker.name;
     this._email.textContent = model.seeker.email;
-    updateApplyStatus(model.isOpenToWork);
+    updateApplyStatus(model.seeker.isOpenToWork);
     this._contact.textContent = parsePhoneNumber(model.seeker.contact);
 
     if (model.repKeywords.length > 0) {
