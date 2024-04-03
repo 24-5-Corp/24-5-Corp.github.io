@@ -512,12 +512,8 @@ const fetchMyApplicaion = async () => {
 
           case applyStatusTypes.apply:
           case applyStatusTypes.registeredPool:
-            if (applyStatus === applyStatusTypes.registeredPool) {
-              $editStatusButton.style.display = "flex";
-            }
-
             $information.style.display = "none";
-            getApplySeeker();
+            getApplySeeker(applyStatus === applyStatusTypes.registeredPool);
             break;
 
           default:
@@ -549,7 +545,7 @@ const statusDoneModal = new AlertModal(
 statusDoneModal.onCheck = async () => {
 };
 
-const getApplySeeker = () => {
+const getApplySeeker = (showApplyStatus) => {
   apiService
     .makeRequest("/superpass/v2/apply-seeker", {
       method: "GET",
@@ -558,6 +554,10 @@ const getApplySeeker = () => {
       application.bind(applicationDto.data);
       $applicaionInformation.style.display = "flex";
       $cancelContainer.style.display = "flex";
+
+      if (showApplyStatus) {
+        $editStatusButton.style.display = "flex";
+      }
 
       $editStatusButton.addEventListener("click", () => {
         statusChangeModal.handleShow(true);
