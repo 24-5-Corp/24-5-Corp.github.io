@@ -4,7 +4,6 @@ addLogButtonEventListener();
 const fbqElements = document.getElementsByClassName("fbq-event");
 for (const element of fbqElements) {
   element.addEventListener("click", () => {
-    fbq("track", "StartTrial");
     gtag("event", "conversion", {
       send_to: "AW-759394218/8-vECLCkrZQYEKrfjeoC",
       value: 1000.0,
@@ -133,15 +132,9 @@ Webflow.push(() => {
     });
   }
 
-  let isTrackedViewContent = false;
-
   const $applyButton = document.querySelector(".title-start-button");
   $applyButton.addEventListener("click", () => {
-    if (!isTrackedViewContent) {
-      fbq("track", "Contact");
-      isTrackedViewContent = true;
-    }
-
+    fbq("track", "Contact");
 
     if (!accessToken) {
       location.href = "/apply-superpasss";
@@ -156,12 +149,10 @@ Webflow.push(() => {
       }
     });
   });
+
   const $bottomButton = document.querySelector(".bottom-start-button");
   $bottomButton.addEventListener("click", () => {
-    if (!isTrackedViewContent) {
-      fbq("track", "Contact");
-      isTrackedViewContent = true;
-    }
+    fbq("track", "Contact");
   });
 
 });
