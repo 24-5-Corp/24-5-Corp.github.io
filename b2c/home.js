@@ -133,8 +133,16 @@ Webflow.push(() => {
     });
   }
 
+  let isTrackedViewContent = false;
+
   const $applyButton = document.querySelector(".title-start-button");
   $applyButton.addEventListener("click", () => {
+    if (!isTrackedViewContent) {
+      fbq("track", "ViewContent", { content_name: "Landing" });
+      isTrackedViewContent = true;
+    }
+
+
     if (!accessToken) {
       location.href = "/apply-superpasss";
       return;
@@ -148,4 +156,12 @@ Webflow.push(() => {
       }
     });
   });
+  const $bottomButton = document.querySelector(".bottom-start-button");
+  $bottomButton.addEventListener("click", () => {
+    if (!isTrackedViewContent) {
+      fbq("track", "ViewContent", { content_name: "Landing" });
+      isTrackedViewContent = true;
+    }
+  });
+
 });
