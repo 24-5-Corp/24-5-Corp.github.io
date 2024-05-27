@@ -138,7 +138,7 @@ Webflow.push(() => {
   const $applyButton = document.querySelector(".title-start-button");
   $applyButton.addEventListener("click", () => {
     if (!isTrackedViewContent) {
-      fbq("track", "ViewContent", { content_name: "Landing" });
+      fbq("track", "Contact");
       isTrackedViewContent = true;
     }
 
@@ -159,7 +159,7 @@ Webflow.push(() => {
   const $bottomButton = document.querySelector(".bottom-start-button");
   $bottomButton.addEventListener("click", () => {
     if (!isTrackedViewContent) {
-      fbq("track", "ViewContent", { content_name: "Landing" });
+      fbq("track", "Contact");
       isTrackedViewContent = true;
     }
   });
