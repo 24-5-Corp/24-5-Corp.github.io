@@ -153,6 +153,7 @@ Webflow.push(() => {
   const $bottomButton = document.querySelector(".bottom-start-button");
   $bottomButton.addEventListener("click", () => {
     fbq("track", "Contact");
+    location.href = "/apply-superpasss";
   });
 
 });
