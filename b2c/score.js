@@ -429,9 +429,15 @@ if (alreadyApplied) {
   alreadyAppliedModal.handleShow(true);
 }
 
-const uploadButton = document.querySelector(".information-button-copy");
-uploadButton.addEventListener("click", () => {
+const handleClick = () => {
+  fbq("trackCustom", "ResumeFeedback");
   reviewModel = {};
   resumeModal.reset();
   resumeModal.show();
-});
+};
+
+const uploadButton = document.querySelector(".information-button-copy");
+uploadButton.addEventListener("click", handleClick);
+
+const bottomButton = document.querySelector(".bottom-start-button");
+bottomButton.addEventListener("click", handleClick);
