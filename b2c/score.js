@@ -414,6 +414,7 @@ $kakaoSigninModal
 $kakaoSigninModal
   .querySelector(".kakao-modal-button")
   .addEventListener("click", () => {
+    fbq("trackCustom", "ResumeFeedbackSubmit");
     loginWithKakao();
   });
 
@@ -430,7 +431,7 @@ if (alreadyApplied) {
 }
 
 const handleClick = () => {
-  fbq("trackCustom", "ResumeFeedback");
+  fbq("trackCustom", "ResumeFeedbackStart");
   reviewModel = {};
   resumeModal.reset();
   resumeModal.show();
