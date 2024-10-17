@@ -172,8 +172,8 @@ class MyAppicationView {
     model.documents.forEach((document) => {
       const clonedCV = this._cv.cloneNode(true);
       const icon = document.documentUrl.endsWith(".pdf")
-        ? "https://uploads-ssl.webflow.com/64abb259c07028189d10bc82/64abb259c07028189d10bcd6_ic_resume.svg"
-        : "https://uploads-ssl.webflow.com/64abb259c07028189d10bc82/64abb259c07028189d10bcd5_ic_link.svg";
+        ? "https://cdn.prod.website-files.com/641969d09672c909169b6d7e/64a7bfe4e0cfaf4d349fd850_ic_resume.svg"
+        : "https://cdn.prod.website-files.com/641969d09672c909169b6d7e/6710b3c095543e4218241308_ic_link.svg";
       const title = document.type === 0 ? "이력서" : "포트폴리오";
       clonedCV.querySelector(".document-item-icon").src = icon;
       clonedCV.querySelector(".document-item-title").textContent = title;
