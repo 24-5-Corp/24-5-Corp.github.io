@@ -222,8 +222,9 @@ const requriedApplyInputs = [
   employmentPeriod,
   appealKeyword,
   requirementSkills,
+  preferComment,
 ];
-const optionalApplyInputs = [preferComment, recruitmentUrl];
+const optionalApplyInputs = [recruitmentUrl];
 
 const applyForm = new Form(
   document.querySelector("#applyForm"),
