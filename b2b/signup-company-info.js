@@ -41,7 +41,9 @@ class BusinessFormMediator extends FormMediator {
         if (error.code === 201) {
           location.href = "/already-join-account";
         } else if (error.code === 202) {
-          this.businessNumberComponent.changeLayout(error.message);
+          this.businessNumberComponent.changeLayout(
+            "사업자등록번호를 조회할 수 없습니다. 우측 하단 채널톡으로 문의해주세요."
+          );
         } else {
           console.log(error);
         }
